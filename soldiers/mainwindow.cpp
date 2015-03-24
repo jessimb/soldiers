@@ -13,12 +13,14 @@ MainWindow::MainWindow(QWidget *parent)
     mainMenuObj = new mainMenu();
     instrMenuObj = new instructionsMenu();
     newGameMenuObj = new newGameMenu();
+    //add your widget here!
 
     stackedWidget = new QStackedWidget();
 
     stackedWidget->addWidget(mainMenuObj); //0
     stackedWidget->addWidget(newGameMenuObj); //1
     stackedWidget->addWidget(instrMenuObj); //2
+    //add your widget to the stackedWidget
 
 
     QGridLayout *layout = new QGridLayout();
@@ -27,22 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(label);
      widget->setLayout(layout);
 
-//    layout->addWidget(stackedWidget);
-    //setLayout(layout);
-
-//    layout->addWidget(mainMenuObj);
-//    layout->addWidget(instrMenuObj);
-//    layout->addWidget(newGameMenuObj);
-
-//    mainMenuObj->hide();
-//    instrMenuObj->hide();
-//    newGameMenuObj->hide();
-
-
-//    mainMenuObj->show();
-//    setCentralWidget(mainMenuObj);
     stackedWidget->setCurrentWidget(mainMenuObj);
-   // cout << stackedWidget->currentIndex();
 }
 
 

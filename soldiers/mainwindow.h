@@ -6,11 +6,12 @@
 #include <QStackedWidget>
 #include <QGridLayout>
 #include <QWidget>
-
 #include <QMainWindow>
+
 class mainMenu;
 class instructionsMenu;
 class newGameMenu;
+//add your class here
 
 extern QStackedWidget *stackedWidget;
 class MainWindow : public QMainWindow
@@ -20,12 +21,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
-//    QStackedWidget *stackedWidget;
 
 private:
     mainMenu *mainMenuObj;
     instructionsMenu *instrMenuObj;
     newGameMenu *newGameMenuObj;
+    //add your widget here
 
 
 private slots:
