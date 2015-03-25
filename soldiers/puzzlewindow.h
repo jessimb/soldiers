@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include "mainwindow.h"
 #include <QWidget>
+#include <QKeyEvent>
 
 class MainWindow;
 
@@ -21,7 +22,7 @@ public:
     const int GridLength=540;
     const int GridPos=50;
     int BoxLength=GridLength/9;
-
+    void keyPressEvent(QKeyEvent* e);
 
 private:
     MainWindow *mainWindow;

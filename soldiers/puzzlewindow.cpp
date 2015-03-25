@@ -196,3 +196,9 @@ void puzzleWindow::button_pressed(int i){
         }
     }
 }
+
+void puzzleWindow::keyPressEvent(QKeyEvent *e){
+    if(e->text().toInt() > 0 && e->text().toInt() < 10){
+        button_pressed(e->text().toInt());
+    }
+}
