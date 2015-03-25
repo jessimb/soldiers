@@ -17,10 +17,14 @@ SOURCES += main.cpp\
     mainmenu.cpp \
     instructionsmenu.cpp \
     newgamemenu.cpp \
+    sigbutton.cpp \
+    clickablelabel.cpp \
     puzzlewindow.cpp
 
 HEADERS  += mainwindow.h \
     mainmenu.h \
     instructionsmenu.h \
     newgamemenu.h \
+    sigbutton.h \
+    clickablelabel.h \
     puzzlewindow.h
