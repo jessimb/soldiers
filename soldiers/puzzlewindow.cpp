@@ -5,12 +5,18 @@
 #include <QTextStream>
 #include <clickablelabel.h>
 #include "sigbutton.h"
+#include <iostream>
 #include <sstream>
+
+using namespace std;
+
 puzzleWindow::puzzleWindow(MainWindow *mw)
 {
 
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
+
+    setFocusPolicy(Qt::ClickFocus);
 
    // this->setLayout(buttonlayout);
     QLabel *label = new QLabel("puzzle");
@@ -200,5 +206,13 @@ void puzzleWindow::button_pressed(int i){
 void puzzleWindow::keyPressEvent(QKeyEvent *e){
     if(e->text().toInt() > 0 && e->text().toInt() < 10){
         button_pressed(e->text().toInt());
+    } else if(e->key() == Qt::Key_Up && s_row > 0 && s_row < 9){
+        press(s_row-1, s_col);
+    } else if(e->key() == Qt::Key_Down && s_row > -1 && s_row < 8){
+        press(s_row+1, s_col);
+    } else if(e->key() == Qt::Key_Left && s_col > 0 && s_col < 9){
+        press(s_row, s_col-1);
+    } else if(e->key() == Qt::Key_Right && s_col > -1 && s_col < 8){
+        press(s_row, s_col+1);
     }
 }
