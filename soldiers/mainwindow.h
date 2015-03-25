@@ -3,6 +3,7 @@
 #include "instructionsmenu.h"
 #include "mainmenu.h"
 #include "newgamemenu.h"
+#include "puzzlewindow.h"
 #include <QStackedWidget>
 #include <QGridLayout>
 #include <QWidget>
@@ -11,6 +12,7 @@
 class mainMenu;
 class instructionsMenu;
 class newGameMenu;
+class puzzleWindow;
 //add your class here
 
 extern QStackedWidget *stackedWidget;
@@ -26,6 +28,7 @@ private:
     mainMenu *mainMenuObj;
     instructionsMenu *instrMenuObj;
     newGameMenu *newGameMenuObj;
+    puzzleWindow *puzzleWindowObj;
     //add your widget here
 
 

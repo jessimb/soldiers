@@ -25,6 +25,7 @@ newGameMenu::newGameMenu(MainWindow *mw)
 
 
     connect(back, SIGNAL(clicked()), this, SLOT(gotoMainMenu()));
+    connect(easy, SIGNAL(clicked()), this, SLOT(gotoPuzzleWindow()));
 
 
 }
@@ -33,6 +34,12 @@ void newGameMenu::gotoMainMenu()
 {
     stackedWidget->setCurrentIndex(0);
 }
+
+void newGameMenu::gotoPuzzleWindow()
+{
+    stackedWidget->setCurrentIndex(3);
+}
+
 
 newGameMenu::~newGameMenu()
 {

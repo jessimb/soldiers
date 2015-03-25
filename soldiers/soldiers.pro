@@ -16,9 +16,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     mainmenu.cpp \
     instructionsmenu.cpp \
-    newgamemenu.cpp
+    newgamemenu.cpp \
+    puzzlewindow.cpp
 
 HEADERS  += mainwindow.h \
     mainmenu.h \
     instructionsmenu.h \
-    newgamemenu.h
+    newgamemenu.h \
+    puzzlewindow.h

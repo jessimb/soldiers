@@ -1,5 +1,5 @@
-#ifndef NEWGAMEMENU_H
-#define NEWGAMEMENU_H
+#ifndef PUZZLEWINDOW_H
+#define PUZZLEWINDOW_H
 #include <QGridLayout>
 #include <QPushButton>
 #include "mainwindow.h"
@@ -7,20 +7,20 @@
 
 class MainWindow;
 
-class newGameMenu : public QWidget
+class puzzleWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit newGameMenu(MainWindow *mw = 0);
-    ~newGameMenu();
+    explicit puzzleWindow(MainWindow *mw = 0);
+    ~puzzleWindow();
 
 private:
     MainWindow *mainWindow;
 
 private slots:
     void gotoMainMenu();
-    void gotoPuzzleWindow();
 };
 
-#endif // NEWGAMEMENU_H
+
+#endif // PUZZLEWINDOW_H

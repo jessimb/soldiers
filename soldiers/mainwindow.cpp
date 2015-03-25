@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainMenuObj = new mainMenu();
     instrMenuObj = new instructionsMenu();
     newGameMenuObj = new newGameMenu();
+    puzzleWindowObj = new puzzleWindow();
     //add your widget here!
 
     stackedWidget = new QStackedWidget();
@@ -20,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     stackedWidget->addWidget(mainMenuObj); //0
     stackedWidget->addWidget(newGameMenuObj); //1
     stackedWidget->addWidget(instrMenuObj); //2
+    stackedWidget->addWidget(puzzleWindowObj); //3
     //add your widget to the stackedWidget
 
 
