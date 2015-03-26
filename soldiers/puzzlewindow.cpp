@@ -124,7 +124,7 @@ void puzzleWindow::makeGrid() {
 
             if (grid[i][j] != 0) {
 
-                label->setText(QString::number(grid[i][j]));
+                label->setText("<b><font size = 15>" + QString::number(grid[i][j]) + "</font></b>");
             }
             QRect rec(i*BoxLength+GridPos,j*BoxLength+GridPos,BoxLength, BoxLength);
             label->setAlignment(Qt::AlignCenter);
@@ -202,7 +202,7 @@ void puzzleWindow::button_pressed(int i){
                     labell->setText("");
                     their_solution[s_row][s_col] = 0;
                 } else if (grid[s_row][s_col] == 0) {
-                    labell->setText("<font color='blue'>"+ QString::number(i) + "</font>");
+                    labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
                     their_solution[s_row][s_col] = i;
                 }
             }
