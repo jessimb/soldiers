@@ -28,3 +28,8 @@ HEADERS  += mainwindow.h \
     sigbutton.h \
     clickablelabel.h \
     puzzlewindow.h
+
+DISTFILES +=
+
+RESOURCES += \
+    resources.qrc

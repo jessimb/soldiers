@@ -1,6 +1,7 @@
 #include "mainmenu.h"
 #include <QLabel>
 #include <iostream>
+#include <QFileDialog>
 
 using namespace std;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
@@ -10,9 +11,16 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     QGridLayout *buttonlayout = new QGridLayout;
 
     this->setLayout(buttonlayout);
-    QLabel *label = new QLabel("mainMenu");
+    QLabel *label = new QLabel();
+//    QString fileName = "Super Sudoku.png";
+//    QFileDialog * fileDirectory = new QFileDialog();
+//    QString fileName = fileDirectory->getOpenFileName(this, QString("Browse"), "/", tr("Image Files (*.png *.jpg *.bmp"));
+//    cout << fileName.toStdString() << endl;
+    QPixmap pixelMap = QPixmap(":/images/soldierLogo.png");
+    QPixmap tempShrink = pixelMap.scaled(QSize(400,400),Qt::KeepAspectRatio);
+    label->setPixmap(tempShrink);
+    label->setAlignment(Qt::AlignCenter);
     buttonlayout->addWidget(label);
-
 
     QPushButton *newGame = new QPushButton("New Game");
     QPushButton *instr = new QPushButton("Instructions");
