@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QGridLayout *layout = new QGridLayout();
     QLabel *label = new QLabel("mainWindow");
+    stackedWidget->setMinimumSize(500,500);
     layout->addWidget(stackedWidget);
     layout->addWidget(label);
      widget->setLayout(layout);

@@ -204,8 +204,10 @@ void puzzleWindow::button_pressed(int i){
 }
 
 void puzzleWindow::keyPressEvent(QKeyEvent *e){
+    //Checking for key presses 1-9
     if(e->text().toInt() > 0 && e->text().toInt() < 10){
         button_pressed(e->text().toInt());
+    //Checling for key presses: <,^,>,v arrows
     } else if(e->key() == Qt::Key_Up && s_row > 0 && s_row < 9){
         press(s_row-1, s_col);
     } else if(e->key() == Qt::Key_Down && s_row > -1 && s_row < 8){
