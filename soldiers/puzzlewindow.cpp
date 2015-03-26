@@ -25,6 +25,9 @@ puzzleWindow::puzzleWindow(MainWindow *mw)
     buttonlayout->addWidget(label);
 
     QPushButton *back = new QPushButton("Go Back");
+    QFont font = back->font();
+    font.setPointSize(15);
+    back->setFont(font);
     buttonlayout->addWidget(back);
 
 
@@ -57,7 +60,10 @@ puzzleWindow::puzzleWindow(MainWindow *mw)
         button[i]->setMaximumSize(50,50);
         std::stringstream ss2;
         ss2 << (i+1);
+        QFont font = button[i]->font();
+        font.setPointSize(15);
         button[i]->setText(QString::fromStdString(ss2.str()));
+        button[i]->setFont(font);
         innerLayout->addWidget(button[i],i,0);
         connect(button[i],SIGNAL(clicked(int)), this, SLOT(button_pressed(int)));
       }
@@ -211,7 +217,7 @@ void puzzleWindow::button_pressed(int i){
 }
 
 void puzzleWindow::keyPressEvent(QKeyEvent *e){
-    //Checking for key presses 1-9
+    //Checking for key presses: 1-9
     if(e->text().toInt() > 0 && e->text().toInt() < 10){
         button_pressed(e->text().toInt());
     //Checling for key presses: <,^,>,v arrows
@@ -223,5 +229,19 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
         press(s_row, s_col-1);
     } else if(e->key() == Qt::Key_Right && s_col > -1 && s_col < 8){
         press(s_row, s_col+1);
+    //Checking for key press: delete
+    } else if(e->key() == Qt::Key_Delete){
+        QLayoutItem * item = lay->itemAtPosition(s_row, s_col);
+        if (lay) {
+            QWidget * wid = item->widget();
+            ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
+            int index2 = lay->indexOf(labell);
+            if (index2 != -1) {
+                if (grid[s_row][s_col] == 0 && their_solution[s_row][s_col] != 0){
+                    labell->setText("");
+                    their_solution[s_row][s_col] = 0;
+                }
+            }
+        }
     }
 }
