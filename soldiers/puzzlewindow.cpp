@@ -193,8 +193,15 @@ void puzzleWindow::button_pressed(int i){
 
            ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
             int index2 = lay->indexOf(labell);
+            cout << "before " << endl;
             if (index2 != -1) {
-                if (grid[s_row][s_col] == 0) {
+                cout << "index2 " << grid[s_row][s_col] << endl;
+                if (grid[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){
+                    cout << "second" << endl;
+                    labell->setText("");
+                    their_solution[s_row][s_col] = 0;
+                } else if (grid[s_row][s_col] == 0) {
+                    cout << "first" << endl;
                     labell->setText("<font color='blue'>"+ QString::number(i) + "</font>");
                     their_solution[s_row][s_col] = i;
                 }
