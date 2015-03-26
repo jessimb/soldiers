@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <QRect>
 #include <QFrame>
-#include <clickablelabel.h>
+#include "clickablelabel.h"
 
 int s_row = -1;
 int s_col = -1;

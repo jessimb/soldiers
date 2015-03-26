@@ -3,7 +3,7 @@
 #include <QSplitter>
 #include <Qfile>
 #include <QTextStream>
-#include <clickablelabel.h>
+#include "clickablelabel.h"
 #include "sigbutton.h"
 #include <iostream>
 #include <QCoreApplication>
@@ -39,6 +39,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw)
 
     QSplitter *splitter = new QSplitter();
     QFrame *leftWidget = new QFrame();
+    (void)leftWidget;
     QGridLayout *leftLayout = new QGridLayout();
 
     wid->setStyleSheet("QFrame { background-color: rgb(219, 226, 228); }");

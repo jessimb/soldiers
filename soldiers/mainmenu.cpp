@@ -2,7 +2,7 @@
 #include <QLabel>
 #include <iostream>
 #include <QFileDialog>
-
+#include "saveload.h"
 using namespace std;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
 {
@@ -38,6 +38,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
 
     connect(newGame, SIGNAL(clicked()), this, SLOT(gotoNewGameMenu()));
     connect(instr, SIGNAL(clicked()), this, SLOT(gotoInstrMenu()));
+    connect(load,SIGNAL(clicked()),(new SaveLoad("a")),SLOT(loadFile()));
 }
 
 void mainMenu::gotoNewGameMenu()

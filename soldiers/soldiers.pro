@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     newgamemenu.cpp \
     sigbutton.cpp \
     clickablelabel.cpp \
-    puzzlewindow.cpp
+    puzzlewindow.cpp \
+    saveload.cpp
 
 HEADERS  += mainwindow.h \
     mainmenu.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     newgamemenu.h \
     sigbutton.h \
     clickablelabel.h \
-    puzzlewindow.h
+    puzzlewindow.h \
+    saveload.h
 
 RESOURCES += \
     resources.qrc
