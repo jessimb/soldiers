@@ -3,6 +3,8 @@
         <file>soldierLogo.png</file>
     </qresource>
     <qresource prefix="/maps">
-        <file>puzzleDatabase/map.txt</file>
+        <file>puzzleDatabase/e02.txt</file>
+        <file>puzzleDatabase/e01.txt</file>
+        <file>puzzleDatabase/winTest.txt</file>
     </qresource>
 </RCC>

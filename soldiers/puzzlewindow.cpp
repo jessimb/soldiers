@@ -98,19 +98,26 @@ puzzleWindow::~puzzleWindow()
 
 void puzzleWindow::readFile(){
 
-    QFile file(":/maps/puzzleDatabase/map.txt");
+    QFile file(":/maps/puzzleDatabase/winTest.txt");
     if (file.open(QIODevice::ReadOnly))
     {
 
         QTextStream in(&file);
-        int z = 0;
-        while(!in.atEnd()) {
+        for(int i = 0; i < 9; i++){
             QString line = in.readLine();
 
-            for (int i = 0; i < 9; i++) {
-                grid[z][i] = line.at(i).digitValue();
+            for (int j = 0; j < 9; j++) {
+                grid[i][j] = line.at(j).digitValue();
+                their_solution[i][j] = line.at(j).digitValue();
             }
-            z++;
+        }
+        in.readLine();
+        for(int i = 0; i < 9; i++){
+            QString line = in.readLine();
+
+            for(int j = 0; j < 9; j++){
+                answer[i][j] = line.at(j).digitValue();
+            }
         }
 
     }
@@ -213,6 +220,23 @@ void puzzleWindow::button_pressed(int i){
                 }
             }
         }
+        checkVictory();
+    }
+}
+
+void puzzleWindow::checkVictory(){
+    bool winning = true;
+    cout << "Checking victory." << endl;
+    for(int i = 0; i < 9 && winning; i++){
+        for(int j = 0; j < 9 && winning; j++){
+            if(answer[i][j] != their_solution[i][j]){
+                cout << "Failed on: i-" << i << " j-" << j << endl;
+                winning = false;
+            }
+        }
+    }
+    if(winning){
+        cout << "Congrats! You've won!" << endl;
     }
 }
 
