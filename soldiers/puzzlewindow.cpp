@@ -6,7 +6,9 @@
 #include <clickablelabel.h>
 #include "sigbutton.h"
 #include <iostream>
+#include <QCoreApplication>
 #include <sstream>
+#include <qdir>
 
 using namespace std;
 
@@ -88,7 +90,8 @@ puzzleWindow::~puzzleWindow()
 
 
 void puzzleWindow::readFile(){
-    QFile file("/Users/phoebemirman/Desktop/Sudoku/map.txt");
+
+    QFile file(":/maps/puzzleDatabase/map.txt");
     if (file.open(QIODevice::ReadOnly))
     {
 

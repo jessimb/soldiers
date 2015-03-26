@@ -2,4 +2,7 @@
     <qresource prefix="/images">
         <file>soldierLogo.png</file>
     </qresource>
+    <qresource prefix="/maps">
+        <file>puzzleDatabase/map.txt</file>
+    </qresource>
 </RCC>
