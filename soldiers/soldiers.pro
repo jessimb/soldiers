@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = soldiers
+TARGET = "Soldier Sudoku"
 TEMPLATE = app
 
 
@@ -28,8 +28,6 @@ HEADERS  += mainwindow.h \
     sigbutton.h \
     clickablelabel.h \
     puzzlewindow.h
-
-DISTFILES +=
 
 RESOURCES += \
     resources.qrc
