@@ -39,7 +39,7 @@ void SaveLoad::saveFile()
     filename = QFileDialog::getSaveFileName(this, "Save Game",QDir::homePath(), tr("SudokuGames (*.sudoku)"));
     if(!filename.isNull())
     {
-        ofstream stream(filename.toStdString(),std::ios::binary | std::ios::out);
+        ofstream stream(filename.toStdString().c_str(),std::ios::binary | std::ios::out);
         stream.write(board,boardSize);
         stream.close();
     }
@@ -62,7 +62,7 @@ char * SaveLoad::loadFile()
     if(!filename.isNull())
     {
 
-        ifstream stream (filename.toStdString());
+        ifstream stream(filename.toStdString().c_str());
 
         stream.read(&data[0],boardSize);
         stream.close();
