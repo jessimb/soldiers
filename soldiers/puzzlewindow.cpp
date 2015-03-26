@@ -114,16 +114,14 @@ void puzzleWindow::makeGrid() {
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
 
-            QLabel *label;
+            ClickableLabel *label = new ClickableLabel(i,j);
+            QObject::connect(label, SIGNAL(clicked(int, int)), this, SLOT(press(int, int)));
+
 
             if (grid[i][j] != 0) {
-                label = new QLabel();
-                label->setText(QString::number(grid[i][j]));
-            } else {
-                label = new ClickableLabel(i,j);
-                QObject::connect(label, SIGNAL(clicked(int, int)), this, SLOT(press(int, int)));
-            }
 
+                label->setText(QString::number(grid[i][j]));
+            }
             QRect rec(i*BoxLength+GridPos,j*BoxLength+GridPos,BoxLength, BoxLength);
             label->setAlignment(Qt::AlignCenter);
 
@@ -196,8 +194,10 @@ void puzzleWindow::button_pressed(int i){
            ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
             int index2 = lay->indexOf(labell);
             if (index2 != -1) {
-                labell->setText("<font color='blue'>"+ QString::number(i) + "</font>");
-                their_solution[s_row][s_col] = i;
+                if (grid[s_row][s_col] == 0) {
+                    labell->setText("<font color='blue'>"+ QString::number(i) + "</font>");
+                    their_solution[s_row][s_col] = i;
+                }
             }
         }
     }
