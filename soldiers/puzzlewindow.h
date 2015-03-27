@@ -26,6 +26,7 @@ public:
     int GridLength;
     int GridPos;
     int BoxLength;
+    std::list<int> notes[9][9];
     void keyPressEvent(QKeyEvent* e);
 
 private:
@@ -40,6 +41,7 @@ public slots:
     void press(int row, int col);
     void button_pressed(int i);
     void showHint();
+    void note();
 };
 
 
