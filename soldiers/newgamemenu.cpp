@@ -11,7 +11,7 @@ newGameMenu::newGameMenu(MainWindow *mw)
     QLabel *label = new QLabel("newGameMenu");
     //buttonlayout->addWidget(label,0,0,1,2);
 
-    this->setStyleSheet("background-color:#fff;");
+    this->setStyleSheet("background-color:#FAFAD2;");
     QPushButton *easy = new QPushButton("Easy");
     QPushButton *medium = new QPushButton("Medium");
     QPushButton *hard = new QPushButton("Hard");
@@ -22,11 +22,11 @@ newGameMenu::newGameMenu(MainWindow *mw)
     hard->setFixedSize(250, 45);
     expert->setFixedSize(250, 45);
     back->setFixedSize(250, 45);
-    easy->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    medium->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    hard->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    expert->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    easy->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    medium->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    hard->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    expert->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     buttonlayout->addWidget(easy);
     buttonlayout->addWidget(medium);

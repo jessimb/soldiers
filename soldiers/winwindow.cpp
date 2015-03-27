@@ -16,7 +16,7 @@ winWindow::winWindow(MainWindow *mw)
     buttonlayout->addWidget(back);
     this->setStyleSheet("background-color:#fff;");
     back->setFixedSize(150, 45);
-    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
 
     connect(back, SIGNAL(clicked()), this, SLOT(gotoMainMenu()));

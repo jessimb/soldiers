@@ -13,29 +13,29 @@ pauseWindow::pauseWindow(MainWindow *mw)
 
     QPushButton *back = new QPushButton("Continue");
     buttonlayout->addWidget(back);
-    this->setStyleSheet("background-color:#fff;");
+    this->setStyleSheet("background-color:#FAFAD2;");
     back->setFixedSize(150, 45);
-    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     QPushButton *end = new QPushButton("End");
     buttonlayout->addWidget(end);
     end->setFixedSize(150, 45);
-    end->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    end->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     QPushButton *save = new QPushButton("Save");
     buttonlayout->addWidget(save);
     save->setFixedSize(150, 45);
-    save->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    save->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     QPushButton *reset = new QPushButton("Reset Board");
     buttonlayout->addWidget(reset);
     reset->setFixedSize(150, 45);
-    reset->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    reset->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     QPushButton *mainMenu = new QPushButton("Main Menu");
     buttonlayout->addWidget(mainMenu);
     mainMenu->setFixedSize(150, 45);
-    mainMenu->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    mainMenu->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     connect(back, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
     connect(end, SIGNAL(clicked()), this, SLOT(endToMainMenu()));
@@ -53,6 +53,7 @@ void pauseWindow::goBackToPuzzle()
 
 void pauseWindow::goBackToMainMenu()
 {
+    //should ask if you want to save changes
     stackedWidget->setCurrentIndex(0);
 }
 void pauseWindow::endToMainMenu()
