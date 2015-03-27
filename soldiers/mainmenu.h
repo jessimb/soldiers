@@ -17,6 +17,7 @@ public:
 private slots:
     void gotoNewGameMenu();
     void gotoInstrMenu();
+    void gotoPuzzleWindow();
 
 private:
     MainWindow *mainWindow;

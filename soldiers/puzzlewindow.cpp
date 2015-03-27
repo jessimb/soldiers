@@ -13,7 +13,7 @@
 
 using namespace std;
 
-puzzleWindow::puzzleWindow(MainWindow *mw)
+puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
 {
 
     mainWindow = mw;
@@ -38,7 +38,11 @@ puzzleWindow::puzzleWindow(MainWindow *mw)
     wid->setLayout(lay);
     lay->setHorizontalSpacing(0);
     lay->setVerticalSpacing(0);
-    readFile();
+    if(!loadGame)
+        readFile();
+    else
+        load();
+
     makeGrid();
 
     QSplitter *splitter = new QSplitter();

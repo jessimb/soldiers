@@ -1,6 +1,7 @@
 #include "newgamemenu.h"
 #include <QLabel>
 
+
 newGameMenu::newGameMenu(MainWindow *mw)
 {
 
@@ -37,6 +38,8 @@ void newGameMenu::gotoMainMenu()
 
 void newGameMenu::gotoPuzzleWindow()
 {
+    mainWindow->puzzleWindowObj = new puzzleWindow();
+    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //3
     stackedWidget->setCurrentIndex(3);
 }
 

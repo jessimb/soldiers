@@ -13,7 +13,7 @@ class puzzleWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit puzzleWindow(MainWindow *mw = 0);
+    explicit puzzleWindow(MainWindow *mw = 0,bool loadGame=false);
     ~puzzleWindow();
     void readFile();
     void makeGrid();

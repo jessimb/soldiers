@@ -38,7 +38,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
 
     connect(newGame, SIGNAL(clicked()), this, SLOT(gotoNewGameMenu()));
     connect(instr, SIGNAL(clicked()), this, SLOT(gotoInstrMenu()));
-    //connect(load,SIGNAL(clicked()),(new SaveLoad("Used only for saving",0)),SLOT(loadFile()));
+    connect(load,SIGNAL(clicked()),this,SLOT(gotoPuzzleWindow()));
 }
 
 void mainMenu::gotoNewGameMenu()
@@ -48,9 +48,16 @@ void mainMenu::gotoNewGameMenu()
 
 void mainMenu::gotoInstrMenu()
 {
+
     stackedWidget->setCurrentIndex(2);
 }
 
+void mainMenu::gotoPuzzleWindow()
+{
+    mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow,true);
+    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //3
+    stackedWidget->setCurrentIndex(3);
+}
 
 
 

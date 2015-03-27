@@ -23,12 +23,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    puzzleWindow *puzzleWindowObj;
 private:
     mainMenu *mainMenuObj;
     instructionsMenu *instrMenuObj;
     newGameMenu *newGameMenuObj;
-    puzzleWindow *puzzleWindowObj;
+
     //add your widget here
 
 
