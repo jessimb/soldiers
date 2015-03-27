@@ -20,7 +20,7 @@ private:
 
 private slots:
     void gotoMainMenu();
-    void gotoPuzzleWindow();
+    void gotoPuzzleWindow(int l);
 };
 
 #endif // NEWGAMEMENU_H

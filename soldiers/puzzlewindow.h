@@ -5,7 +5,7 @@
 #include "mainwindow.h"
 #include <QWidget>
 #include <QKeyEvent>
-
+#include <string>
 class MainWindow;
 
 class puzzleWindow : public QWidget
@@ -13,7 +13,7 @@ class puzzleWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit puzzleWindow(MainWindow *mw = 0,bool loadGame=false);
+    explicit puzzleWindow(MainWindow *mw = 0,std::string file="", bool loadGame=false);
     ~puzzleWindow();
     void readFile();
     void makeGrid();
@@ -26,6 +26,7 @@ public:
     int GridLength;
     int GridPos;
     int BoxLength;
+    std::string oFile = "";
     std::list<int> notes[9][9];
     void keyPressEvent(QKeyEvent* e);
     QPushButton *notebutton;

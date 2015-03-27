@@ -16,7 +16,7 @@
 using namespace std;
 bool clicked = false;
 
-puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
+puzzleWindow::puzzleWindow(MainWindow *mw, std::string file, bool loadGame)
 {
     GridLength = 540;
     GridPos = 50;
@@ -24,7 +24,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
     lay = new QGridLayout();
     s_row = -1;
     s_col = -1;
-
+    oFile = file;
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
 
@@ -166,8 +166,9 @@ void puzzleWindow::load(){
 void puzzleWindow::readFile(){
 
 
-
-    QFile file(":/maps/puzzleDatabase/e01.txt");
+    string s = ":/maps/puzzleDatabase/" + oFile;
+    std::cout<<s<<std::endl;
+    QFile file(QString::fromStdString(s));
     if (file.open(QIODevice::ReadOnly))
     {
 
