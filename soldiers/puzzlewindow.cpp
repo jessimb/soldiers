@@ -35,18 +35,18 @@ puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
     this->setStyleSheet("background-color:#fafad2;");
     buttonlayout->addWidget(label);
 
-    QPushButton *note = new QPushButton("Make a Note");
+   notebutton = new QPushButton("Make a Note");
 
     QPushButton *hint = new QPushButton("Get Hint");
     QFont font2 = hint->font();
     font2.setPointSize(15);
     hint->setFont(font2);
-    note->setFont(font2);
+    notebutton->setFont(font2);
    // buttonlayout->addWidget(pause,0,1);
    hint->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-   note->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+   notebutton->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
 
-note->setFixedSize(100,45);
+notebutton->setFixedSize(100,45);
     hint->setFixedSize(100,45);
     buttonlayout->addWidget(hint);
 
@@ -116,8 +116,8 @@ note->setFixedSize(100,45);
     n->addWidget(splitter,0,0,1,3);
     n->addWidget(pause, 1,0);
     n->addWidget(hint, 1,1);
-    n->addWidget(note,1,2);
-    connect(note, SIGNAL(clicked()), this, SLOT(note()));
+    n->addWidget(notebutton,1,2);
+    connect(notebutton, SIGNAL(clicked()), this, SLOT(note()));
     this->setLayout(n);
 
 
@@ -407,7 +407,11 @@ void puzzleWindow::showHint(){
 void puzzleWindow::note() {
     if (clicked == true) {
         clicked = false;
+        notebutton->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+
     } else {
+        notebutton->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: blue;} QPushButton:pressed{background-color:#fff;}");
+
         clicked = true;
     }
 }
