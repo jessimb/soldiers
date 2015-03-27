@@ -107,10 +107,10 @@ note->setFixedSize(100,45);
     list.push_back(70);
     splitter->setSizes(list);
     QGridLayout *n = new QGridLayout();
-    n->addWidget(splitter,0,0);
-   // n->addWidget(pause, 1,1);
-    n->addWidget(hint, 2,0);
-    n->addWidget(note,3,0);
+    n->addWidget(splitter,0,0,1,3);
+    n->addWidget(pause, 1,0);
+    n->addWidget(hint, 1,1);
+    n->addWidget(note,1,2);
     connect(note, SIGNAL(clicked()), this, SLOT(note()));
     this->setLayout(n);
 
@@ -299,10 +299,13 @@ void puzzleWindow::button_pressed(int i){
                     } else if (grid[s_row][s_col] == 0) {
                         notes[s_row][s_col].push_back(i);
                         QString text = "";
+                        notes[s_row][s_col].sort();
                         for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
-                           text = text + QString::number(*iterator) + ",";
+                           if (*iterator != 0) {
+                            text = text + QString::number(*iterator) + " ";
+                           }
                         }
-                        labell->setText("<font size=5 color='green'>"+ text + "</font>");
+                        labell->setText("<font size=2 color='green'>"+ text + "</font>");
 
                     }
                 }
