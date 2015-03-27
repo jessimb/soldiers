@@ -4,6 +4,9 @@
 #include "mainmenu.h"
 #include "newgamemenu.h"
 #include "puzzlewindow.h"
+#include "statswindow.h"
+#include "pausewindow.h"
+#include "leaderboardwindow.h"
 #include <QStackedWidget>
 #include <QGridLayout>
 #include <QWidget>
@@ -13,6 +16,9 @@ class mainMenu;
 class instructionsMenu;
 class newGameMenu;
 class puzzleWindow;
+class statsWindow;
+class leaderboardWindow;
+class pauseWindow;
 //add your class here
 
 extern QStackedWidget *stackedWidget;
@@ -28,6 +34,9 @@ private:
     mainMenu *mainMenuObj;
     instructionsMenu *instrMenuObj;
     newGameMenu *newGameMenuObj;
+    statsWindow *statsWindowObj;
+    leaderboardWindow *leaderboardWindowObj;
+    pauseWindow *pauseWindowObj;
 
     //add your widget here
 

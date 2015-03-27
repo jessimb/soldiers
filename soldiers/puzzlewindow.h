@@ -35,7 +35,7 @@ private:
     QGridLayout *lay = new QGridLayout();
 
 private slots:
-    void gotoMainMenu();
+    void goBackToPuzzle();
 public slots:
     void press(int row, int col);
     void button_pressed(int i);

@@ -20,7 +20,10 @@ SOURCES += main.cpp\
     sigbutton.cpp \
     clickablelabel.cpp \
     puzzlewindow.cpp \
-    saveload.cpp
+    saveload.cpp \
+    leaderboardwindow.cpp \
+    statswindow.cpp \
+    pausewindow.cpp
 
 HEADERS  += mainwindow.h \
     mainmenu.h \
@@ -29,7 +32,10 @@ HEADERS  += mainwindow.h \
     sigbutton.h \
     clickablelabel.h \
     puzzlewindow.h \
-    saveload.h
+    saveload.h \
+    leaderboardwindow.h \
+    statswindow.h \
+    pausewindow.h
 
 RESOURCES += \
     resources.qrc

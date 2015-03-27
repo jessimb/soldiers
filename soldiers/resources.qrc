@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/images">
         <file>soldierLogo.png</file>
+        <file>Wood_grain_film.jpg</file>
     </qresource>
     <qresource prefix="/maps">
         <file>puzzleDatabase/e02.txt</file>

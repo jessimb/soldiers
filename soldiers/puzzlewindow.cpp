@@ -23,16 +23,20 @@ puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
 
    // this->setLayout(buttonlayout);
     QLabel *label = new QLabel("puzzle");
+    this->setStyleSheet("background-color:#fff;");
     buttonlayout->addWidget(label);
 
-    QPushButton *back = new QPushButton("Go Back");
-    QFont font = back->font();
+    QPushButton *pause = new QPushButton("Pause");
+    QFont font = pause->font();
     font.setPointSize(15);
-    back->setFont(font);
-    buttonlayout->addWidget(back);
+    pause->setFont(font);
+    buttonlayout->addWidget(pause);
+    pause->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
 
 
-    connect(back, SIGNAL(clicked()), this, SLOT(gotoMainMenu()));
+    pause->setFixedSize(100, 45);
+
+    connect(pause, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
 
     QWidget *wid = new QWidget;
     wid->setLayout(lay);
@@ -61,8 +65,10 @@ puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
     for (int i=0;i<9;i++)
       {
         button[i] = new SigButton(i+1);
-        button[i]->setMinimumSize(50,50);
-        button[i]->setMaximumSize(50,50);
+        button[i]->setMinimumSize(30,30);
+        button[i]->setMaximumSize(30,30);
+        button[i]->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 10px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+
         std::stringstream ss2;
         ss2 << (i+1);
         QFont font = button[i]->font();
@@ -83,7 +89,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
     splitter->setSizes(list);
     QGridLayout *n = new QGridLayout();
     n->addWidget(splitter);
-    n->addWidget(back);
+    n->addWidget(pause);
 
     this->setLayout(n);
 
@@ -91,9 +97,9 @@ puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
 
 }
 
-void puzzleWindow::gotoMainMenu()
+void puzzleWindow::goBackToPuzzle()
 {
-    stackedWidget->setCurrentIndex(0);
+    stackedWidget->setCurrentIndex(5);
 }
 puzzleWindow::~puzzleWindow()
 {

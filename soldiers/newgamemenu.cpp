@@ -10,13 +10,24 @@ newGameMenu::newGameMenu(MainWindow *mw)
 
     this->setLayout(buttonlayout);
     QLabel *label = new QLabel("newGameMenu");
-    buttonlayout->addWidget(label);
+    //buttonlayout->addWidget(label,0,0,1,2);
 
+    this->setStyleSheet("background-color:#fff;");
     QPushButton *easy = new QPushButton("Easy");
     QPushButton *medium = new QPushButton("Medium");
     QPushButton *hard = new QPushButton("Hard");
     QPushButton *expert = new QPushButton("Expert");
     QPushButton *back = new QPushButton("Go Back");
+    easy->setFixedSize(250, 45);
+    medium->setFixedSize(250, 45);
+    hard->setFixedSize(250, 45);
+    expert->setFixedSize(250, 45);
+    back->setFixedSize(250, 45);
+    easy->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    medium->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    hard->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    expert->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
 
     buttonlayout->addWidget(easy);
     buttonlayout->addWidget(medium);
@@ -39,8 +50,8 @@ void newGameMenu::gotoMainMenu()
 void newGameMenu::gotoPuzzleWindow()
 {
     mainWindow->puzzleWindowObj = new puzzleWindow();
-    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //3
-    stackedWidget->setCurrentIndex(3);
+    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //7
+    stackedWidget->setCurrentIndex(7);
 }
 
 

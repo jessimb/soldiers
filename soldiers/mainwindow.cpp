@@ -13,7 +13,12 @@ MainWindow::MainWindow(QWidget *parent)
     mainMenuObj = new mainMenu(this);
     instrMenuObj = new instructionsMenu(this);
     newGameMenuObj = new newGameMenu(this);
+    statsWindowObj = new statsWindow(this);
+    leaderboardWindowObj = new leaderboardWindow(this);
+    pauseWindowObj = new pauseWindow(this);
 
+
+    widget->setStyleSheet("background-color:#fff;");
     //add your widget here!
 
     stackedWidget = new QStackedWidget();
@@ -21,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
     stackedWidget->addWidget(mainMenuObj); //0
     stackedWidget->addWidget(newGameMenuObj); //1
     stackedWidget->addWidget(instrMenuObj); //2
+    stackedWidget->addWidget(statsWindowObj); //3
+    stackedWidget->addWidget(leaderboardWindowObj); //4
+    stackedWidget->addWidget(pauseWindowObj); //5
 
 
     //add your widget to the stackedWidget
@@ -31,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     stackedWidget->setMinimumSize(500,500);
     layout->addWidget(stackedWidget);
     layout->addWidget(label);
-     widget->setLayout(layout);
+    widget->setLayout(layout);
 
     stackedWidget->setCurrentWidget(mainMenuObj);
 }

@@ -18,6 +18,9 @@ private slots:
     void gotoNewGameMenu();
     void gotoInstrMenu();
     void gotoPuzzleWindow();
+    void gotoStatsWindow();
+    void gotoLeaderboard();
+//    void gotoPauseWindow();
 
 private:
     MainWindow *mainWindow;
