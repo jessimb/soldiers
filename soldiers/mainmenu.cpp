@@ -39,8 +39,6 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     leader->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     stats->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
-
-
     QWidget * buttonHolder = new QWidget();
     QGridLayout * buttonHolderLayout = new QGridLayout;
     buttonHolderLayout->setHorizontalSpacing(0);

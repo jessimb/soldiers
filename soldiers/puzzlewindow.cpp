@@ -18,6 +18,12 @@ bool clicked = false;
 
 puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
 {
+    GridLength = 540;
+    GridPos = 50;
+    BoxLength = GridLength/9;
+    lay = new QGridLayout();
+    s_row = -1;
+    s_col = -1;
 
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
