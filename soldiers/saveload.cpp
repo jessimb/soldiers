@@ -61,6 +61,7 @@ char * SaveLoad::loadFile()
         stream.read(&data[0],boardSize);
         stream.close();
     }
+
     testLoad(data);
 
 
