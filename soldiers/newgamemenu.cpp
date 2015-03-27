@@ -8,7 +8,6 @@ newGameMenu::newGameMenu(MainWindow *mw)
     QGridLayout *buttonlayout = new QGridLayout;
 
     this->setLayout(buttonlayout);
-    QLabel *label = new QLabel("newGameMenu");
     //buttonlayout->addWidget(label,0,0,1,2);
 
     this->setStyleSheet("background-color:#fff;");

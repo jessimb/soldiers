@@ -3,7 +3,6 @@
 
 pauseWindow::pauseWindow(MainWindow *mw)
 {
-
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
 

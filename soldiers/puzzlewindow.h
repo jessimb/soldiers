@@ -23,16 +23,16 @@ public:
     int grid[9][9];
     int their_solution[9][9];
     int answer[9][9];
-    const int GridLength=540;
-    const int GridPos=50;
-    int BoxLength=GridLength/9;
+    int GridLength;
+    int GridPos;
+    int BoxLength;
     void keyPressEvent(QKeyEvent* e);
 
 private:
     MainWindow *mainWindow;
-    int s_row = -1;
-    int s_col = -1;
-    QGridLayout *lay = new QGridLayout();
+    int s_row;
+    int s_col;
+    QGridLayout * lay;
 
 private slots:
     void goBackToPuzzle();
