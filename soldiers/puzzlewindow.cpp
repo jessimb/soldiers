@@ -128,7 +128,9 @@ void puzzleWindow::load(){
 
 void puzzleWindow::readFile(){
 
-    QFile file(":/maps/puzzleDatabase/winTest.txt");
+
+
+    QFile file(":/maps/puzzleDatabase/e01.txt");
     if (file.open(QIODevice::ReadOnly))
     {
 
@@ -154,7 +156,6 @@ void puzzleWindow::readFile(){
 
     file.close();
 }
-
 
 void puzzleWindow::makeGrid() {
     QRect rec2(GridPos,GridPos,GridLength,GridLength);
@@ -257,17 +258,17 @@ void puzzleWindow::button_pressed(int i){
 }
 
 void puzzleWindow::checkVictory(){
-    bool winning = true;
-    cout << "Checking victory." << endl;
-    for(int i = 0; i < 9 && winning; i++){
-        for(int j = 0; j < 9 && winning; j++){
+    bool won = true;
+//    cout << "Checking victory." << endl;
+    for(int i = 0; i < 9 && won; i++){
+        for(int j = 0; j < 9 && won; j++){
             if(answer[i][j] != their_solution[i][j]){
-                cout << "Failed on: i-" << i << " j-" << j << endl;
-                winning = false;
+//                cout << "Failed on: row-" << i << " col-" << j << endl;
+                won = false;
             }
         }
     }
-    if(winning){
+    if(won){
         cout << "Congrats! You've won!" << endl;
     }
 }
@@ -276,6 +277,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
     //Checking for key presses: 1-9
     if(e->text().toInt() > 0 && e->text().toInt() < 10){
         button_pressed(e->text().toInt());
+
     //Checling for key presses: <,^,>,v arrows
     } else if(e->key() == Qt::Key_Up && s_row > 0 && s_row < 9){
         press(s_row-1, s_col);
@@ -285,6 +287,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
         press(s_row, s_col-1);
     } else if(e->key() == Qt::Key_Right && s_col > -1 && s_col < 8){
         press(s_row, s_col+1);
+
     //Checking for key press: delete
     } else if(e->key() == Qt::Key_Delete){
         QLayoutItem * item = lay->itemAtPosition(s_row, s_col);
