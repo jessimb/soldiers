@@ -21,7 +21,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     QPixmap tempShrink = pixelMap.scaled(QSize(400,400),Qt::KeepAspectRatio);
     label->setPixmap(tempShrink);
     label->setAlignment(Qt::AlignCenter);
-    buttonlayout->addWidget(label,0,0,1,0);
+    buttonlayout->addWidget(label,0,0);
 
     QPushButton *newGame = new QPushButton("New Game");
     QPushButton *instr = new QPushButton("Instructions");
@@ -33,19 +33,25 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     load->setFixedSize(150, 45);
     leader->setFixedSize(150, 45);
     stats->setFixedSize(150, 45);
-    newGame->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    instr->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    load->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    leader->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-    stats->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    newGame->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    instr->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    load->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    leader->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    stats->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
 
-    buttonlayout->addWidget(newGame,1,0,1,2, Qt::AlignHCenter);
-    buttonlayout->addWidget(instr, 2,0, Qt::AlignHCenter);
-    buttonlayout->addWidget(load, 2,1, Qt::AlignHCenter);
-    buttonlayout->addWidget(leader,3,1, Qt::AlignHCenter);
-    buttonlayout->addWidget(stats,3,0, Qt::AlignHCenter);
 
+    QWidget * buttonHolder = new QWidget();
+    QGridLayout * buttonHolderLayout = new QGridLayout;
+    buttonHolderLayout->setHorizontalSpacing(0);
+    buttonHolderLayout->addWidget(newGame,0,0,1,2,Qt::AlignHCenter);
+    buttonHolderLayout->addWidget(instr, 1,0);
+    buttonHolderLayout->addWidget(load, 1,1);
+    buttonHolderLayout->addWidget(leader,2,0);
+    buttonHolderLayout->addWidget(stats,2,1);
+    buttonHolder->setLayout(buttonHolderLayout);
+
+    buttonlayout->addWidget(buttonHolder);
 
 
     connect(newGame, SIGNAL(clicked()), this, SLOT(gotoNewGameMenu()));
@@ -69,6 +75,7 @@ void mainMenu::gotoInstrMenu()
 
 void mainMenu::gotoPuzzleWindow()
 {
+
     mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow,true);
     stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
     stackedWidget->setCurrentIndex(stackedWidget->count() - 1);

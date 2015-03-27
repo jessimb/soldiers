@@ -1,10 +1,9 @@
 #include "newgamemenu.h"
 #include <QLabel>
-
-
+#include <iostream>
 newGameMenu::newGameMenu(MainWindow *mw)
 {
-
+ setFocusPolicy(Qt::ClickFocus);
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
 
@@ -49,6 +48,7 @@ void newGameMenu::gotoMainMenu()
 
 void newGameMenu::gotoPuzzleWindow()
 {
+
     mainWindow->puzzleWindowObj = new puzzleWindow();
     stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
     stackedWidget->setCurrentIndex(stackedWidget->count()-1);

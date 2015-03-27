@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     statsWindowObj = new statsWindow(this);
     leaderboardWindowObj = new leaderboardWindow(this);
     pauseWindowObj = new pauseWindow(this);
+    winWindowObj = new winWindow(this);
 
 
     widget->setStyleSheet("background-color:#FAFAD2;");
@@ -29,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     stackedWidget->addWidget(statsWindowObj); //3
     stackedWidget->addWidget(leaderboardWindowObj); //4
     stackedWidget->addWidget(pauseWindowObj); //5
+    stackedWidget->addWidget(winWindowObj);//6
 
 
     //add your widget to the stackedWidget
