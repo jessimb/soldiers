@@ -28,6 +28,7 @@ public:
     int BoxLength;
     std::list<int> notes[9][9];
     void keyPressEvent(QKeyEvent* e);
+    QPushButton *notebutton;
 
 private:
     MainWindow *mainWindow;
