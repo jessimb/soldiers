@@ -38,7 +38,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
 
     connect(newGame, SIGNAL(clicked()), this, SLOT(gotoNewGameMenu()));
     connect(instr, SIGNAL(clicked()), this, SLOT(gotoInstrMenu()));
-    connect(load,SIGNAL(clicked()),(new SaveLoad("Used only for saving",0)),SLOT(loadFile()));
+    //connect(load,SIGNAL(clicked()),(new SaveLoad("Used only for saving",0)),SLOT(loadFile()));
 }
 
 void mainMenu::gotoNewGameMenu()

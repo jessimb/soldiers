@@ -12,7 +12,7 @@ SaveLoad::SaveLoad(const char * information,int bsize)
 {
 
     board=information;
-    boardSize=size;
+    boardSize=bsize;
 
     initVars();
     connectButtons();
