@@ -23,6 +23,7 @@ public:
     int grid[9][9];
     int their_solution[9][9];
     int answer[9][9];
+    std::list<int> notes[9][9];
     const int GridLength=540;
     const int GridPos=50;
     int BoxLength=GridLength/9;
@@ -40,6 +41,7 @@ public slots:
     void press(int row, int col);
     void button_pressed(int i);
     void showHint();
+    void note();
 };
 
 
