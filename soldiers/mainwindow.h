@@ -6,6 +6,7 @@
 #include "puzzlewindow.h"
 #include "statswindow.h"
 #include "pausewindow.h"
+#include "winwindow.h"
 #include "leaderboardwindow.h"
 #include <QStackedWidget>
 #include <QGridLayout>
@@ -19,6 +20,7 @@ class puzzleWindow;
 class statsWindow;
 class leaderboardWindow;
 class pauseWindow;
+class winWindow;
 //add your class here
 
 extern QStackedWidget *stackedWidget;
@@ -37,6 +39,7 @@ private:
     statsWindow *statsWindowObj;
     leaderboardWindow *leaderboardWindowObj;
     pauseWindow *pauseWindowObj;
+    winWindow *winWindowObj;
 
     //add your widget here
 

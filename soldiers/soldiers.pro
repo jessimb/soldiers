@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     saveload.cpp \
     leaderboardwindow.cpp \
     statswindow.cpp \
-    pausewindow.cpp
+    pausewindow.cpp \
+    winwindow.cpp
 
 HEADERS  += mainwindow.h \
     mainmenu.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
     saveload.h \
     leaderboardwindow.h \
     statswindow.h \
-    pausewindow.h
+    pausewindow.h \
+    winwindow.h
 
 RESOURCES += \
     resources.qrc
