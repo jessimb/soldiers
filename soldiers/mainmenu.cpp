@@ -21,7 +21,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     QPixmap tempShrink = pixelMap.scaled(QSize(400,400),Qt::KeepAspectRatio);
     label->setPixmap(tempShrink);
     label->setAlignment(Qt::AlignCenter);
-    buttonlayout->addWidget(label,0,0,2,2);
+    buttonlayout->addWidget(label,0,0,1,0);
 
     QPushButton *newGame = new QPushButton("New Game");
     QPushButton *instr = new QPushButton("Instructions");
