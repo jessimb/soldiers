@@ -6,5 +6,8 @@
         <file>puzzleDatabase/e02.txt</file>
         <file>puzzleDatabase/e01.txt</file>
         <file>puzzleDatabase/winTest.txt</file>
+        <file>puzzleDatabase/e05.txt</file>
+        <file>puzzleDatabase/e04.txt</file>
+        <file>puzzleDatabase/e03.txt</file>
     </qresource>
 </RCC>
