@@ -50,8 +50,8 @@ void newGameMenu::gotoMainMenu()
 void newGameMenu::gotoPuzzleWindow()
 {
     mainWindow->puzzleWindowObj = new puzzleWindow();
-    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //7
-    stackedWidget->setCurrentIndex(7);
+    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
+    stackedWidget->setCurrentIndex(stackedWidget->count()-1);
 }
 
 

@@ -16,7 +16,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
 //    QFileDialog * fileDirectory = new QFileDialog();
 //    QString fileName = fileDirectory->getOpenFileName(this, QString("Browse"), "/", tr("Image Files (*.png *.jpg *.bmp"));
 //    cout << fileName.toStdString() << endl;
-    this->setStyleSheet("background-color:#fff;");
+    this->setStyleSheet("background-color:#FAFAD2;");
     QPixmap pixelMap = QPixmap(":/images/soldierLogo.png");
     QPixmap tempShrink = pixelMap.scaled(QSize(400,400),Qt::KeepAspectRatio);
     label->setPixmap(tempShrink);
@@ -40,11 +40,12 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     stats->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
 
 
-    buttonlayout->addWidget(newGame,1,1,1,2);
-    buttonlayout->addWidget(instr, 2,1);
-    buttonlayout->addWidget(load, 2,2);
-    buttonlayout->addWidget(leader,3,2);
-    buttonlayout->addWidget(stats,3,1);
+    buttonlayout->addWidget(newGame,1,0,1,2, Qt::AlignHCenter);
+    buttonlayout->addWidget(instr, 2,0, Qt::AlignHCenter);
+    buttonlayout->addWidget(load, 2,1, Qt::AlignHCenter);
+    buttonlayout->addWidget(leader,3,1, Qt::AlignHCenter);
+    buttonlayout->addWidget(stats,3,0, Qt::AlignHCenter);
+
 
 
     connect(newGame, SIGNAL(clicked()), this, SLOT(gotoNewGameMenu()));
@@ -69,8 +70,9 @@ void mainMenu::gotoInstrMenu()
 void mainMenu::gotoPuzzleWindow()
 {
     mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow,true);
-    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //7
-    stackedWidget->setCurrentIndex(7);
+    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
+    stackedWidget->setCurrentIndex(stackedWidget->count() - 1);
+
 }
 
 void mainMenu::gotoLeaderboard()

@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     pauseWindowObj = new pauseWindow(this);
 
 
-    widget->setStyleSheet("background-color:#fff;");
+    widget->setStyleSheet("background-color:#FAFAD2;");
     //add your widget here!
 
     stackedWidget = new QStackedWidget();
