@@ -294,16 +294,28 @@ void puzzleWindow::button_pressed(int i){
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
                     if (grid[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) {
-                        labell->setText("");
-                        *(std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)) = 0;
-                    } else if (grid[s_row][s_col] == 0) {
-                        notes[s_row][s_col].push_back(i);
                         QString text = "";
-                        notes[s_row][s_col].sort();
+                        *(std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)) = 0;
+                        int x = 1;
                         for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
                            if (*iterator != 0) {
                             text = text + QString::number(*iterator) + " ";
                            }
+                           if (x%3 == 0 && x!=9) text = text + "<br>";
+                           x++;
+                        }
+                        labell->setText("<font size=2 color='green'>"+ text + "</font>");
+                    } else if (grid[s_row][s_col] == 0) {
+                        notes[s_row][s_col].push_back(i);
+                        QString text = "";
+                        notes[s_row][s_col].sort();
+                        int x = 1;
+                        for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
+                           if (*iterator != 0) {
+                            text = text + QString::number(*iterator) + " ";
+                           }
+                           if (x%3 == 0 && x!=9) text = text + "<br>";
+                           x++;
                         }
                         labell->setText("<font size=2 color='green'>"+ text + "</font>");
 
