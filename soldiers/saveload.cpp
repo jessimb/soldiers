@@ -8,17 +8,11 @@
 
 using namespace std;
 
-SaveLoad::SaveLoad(const char * d)
+SaveLoad::SaveLoad(const char * information,int bsize)
 {
 
-    board=d;
-    char data[boardSize];
-
-    for(int x=0;x<boardSize;x++)
-    {
-        data[x]=x+'A';
-        cout<<data[x]<<endl;
-    }
+    board=information;
+    boardSize=size;
 
     initVars();
     connectButtons();
