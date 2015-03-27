@@ -296,13 +296,15 @@ void puzzleWindow::button_pressed(int i){
                     if (grid[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) {
                         QString text = "";
                         *(std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)) = 0;
+                        notes[s_row][s_col].sort();
                         int x = 1;
                         for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
                            if (*iterator != 0) {
                             text = text + QString::number(*iterator) + " ";
+                            if (x%3 == 0 && x!=9) text = text + "<br>";
+                            x++;
                            }
-                           if (x%3 == 0 && x!=9) text = text + "<br>";
-                           x++;
+
                         }
                         labell->setText("<font size=2 color='green'>"+ text + "</font>");
                     } else if (grid[s_row][s_col] == 0) {
@@ -313,9 +315,10 @@ void puzzleWindow::button_pressed(int i){
                         for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
                            if (*iterator != 0) {
                             text = text + QString::number(*iterator) + " ";
+                            if (x%3 == 0 && x!=9) text = text + "<br>";
+                            x++;
                            }
-                           if (x%3 == 0 && x!=9) text = text + "<br>";
-                           x++;
+
                         }
                         labell->setText("<font size=2 color='green'>"+ text + "</font>");
 
