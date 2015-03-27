@@ -348,6 +348,7 @@ void puzzleWindow::checkVictory(){
     }
     if(won){
         cout << "Congrats! You've won!" << endl;
+        stackedWidget->setCurrentIndex(6);
     }
 }
 
