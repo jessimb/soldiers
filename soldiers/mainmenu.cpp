@@ -68,6 +68,7 @@ void mainMenu::gotoInstrMenu()
 
 void mainMenu::gotoPuzzleWindow()
 {
+
     mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow,true);
     stackedWidget->addWidget(mainWindow->puzzleWindowObj); //7
     stackedWidget->setCurrentIndex(7);

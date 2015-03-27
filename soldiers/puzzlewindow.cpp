@@ -13,7 +13,7 @@
 
 using namespace std;
 
-puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
+puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
 {
 
     mainWindow = mw;
@@ -26,17 +26,29 @@ puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
     this->setStyleSheet("background-color:#fff;");
     buttonlayout->addWidget(label);
 
+    QPushButton *hint = new QPushButton("Get Hint");
+    QFont font2 = hint->font();
+    font2.setPointSize(15);
+    hint->setFont(font2);
+   // buttonlayout->addWidget(pause,0,1);
+   hint->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+
+
+    hint->setFixedSize(100,45);
+    buttonlayout->addWidget(hint);
+
     QPushButton *pause = new QPushButton("Pause");
     QFont font = pause->font();
     font.setPointSize(15);
     pause->setFont(font);
-    buttonlayout->addWidget(pause);
+   // buttonlayout->addWidget(pause,0,1);
     pause->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
 
 
     pause->setFixedSize(100, 45);
 
     connect(pause, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
+    connect(hint, SIGNAL(clicked()), this, SLOT(showHint()));
 
     QWidget *wid = new QWidget;
     wid->setLayout(lay);
@@ -90,6 +102,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw,bool loadGame)
     QGridLayout *n = new QGridLayout();
     n->addWidget(splitter);
     n->addWidget(pause);
+    n->addWidget(hint);
 
     this->setLayout(n);
 
@@ -312,5 +325,26 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
                 }
             }
         }
+    }
+}
+
+
+void puzzleWindow::showHint(){
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            if (their_solution[i][j] == 0 && grid[i][j] == 0) {
+                QLayoutItem * item = lay->itemAtPosition(i,j);
+                if (lay) {
+                    QWidget * wid = item->widget();
+                    ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
+                    int index2 = lay->indexOf(labell);
+                    if (index2 != -1) {
+                        labell->setText("<b><font size = 15>" + QString::number(answer[i][j]) + "</font></b>");
+                        their_solution[i][j] = answer[i][j];
+                    }
+                    return;
+            }
+        }
+    }
     }
 }
