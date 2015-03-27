@@ -9,9 +9,12 @@
 #include <QCoreApplication>
 #include <sstream>
 #include <qdir>
+#include <algorithm>
+#include <list>
 #include "saveload.h"
 
 using namespace std;
+bool clicked = false;
 
 puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
 {
@@ -23,17 +26,21 @@ puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
 
    // this->setLayout(buttonlayout);
     QLabel *label = new QLabel("puzzle");
-    this->setStyleSheet("background-color:#fff;");
+    this->setStyleSheet("background-color:#fafad2;");
     buttonlayout->addWidget(label);
+
+    QPushButton *note = new QPushButton("Make a Note");
 
     QPushButton *hint = new QPushButton("Get Hint");
     QFont font2 = hint->font();
     font2.setPointSize(15);
     hint->setFont(font2);
+    note->setFont(font2);
    // buttonlayout->addWidget(pause,0,1);
    hint->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+   note->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
 
-
+note->setFixedSize(100,45);
     hint->setFixedSize(100,45);
     buttonlayout->addWidget(hint);
 
@@ -69,8 +76,8 @@ puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
     wid->setStyleSheet("QFrame { background-color: rgb(219, 226, 228); }");
 
     QFrame *innerWidget = new QFrame();
-   QGridLayout *innerLayout = new QGridLayout();
-   innerWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    QGridLayout *innerLayout = new QGridLayout();
+    innerWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     innerWidget->setLayout(innerLayout);
 
     SigButton *button[9];
@@ -100,10 +107,11 @@ puzzleWindow::puzzleWindow(MainWindow *mw, bool loadGame)
     list.push_back(70);
     splitter->setSizes(list);
     QGridLayout *n = new QGridLayout();
-    n->addWidget(splitter);
-    n->addWidget(pause);
-    n->addWidget(hint);
-
+    n->addWidget(splitter,0,0);
+   // n->addWidget(pause, 1,1);
+    n->addWidget(hint, 2,0);
+    n->addWidget(note,3,0);
+    connect(note, SIGNAL(clicked()), this, SLOT(note()));
     this->setLayout(n);
 
 
@@ -260,23 +268,46 @@ void puzzleWindow::press(int row, int col){
 
 void puzzleWindow::button_pressed(int i){
     if (s_row != -1 && s_col != -1) {
-        QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
-        if (lay) {
-           QWidget * wid = item->widget();
+        if (clicked == false) {
+            QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
+            if (lay) {
+               QWidget * wid = item->widget();
 
-           ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-            int index2 = lay->indexOf(labell);
-            if (index2 != -1) {
-                if (grid[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){
-                    labell->setText("");
-                    their_solution[s_row][s_col] = 0;
-                } else if (grid[s_row][s_col] == 0) {
-                    labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
-                    their_solution[s_row][s_col] = i;
+               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                int index2 = lay->indexOf(labell);
+                if (index2 != -1) {
+                    if (grid[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){
+                        labell->setText("");
+                        their_solution[s_row][s_col] = 0;
+                    } else if (grid[s_row][s_col] == 0) {
+                        labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
+                        their_solution[s_row][s_col] = i;
+                    }
+                }
+            }
+            checkVictory();
+        } else { //tryna make a note
+            QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
+            if (lay) {
+               QWidget * wid = item->widget();
+               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                int index2 = lay->indexOf(labell);
+                if (index2 != -1) {
+                    if (grid[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) {
+                        labell->setText("");
+                        *(std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)) = 0;
+                    } else if (grid[s_row][s_col] == 0) {
+                        notes[s_row][s_col].push_back(i);
+                        QString text = "";
+                        for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
+                           text = text + QString::number(*iterator) + ",";
+                        }
+                        labell->setText("<font size=5 color='green'>"+ text + "</font>");
+
+                    }
                 }
             }
         }
-        checkVictory();
     }
 }
 
@@ -342,9 +373,17 @@ void puzzleWindow::showHint(){
                         labell->setText("<b><font size = 15>" + QString::number(answer[i][j]) + "</font></b>");
                         their_solution[i][j] = answer[i][j];
                     }
-                    return;
+                 return;
             }
         }
     }
+    }
+}
+
+void puzzleWindow::note() {
+    if (clicked == true) {
+        clicked = false;
+    } else {
+        clicked = true;
     }
 }
