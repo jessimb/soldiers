@@ -28,8 +28,12 @@ public:
     int BoxLength;
     std::string oFile = "";
     std::list<int> notes[9][9];
+    int hints[9][9] = {0};
     void keyPressEvent(QKeyEvent* e);
     QPushButton *notebutton;
+    QPushButton *erase;
+    void check_erase(int row, int col);
+
 
 
 private:
@@ -45,6 +49,7 @@ public slots:
     void button_pressed(int i);
     void showHint();
     void note();
+    void eraseBox();
 };
 
 

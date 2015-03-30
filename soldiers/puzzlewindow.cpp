@@ -49,7 +49,11 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 notebutton->setFixedSize(100,45);
     hint->setFixedSize(100,45);
     buttonlayout->addWidget(hint);
-
+    erase = new QPushButton("Erase");
+erase->setFont(font2);
+erase->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+erase->setFixedSize(100, 45);
+erase->setDisabled(true);
     QPushButton *pause = new QPushButton("Pause");
     QFont font = pause->font();
     font.setPointSize(15);
@@ -62,6 +66,7 @@ notebutton->setFixedSize(100,45);
 
     connect(pause, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
     connect(hint, SIGNAL(clicked()), this, SLOT(showHint()));
+    connect(erase, SIGNAL(clicked()), this, SLOT(eraseBox()));
 
     QWidget *wid = new QWidget;
     wid->setLayout(lay);
@@ -117,10 +122,11 @@ notebutton->setFixedSize(100,45);
     list.push_back(70);
     splitter->setSizes(list);
     QGridLayout *n = new QGridLayout();
-    n->addWidget(splitter,0,0,1,3);
+    n->addWidget(splitter,0,0,1,4);
     n->addWidget(pause, 1,0);
     n->addWidget(hint, 1,1);
     n->addWidget(notebutton,1,2);
+     n->addWidget(erase,1,3);
     connect(notebutton, SIGNAL(clicked()), this, SLOT(note()));
     this->setLayout(n);
 
@@ -135,6 +141,29 @@ void puzzleWindow::goBackToPuzzle()
 puzzleWindow::~puzzleWindow()
 {
 
+}
+
+void puzzleWindow::eraseBox() {
+    if (s_row != -1 && s_col != -1) {
+        QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
+        if (their_solution[s_row][s_col] != 0) {
+            their_solution[s_row][s_col] = 0;
+            if (item) {
+               QWidget * wid = item->widget();
+               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+               labell->setText("");
+            }
+        }
+        if (notes[s_row][s_col].size() != 0) {
+            notes[s_row][s_col].clear();
+            if (item) {
+               QWidget * wid = item->widget();
+               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+               labell->setText("");
+            }
+        }
+        check_erase(s_row,s_col);
+    }
 }
 
 void puzzleWindow::save(){
@@ -239,9 +268,21 @@ void puzzleWindow::makeGrid() {
         }
     }
 }
+void puzzleWindow::check_erase(int row, int col){
+    if (grid[row][col] == 0 && hints[row][col] == 0 && their_solution[row][col] == 0 && notes[row][col].size() == 0 ) {
+        erase->setDisabled(true);
+    } else if (grid[row][col] != 0 ) {
+        erase->setDisabled(true);
+    } else if (hints[row][col] != 0){
+        erase->setDisabled(true);
+    } else {
+        erase->setDisabled(false);
 
+    }
+}
 
 void puzzleWindow::press(int row, int col){
+    check_erase(row, col);
     QLayoutItem *item = lay->itemAtPosition(row, col);
     if (lay) {
        QWidget * wid = item->widget();
@@ -292,10 +333,13 @@ void puzzleWindow::button_pressed(int i){
                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
-                    if (grid[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){
+                    if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){ //trying to remove
                         labell->setText("");
                         their_solution[s_row][s_col] = 0;
-                    } else if (grid[s_row][s_col] == 0) {
+                    } else if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0) { //trying to add number
+                        if (notes[s_row][s_col].size() != 0) {
+                            notes[s_row][s_col].clear();
+                        }
                         labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
                         their_solution[s_row][s_col] = i;
                     }
@@ -309,9 +353,9 @@ void puzzleWindow::button_pressed(int i){
                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
-                    if (grid[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) {
+                    if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) { //going to delete note
                         QString text = "";
-                        *(std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)) = 0;
+                        notes[s_row][s_col].erase((std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)));
                         notes[s_row][s_col].sort();
                         int x = 1;
                         for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
@@ -323,7 +367,10 @@ void puzzleWindow::button_pressed(int i){
 
                         }
                         labell->setText("<font size=2 color='green'>"+ text + "</font>");
-                    } else if (grid[s_row][s_col] == 0) {
+                    } else if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0) {
+                        if (their_solution[s_row][s_col] != 0) {
+                            their_solution[s_row][s_col] = 0;
+                        }
                         notes[s_row][s_col].push_back(i);
                         QString text = "";
                         notes[s_row][s_col].sort();
@@ -341,8 +388,11 @@ void puzzleWindow::button_pressed(int i){
                     }
                 }
             }
+
         }
+        check_erase(s_row,s_col);
     }
+
 }
 
 void puzzleWindow::checkVictory(){
@@ -396,8 +446,13 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
 
 
 void puzzleWindow::showHint(){
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 9; j++){
+    int i = rand()%9;
+    int j = rand()%9;
+
+   while (their_solution[i][j] != 0 || grid[i][j] != 0) {
+    i = rand()%9;
+    j = rand()%9;
+   }
             if (their_solution[i][j] == 0 && grid[i][j] == 0) {
                 QLayoutItem * item = lay->itemAtPosition(i,j);
                 if (lay) {
@@ -407,11 +462,13 @@ void puzzleWindow::showHint(){
                     if (index2 != -1) {
                         labell->setText("<b><font size = 15>" + QString::number(answer[i][j]) + "</font></b>");
                         their_solution[i][j] = answer[i][j];
+
+                        hints[i][j] = answer[i][j];
+                        notes[i][j].clear();
                     }
                  return;
             }
-        }
-    }
+
     }
 }
 
