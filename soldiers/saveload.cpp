@@ -8,15 +8,13 @@
 
 using namespace std;
 
-SaveLoad::SaveLoad(const char * information,int bsize)
+SaveLoad::SaveLoad(const char * information)
 {
 
     board=information;
-    boardSize=bsize;
 
-    initVars();
-    connectButtons();
-    addWidgets();
+
+
 
 
 }
@@ -52,7 +50,7 @@ char * SaveLoad::loadFile()
 {
     char * data=new char[boardSize];
     QString filename;
-    filename = QFileDialog::getOpenFileName(this, "Save Game",QDir::homePath(), tr("SudokuGames (*.sudoku)"));
+    filename = QFileDialog::getOpenFileName(this, "Load Game",QDir::homePath(), tr("SudokuGames (*.sudoku)"));
     if(!filename.isNull())
     {
 
@@ -61,30 +59,19 @@ char * SaveLoad::loadFile()
         stream.read(&data[0],boardSize);
         stream.close();
     }
+    else
+    {
+        return NULL;
+    }
 
-    testLoad(data);
+
 
 
     return data;
 
 }
 
-void SaveLoad::addWidgets()
-{
-    layout->addWidget(saveButton);
-    layout->addWidget(loadButton);
-}
 
-void SaveLoad::connectButtons()
-{
-    connect(saveButton,SIGNAL(clicked()),this,SLOT(saveFile()));
-    connect(loadButton,SIGNAL(clicked()),this,SLOT(loadFile()));
-}
 
-void SaveLoad::initVars()
-{
-    layout = new QGridLayout(this);
-    saveButton=new QPushButton("Save",this);
-    loadButton=new QPushButton("Load",this);
-}
+
 

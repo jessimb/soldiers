@@ -9,16 +9,14 @@ class SaveLoad : public QWidget
 {
     Q_OBJECT
 public:
-    SaveLoad(const char *,int );
+    SaveLoad(const char *);
+    static const int boardSize=81*3;//+9*81;
 private:
-    int boardSize;
+
     const char * board;
-    void addWidgets();
+
     void initVars();
-    void connectButtons();
-    QGridLayout *layout;
-    QPushButton * saveButton;
-    QPushButton * loadButton;
+
     int size;
     void testLoad(char *);
     ~SaveLoad();

@@ -16,7 +16,7 @@
 using namespace std;
 bool clicked = false;
 
-puzzleWindow::puzzleWindow(MainWindow *mw, std::string file, bool loadGame)
+puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 {
     GridLength = 540;
     GridPos = 50;
@@ -67,10 +67,14 @@ notebutton->setFixedSize(100,45);
     wid->setLayout(lay);
     lay->setHorizontalSpacing(0);
     lay->setVerticalSpacing(0);
-    if(!loadGame)
-        readFile();
-    else
+
+    if(loadGame)
+    {
         load();
+    }
+    else
+        readFile();
+
 
     makeGrid();
 
@@ -134,32 +138,37 @@ puzzleWindow::~puzzleWindow()
 }
 
 void puzzleWindow::save(){
-    char * file= new char [81*3];
+    char * file= new char [SaveLoad::boardSize];
 
     for(int x=0;x<9;x++)
     {
         for(int y=0;y<9;y++)
         {
             file[x*9+y]=(char)('0'+grid[x][y]);
+            cout<<grid[x][y]<<endl;
             file[x*9+y+81]=(char)('0'+their_solution[x][y]);
             file[x*9+y+81*2]=(char)('0'+answer[x][y]);
         }
     }
-    (*new SaveLoad(file,81*3)).saveFile();
+    (*new SaveLoad(file)).saveFile();
 }
 
-void puzzleWindow::load(){
-    char * file= (*new SaveLoad("Used only for Saving",0)).loadFile();
+char * puzzleWindow::load(){
+    char * file= (*new SaveLoad("Used only for Saving")).loadFile();
 
     for(int x=0;x<9;x++)
     {
         for(int y=0;y<9;y++)
         {
+
             grid[x][y]=file[x*9+y]-'0';
+            cout<<grid[x][y]<<endl;
             their_solution[x][y]=file[x*9+y+81]-'0';
             answer[x][y]=file[x*9+y+81*2]-'0';
         }
     }
+
+    return file;
 
 }
 

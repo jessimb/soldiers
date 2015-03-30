@@ -13,13 +13,13 @@ class puzzleWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit puzzleWindow(MainWindow *mw = 0,std::string file="", bool loadGame=false);
+    explicit puzzleWindow(MainWindow *mw = 0,std::string file="",bool loadgame=false);
     ~puzzleWindow();
     void readFile();
     void makeGrid();
     void save();
     void checkVictory();
-    void load();
+    char* load();
     int grid[9][9];
     int their_solution[9][9];
     int answer[9][9];
@@ -30,6 +30,7 @@ public:
     std::list<int> notes[9][9];
     void keyPressEvent(QKeyEvent* e);
     QPushButton *notebutton;
+
 
 private:
     MainWindow *mainWindow;

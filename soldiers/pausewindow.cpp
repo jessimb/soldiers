@@ -63,6 +63,7 @@ void pauseWindow::endToMainMenu()
 }
 void pauseWindow::saveStay()
 {
+    mainWindow->puzzleWindowObj->save();
     //do whatever we need to do save then dont change screens??
 }
 void pauseWindow::resetToPuzzle()

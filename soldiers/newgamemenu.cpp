@@ -72,7 +72,7 @@ void newGameMenu::gotoPuzzleWindow(int l)
     if (l == 3) {
         file = "ex0" + ss2.str() + ".txt";
     }
-    mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow, file, false);
+    mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow, file);
     stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
     stackedWidget->setCurrentIndex(stackedWidget->count()-1);
 }
