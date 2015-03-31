@@ -30,4 +30,11 @@ statsWindow::~statsWindow()
 {
 
 }
-
+int statsWindow::averagehighscore()
+{
+     int averageHS=highScore/totalgamesplayed;
+}
+int statsWindow::averagebesttime()
+{
+    int averagetime=bestTime/totalgamesplayed;
+}

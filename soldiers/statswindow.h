@@ -12,7 +12,15 @@ class statsWindow : public QWidget
 public:
     explicit statsWindow(MainWindow *mw = 0);
     ~statsWindow();
-
+    QTimer *timer;//passed
+    //QString username;//passed
+    int bestTime;
+    int totalgamesplayed;
+    int runningTime;
+    int highScore;
+    int averagebesttime();
+    int averagehighscore();
+    int overallstats();
 private:
     MainWindow *mainWindow;
 
