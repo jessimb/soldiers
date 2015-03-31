@@ -179,8 +179,8 @@ void puzzleWindow::save(){
         for(int y=0;y<9;y++)
         {
             file[x*9+y]=(char)('0'+grid[x][y]);
-            cout<<grid[x][y]<<endl;
             file[x*9+y+81]=(char)('0'+their_solution[x][y]);
+            cout<<their_solution[x][y]<<endl;
             file[x*9+y+81*2]=(char)('0'+answer[x][y]);
         }
     }
@@ -196,8 +196,9 @@ char * puzzleWindow::load(){
         {
 
             grid[x][y]=file[x*9+y]-'0';
-            cout<<grid[x][y]<<endl;
+
             their_solution[x][y]=file[x*9+y+81]-'0';
+            cout<<their_solution[x][y]<<endl;
             answer[x][y]=file[x*9+y+81*2]-'0';
         }
     }
@@ -252,6 +253,10 @@ void puzzleWindow::makeGrid() {
             if (grid[i][j] != 0) {
 
                 label->setText("<b><font size = 15>" + QString::number(grid[i][j]) + "</font></b>");
+            }
+            else if (their_solution[i][j] != 0) {
+
+                label->setText("<b><font size = 15 color = 'blue'>" + QString::number(their_solution[i][j]) + "</font></b>");
             }
             QRect rec(i*BoxLength+GridPos,j*BoxLength+GridPos,BoxLength, BoxLength);
             label->setAlignment(Qt::AlignCenter);
