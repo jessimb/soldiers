@@ -46,6 +46,7 @@ statsWindow::statsWindow(MainWindow *mw)
     back->setStyleSheet(*style);
     connect(back, SIGNAL(clicked()), this, SLOT(gotoMainMenu()));
 
+    this->setStyleSheet("background-color:#FAFAD2;");
 
 }
 
