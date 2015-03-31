@@ -41,6 +41,8 @@ private:
     int s_row;
     int s_col;
     QGridLayout * lay;
+    QString *styleDis;
+    QString *style;
 
 private slots:
     void goBackToPuzzle();

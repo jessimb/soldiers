@@ -27,40 +27,45 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     oFile = file;
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
+    style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    styleDis = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; } QPushButton:pressed{background-color:#fff;}");
+    QString *numStyle = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 10px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+
 
     setFocusPolicy(Qt::ClickFocus);
 
-   // this->setLayout(buttonlayout);
+    // this->setLayout(buttonlayout);
     QLabel *label = new QLabel("puzzle");
     this->setStyleSheet("background-color:#fafad2;");
     buttonlayout->addWidget(label);
 
-   notebutton = new QPushButton("Make a Note");
+    notebutton = new QPushButton("Add Note");
 
     QPushButton *hint = new QPushButton("Get Hint");
     QFont font2 = hint->font();
     font2.setPointSize(15);
     hint->setFont(font2);
     notebutton->setFont(font2);
-   // buttonlayout->addWidget(pause,0,1);
-   hint->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-   notebutton->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+    // buttonlayout->addWidget(pause,0,1);
+    hint->setStyleSheet(*style);
+    notebutton->setStyleSheet(*style);
 
-notebutton->setFixedSize(100,45);
+    notebutton->setFixedSize(100,45);
     hint->setFixedSize(100,45);
     buttonlayout->addWidget(hint);
     erase = new QPushButton("Erase");
-erase->setFont(font2);
-erase->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-erase->setFixedSize(100, 45);
-erase->setDisabled(true);
+    erase->setFont(font2);
+    erase->setStyleSheet(*style);
+    erase->setFixedSize(100, 45);
+    erase->setEnabled(false);
+    erase->setStyleSheet(*styleDis);
+
     QPushButton *pause = new QPushButton("Pause");
     QFont font = pause->font();
     font.setPointSize(15);
     pause->setFont(font);
-   // buttonlayout->addWidget(pause,0,1);
-    pause->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-
+    // buttonlayout->addWidget(pause,0,1);
+    pause->setStyleSheet(*style);
 
     pause->setFixedSize(100, 45);
 
@@ -97,11 +102,11 @@ erase->setDisabled(true);
 
     SigButton *button[9];
     for (int i=0;i<9;i++)
-      {
+    {
         button[i] = new SigButton(i+1);
         button[i]->setMinimumSize(30,30);
         button[i]->setMaximumSize(30,30);
-        button[i]->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 10px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
+        button[i]->setStyleSheet(*numStyle);
 
         std::stringstream ss2;
         ss2 << (i+1);
@@ -111,7 +116,7 @@ erase->setDisabled(true);
         button[i]->setFont(font);
         innerLayout->addWidget(button[i],i,0);
         connect(button[i],SIGNAL(clicked(int)), this, SLOT(button_pressed(int)));
-      }
+    }
 
     leftLayout->addWidget(innerWidget,0,0, Qt::AlignTop);
     splitter->addWidget(wid);
@@ -126,7 +131,7 @@ erase->setDisabled(true);
     n->addWidget(pause, 1,0);
     n->addWidget(hint, 1,1);
     n->addWidget(notebutton,1,2);
-     n->addWidget(erase,1,3);
+    n->addWidget(erase,1,3);
     connect(notebutton, SIGNAL(clicked()), this, SLOT(note()));
     this->setLayout(n);
 
@@ -149,17 +154,17 @@ void puzzleWindow::eraseBox() {
         if (their_solution[s_row][s_col] != 0) {
             their_solution[s_row][s_col] = 0;
             if (item) {
-               QWidget * wid = item->widget();
-               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-               labell->setText("");
+                QWidget * wid = item->widget();
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                labell->setText("");
             }
         }
         if (notes[s_row][s_col].size() != 0) {
             notes[s_row][s_col].clear();
             if (item) {
-               QWidget * wid = item->widget();
-               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-               labell->setText("");
+                QWidget * wid = item->widget();
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                labell->setText("");
             }
         }
         check_erase(s_row,s_col);
@@ -270,13 +275,21 @@ void puzzleWindow::makeGrid() {
 }
 void puzzleWindow::check_erase(int row, int col){
     if (grid[row][col] == 0 && hints[row][col] == 0 && their_solution[row][col] == 0 && notes[row][col].size() == 0 ) {
-        erase->setDisabled(true);
+
+        erase->setEnabled(false);
+        erase->setStyleSheet(*styleDis);
+
     } else if (grid[row][col] != 0 ) {
-        erase->setDisabled(true);
+        erase->setEnabled(false);
+        erase->setStyleSheet(*styleDis);
+
     } else if (hints[row][col] != 0){
-        erase->setDisabled(true);
+        erase->setEnabled(false);
+        erase->setStyleSheet(*styleDis);
+
     } else {
-        erase->setDisabled(false);
+        erase->setEnabled(true);
+        erase->setStyleSheet(*style);
 
     }
 }
@@ -285,12 +298,12 @@ void puzzleWindow::press(int row, int col){
     check_erase(row, col);
     QLayoutItem *item = lay->itemAtPosition(row, col);
     if (lay) {
-       QWidget * wid = item->widget();
+        QWidget * wid = item->widget();
 
-       ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
         int index2 = lay->indexOf(labell);
         if (index2 != -1) {
-        labell->setStyleSheet("border: 3px solid yellow");
+            labell->setStyleSheet("border: 3px solid yellow");
 
         }
 
@@ -328,9 +341,9 @@ void puzzleWindow::button_pressed(int i){
         if (clicked == false) {
             QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
             if (lay) {
-               QWidget * wid = item->widget();
+                QWidget * wid = item->widget();
 
-               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
                     if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){ //trying to remove
@@ -349,8 +362,8 @@ void puzzleWindow::button_pressed(int i){
         } else { //tryna make a note
             QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
             if (lay) {
-               QWidget * wid = item->widget();
-               ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                QWidget * wid = item->widget();
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
                     if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) { //going to delete note
@@ -359,11 +372,11 @@ void puzzleWindow::button_pressed(int i){
                         notes[s_row][s_col].sort();
                         int x = 1;
                         for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
-                           if (*iterator != 0) {
-                            text = text + QString::number(*iterator) + " ";
-                            if (x%3 == 0 && x!=9) text = text + "<br>";
-                            x++;
-                           }
+                            if (*iterator != 0) {
+                                text = text + QString::number(*iterator) + " ";
+                                if (x%3 == 0 && x!=9) text = text + "<br>";
+                                x++;
+                            }
 
                         }
                         labell->setText("<font size=2 color='green'>"+ text + "</font>");
@@ -376,11 +389,11 @@ void puzzleWindow::button_pressed(int i){
                         notes[s_row][s_col].sort();
                         int x = 1;
                         for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
-                           if (*iterator != 0) {
-                            text = text + QString::number(*iterator) + " ";
-                            if (x%3 == 0 && x!=9) text = text + "<br>";
-                            x++;
-                           }
+                            if (*iterator != 0) {
+                                text = text + QString::number(*iterator) + " ";
+                                if (x%3 == 0 && x!=9) text = text + "<br>";
+                                x++;
+                            }
 
                         }
                         labell->setText("<font size=2 color='green'>"+ text + "</font>");
@@ -397,11 +410,11 @@ void puzzleWindow::button_pressed(int i){
 
 void puzzleWindow::checkVictory(){
     bool won = true;
-//    cout << "Checking victory." << endl;
+    //    cout << "Checking victory." << endl;
     for(int i = 0; i < 9 && won; i++){
         for(int j = 0; j < 9 && won; j++){
             if(answer[i][j] != their_solution[i][j]){
-//                cout << "Failed on: row-" << i << " col-" << j << endl;
+                //                cout << "Failed on: row-" << i << " col-" << j << endl;
                 won = false;
             }
         }
@@ -417,7 +430,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
     if(e->text().toInt() > 0 && e->text().toInt() < 10){
         button_pressed(e->text().toInt());
 
-    //Checling for key presses: <,^,>,v arrows
+        //Checling for key presses: <,^,>,v arrows
     } else if(e->key() == Qt::Key_Up && s_row > 0 && s_row < 9){
         press(s_row-1, s_col);
     } else if(e->key() == Qt::Key_Down && s_row > -1 && s_row < 8){
@@ -427,7 +440,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
     } else if(e->key() == Qt::Key_Right && s_col > -1 && s_col < 8){
         press(s_row, s_col+1);
 
-    //Checking for key press: delete
+        //Checking for key press: delete
     } else if(e->key() == Qt::Key_Delete){
         QLayoutItem * item = lay->itemAtPosition(s_row, s_col);
         if (lay) {
@@ -449,37 +462,38 @@ void puzzleWindow::showHint(){
     int i = rand()%9;
     int j = rand()%9;
 
-   while (their_solution[i][j] != 0 || grid[i][j] != 0) {
-    i = rand()%9;
-    j = rand()%9;
-   }
-            if (their_solution[i][j] == 0 && grid[i][j] == 0) {
-                QLayoutItem * item = lay->itemAtPosition(i,j);
-                if (lay) {
-                    QWidget * wid = item->widget();
-                    ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
-                    int index2 = lay->indexOf(labell);
-                    if (index2 != -1) {
-                        labell->setText("<b><font size = 15>" + QString::number(answer[i][j]) + "</font></b>");
-                        their_solution[i][j] = answer[i][j];
+    while (their_solution[i][j] != 0 || grid[i][j] != 0) {
+        i = rand()%9;
+        j = rand()%9;
+    }
+    if (their_solution[i][j] == 0 && grid[i][j] == 0) {
+        QLayoutItem * item = lay->itemAtPosition(i,j);
+        if (lay) {
+            QWidget * wid = item->widget();
+            ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
+            int index2 = lay->indexOf(labell);
+            if (index2 != -1) {
+                labell->setText("<b><font size = 15>" + QString::number(answer[i][j]) + "</font></b>");
+                their_solution[i][j] = answer[i][j];
 
-                        hints[i][j] = answer[i][j];
-                        notes[i][j].clear();
-                    }
-                 return;
+                hints[i][j] = answer[i][j];
+                notes[i][j].clear();
             }
+            return;
+        }
 
     }
 }
 
 void puzzleWindow::note() {
+
+    QString *newstyle = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #ADD8E6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+
     if (clicked == true) {
         clicked = false;
-        notebutton->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6;} QPushButton:pressed{background-color:#fff;}");
-
+        notebutton->setStyleSheet(*style);
     } else {
-        notebutton->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: blue;} QPushButton:pressed{background-color:#fff;}");
-
+        notebutton->setStyleSheet(*newstyle);
         clicked = true;
     }
 }

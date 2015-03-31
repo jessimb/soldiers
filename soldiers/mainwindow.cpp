@@ -8,6 +8,9 @@ QStackedWidget *stackedWidget;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+
+    QIcon icon("icon.ico");
+    setWindowIcon(icon);
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
     mainMenuObj = new mainMenu(this);
@@ -40,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *label = new QLabel("mainWindow");
     stackedWidget->setMinimumSize(500,500);
     layout->addWidget(stackedWidget);
-    layout->addWidget(label);
+   // layout->addWidget(label);
     widget->setLayout(layout);
 
     stackedWidget->setCurrentWidget(mainMenuObj);

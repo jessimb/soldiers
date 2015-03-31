@@ -8,6 +8,7 @@ newGameMenu::newGameMenu(MainWindow *mw)
  setFocusPolicy(Qt::ClickFocus);
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
+    QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     this->setLayout(buttonlayout);
     //buttonlayout->addWidget(label,0,0,1,2);
@@ -27,11 +28,11 @@ newGameMenu::newGameMenu(MainWindow *mw)
     hard->setFixedSize(250, 45);
     expert->setFixedSize(250, 45);
     back->setFixedSize(250, 45);
-    easy->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    medium->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    hard->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    expert->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    back->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    easy->setStyleSheet(*style);
+    medium->setStyleSheet(*style);
+    hard->setStyleSheet(*style);
+    expert->setStyleSheet(*style);
+    back->setStyleSheet(*style);
 
     buttonlayout->addWidget(easy);
     buttonlayout->addWidget(medium);

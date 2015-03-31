@@ -10,6 +10,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
 
+    QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     this->setLayout(buttonlayout);
     QLabel *label = new QLabel();
 //    QString fileName = "Super Sudoku.png";
@@ -33,11 +34,11 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     load->setFixedSize(150, 45);
     leader->setFixedSize(150, 45);
     stats->setFixedSize(150, 45);
-    newGame->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    instr->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    load->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    leader->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    stats->setStyleSheet("QPushButton {border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    newGame->setStyleSheet(*style);
+    instr->setStyleSheet(*style);
+    load->setStyleSheet(*style);
+    leader->setStyleSheet(*style);
+    stats->setStyleSheet(*style);
 
     QWidget * buttonHolder = new QWidget();
     QGridLayout * buttonHolderLayout = new QGridLayout;

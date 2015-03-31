@@ -10,7 +10,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = "Soldier Sudoku"
 TEMPLATE = app
-
+ICON = icon.ico
+win32:RC_ICONS += icon.ico
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -41,3 +42,6 @@ HEADERS  += mainwindow.h \
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    icon.ico
