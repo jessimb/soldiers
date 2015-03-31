@@ -1,5 +1,6 @@
 #include "statswindow.h"
 #include <QLabel>
+#include <QDebug>
 
 statsWindow::statsWindow(MainWindow *mw)
 {
@@ -9,8 +10,23 @@ statsWindow::statsWindow(MainWindow *mw)
     QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
     this->setLayout(buttonlayout);
-    QLabel *label = new QLabel("stats go here");
+    int averageHS=averagehighscore();
+    int averageBS=averagebesttime();
+    QLabel *label = new QLabel("Statistics");
+
+    QString str;
+    str.setNum(averageHS);// val may be any integer value
+    QLabel *highscore = new QLabel;
+    highscore->setText(str);
+
+    QString str2;
+    str2.setNum(averageBS);
+    QLabel *besttime = new QLabel;
+    besttime->setText(str2);
+
     buttonlayout->addWidget(label);
+    buttonlayout->addWidget(highscore);
+    buttonlayout->addWidget(besttime);
 
     QPushButton *back = new QPushButton("Main Menu");
     buttonlayout->addWidget(back);
@@ -32,9 +48,13 @@ statsWindow::~statsWindow()
 }
 int statsWindow::averagehighscore()
 {
-     int averageHS=highScore/totalgamesplayed;
+     //int averageHS=highScore/totalgamesplayed;
+    qDebug()<<"in average high score";
+    return 5;
 }
 int statsWindow::averagebesttime()
 {
-    int averagetime=bestTime/totalgamesplayed;
+    //int averagetime=bestTime/totalgamesplayed;
+    qDebug()<<"in average time";
+    return 2;
 }
