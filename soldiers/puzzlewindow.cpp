@@ -80,7 +80,12 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 
     if(loadGame)
     {
-        load();
+        const char * valid = load();
+        if(valid==nullptr)
+        {
+             stackedWidget->setCurrentIndex(1);
+             return;
+        }
     }
     else
         readFile();
@@ -189,7 +194,8 @@ void puzzleWindow::save(){
 
 char * puzzleWindow::load(){
     char * file= (*new SaveLoad("Used only for Saving")).loadFile();
-
+    if(file==nullptr)
+            return nullptr;
     for(int x=0;x<9;x++)
     {
         for(int y=0;y<9;y++)
