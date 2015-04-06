@@ -10,5 +10,20 @@
         <file>puzzleDatabase/e05.txt</file>
         <file>puzzleDatabase/e04.txt</file>
         <file>puzzleDatabase/e03.txt</file>
+        <file>puzzleDatabase/x05.txt</file>
+        <file>puzzleDatabase/x04.txt</file>
+        <file>puzzleDatabase/x03.txt</file>
+        <file>puzzleDatabase/x02.txt</file>
+        <file>puzzleDatabase/x01.txt</file>
+        <file>puzzleDatabase/m05.txt</file>
+        <file>puzzleDatabase/m04.txt</file>
+        <file>puzzleDatabase/m03.txt</file>
+        <file>puzzleDatabase/m02.txt</file>
+        <file>puzzleDatabase/m01.txt</file>
+        <file>puzzleDatabase/h05.txt</file>
+        <file>puzzleDatabase/h04.txt</file>
+        <file>puzzleDatabase/h03.txt</file>
+        <file>puzzleDatabase/h02.txt</file>
+        <file>puzzleDatabase/h01.txt</file>
     </qresource>
 </RCC>

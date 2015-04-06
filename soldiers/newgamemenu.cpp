@@ -71,7 +71,7 @@ void newGameMenu::gotoPuzzleWindow(int l)
         file = "h0" + ss2.str() + ".txt";
     }
     if (l == 3) {
-        file = "ex0" + ss2.str() + ".txt";
+        file = "x0" + ss2.str() + ".txt";
     }
     mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow, file);
     stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
