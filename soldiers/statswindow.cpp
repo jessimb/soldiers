@@ -19,24 +19,33 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
     int averageHS=averagehighscore();
     int averageBS=averagebesttime();
     QLabel *label = new QLabel("Statistics");
-    QLabel *score = new QLabel("High Score: ");
-    QLabel *time = new QLabel("Best Time: ");
+    QFont f( "Courier New", 20, QFont::Bold);
+    label->setAlignment(Qt::AlignCenter);
+    label->setFont(f);
+    QLabel *score = new QLabel("Average High Score: ");
+    QFont f1( "Courier New", 15);
+    score->setFont(f1);
+    QLabel *time = new QLabel("Average Best Time: ");
+    time->setFont(f1);
 
     QString str;
     str.setNum(averageHS);
     QLabel *highscore = new QLabel;
     highscore->setText(str);
+    QFont f2("Courier New", 15);
+    highscore->setFont(f2);
 
     QString str2;
     str2.setNum(averageBS);
     QLabel *besttime = new QLabel;
     besttime->setText(str2);
+    besttime->setFont(f2);
 
-    buttonlayout->addWidget(label,0,500);
-    buttonlayout->addWidget(score,1,500);
-    buttonlayout->addWidget(highscore,1,500);
+    buttonlayout->addWidget(label);
+    buttonlayout->addWidget(score,1,0);
+    buttonlayout->addWidget(highscore,1,10000);
     buttonlayout->addWidget(time,2,0);
-    buttonlayout->addWidget(besttime,2,500);
+    buttonlayout->addWidget(besttime,2,10000);
     statsholder->setLayout(statsholderlayout);
 
     buttonlayout->addWidget(statsholder);
