@@ -2,12 +2,14 @@
 #include <QLabel>
 #include <QDebug>
 
-statsWindow::statsWindow(MainWindow *mw)
+statsWindow::statsWindow(MainWindow *mw,QString name)
 {
 
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
     QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+
+    username=name;
 
     this->setLayout(buttonlayout);
 //start here
@@ -17,8 +19,8 @@ statsWindow::statsWindow(MainWindow *mw)
     int averageHS=averagehighscore();
     int averageBS=averagebesttime();
     QLabel *label = new QLabel("Statistics");
-    QLabel *score = new QLabel("Average High Score: ");
-    QLabel *time = new QLabel("Average Best Time: ");
+    QLabel *score = new QLabel("High Score: ");
+    QLabel *time = new QLabel("Best Time: ");
 
     QString str;
     str.setNum(averageHS);
@@ -30,11 +32,11 @@ statsWindow::statsWindow(MainWindow *mw)
     QLabel *besttime = new QLabel;
     besttime->setText(str2);
 
-    buttonlayout->addWidget(label,0,10000);
-    buttonlayout->addWidget(score,1,0);
-    buttonlayout->addWidget(highscore,1,10000);
+    buttonlayout->addWidget(label,0,500);
+    buttonlayout->addWidget(score,1,500);
+    buttonlayout->addWidget(highscore,1,500);
     buttonlayout->addWidget(time,2,0);
-    buttonlayout->addWidget(besttime,2,10000);
+    buttonlayout->addWidget(besttime,2,500);
     statsholder->setLayout(statsholderlayout);
 
     buttonlayout->addWidget(statsholder);
@@ -58,13 +60,39 @@ statsWindow::~statsWindow()
 {
 
 }
-int statsWindow::averagehighscore()
+
+void statsWindow::statsfunction(int score, int time)
 {
-     //int averageHS=highScore/totalgamesplayed;
-    return 5;
+    currentscore=score;
+    scorevec.push_front(currentscore);
+    totalgamesplayed++;
+    currenttime=time;
+    timevec.push_front(currenttime);
 }
-int statsWindow::averagebesttime()
+
+int statsWindow::highscore()
 {
-    //int averagetime=bestTime/totalgamesplayed;
-    return 2;
+    for(int i=0;i<scorevec.size()-1;i++)
+    {
+        highScore=0;
+        if(scorevec.at(i)>highScore)
+        {
+            highScore=scorevec.at(i);
+        }
+    }
+    int HS=highScore/totalgamesplayed;
+    return HS;
+}
+int statsWindow::besttime()
+{
+    for(int i=0;i<timevec.size()-1;i++)
+    {
+        bestTime=0;
+        if(timevec.at(i)>bestTime)
+        {
+            bestTime=timevec.at(i);
+        }
+    }
+    int BT=bestTime/totalgamesplayed;
+    return BT;
 }
