@@ -2,6 +2,7 @@
 #define STATSWINDOW_H
 #include "mainwindow.h"
 #include <QWidget>
+#include <QVector>
 
 class MainWindow;
 
@@ -12,15 +13,17 @@ class statsWindow : public QWidget
 public:
     explicit statsWindow(MainWindow *mw = 0);
     ~statsWindow();
-    QTimer *timer;//passed
-    //QString username;//passed
-    int bestTime;
+    double currenttime;
+    double currentscore;
+    QString username;//passed
+    double bestTime;
     int totalgamesplayed;
-    int runningTime;
     int highScore;
-    int averagebesttime();
-    int averagehighscore();
-    int overallstats();
+    QVector<int> scorevec;
+    QVector<int> timevec;
+    int BT();
+    int HS();
+    int statsfunction(int score, int time);
 private:
     MainWindow *mainWindow;
 
