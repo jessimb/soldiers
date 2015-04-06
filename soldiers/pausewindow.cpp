@@ -43,13 +43,12 @@ pauseWindow::pauseWindow(MainWindow *mw)
     connect(save, SIGNAL(clicked()), this, SLOT(saveStay()));
     connect(reset, SIGNAL(clicked()), this, SLOT(resetToPuzzle()));
     connect(mainMenu, SIGNAL(clicked()), this, SLOT(goBackToMainMenu()));
-
-
 }
 
 void pauseWindow::goBackToPuzzle()
 {
-    stackedWidget->setCurrentIndex(7);
+    stackedWidget->setCurrentIndex(stackedWidget->count() - 1);
+    static_cast<puzzleWindow*>(stackedWidget->currentWidget())->clock->start(1000);
 }
 
 void pauseWindow::goBackToMainMenu()
@@ -71,7 +70,8 @@ void pauseWindow::saveStay()
 void pauseWindow::resetToPuzzle()
 {
     //reload the puzzle. probably should ask if wants to save
-    stackedWidget->setCurrentIndex(7);
+    //Doesn't work as intended!
+    stackedWidget->setCurrentIndex(stackedWidget->count() - 1);
 }
 
 pauseWindow::~pauseWindow()

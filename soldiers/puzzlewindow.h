@@ -6,6 +6,8 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <string>
+#include <QTimer>
+#include <QLabel>
 class MainWindow;
 
 class puzzleWindow : public QWidget
@@ -29,12 +31,17 @@ public:
     std::string oFile = "";
     std::list<int> notes[9][9];
     int hints[9][9] = {{0}};
+    int numHints;
     void keyPressEvent(QKeyEvent* e);
     QPushButton *notebutton;
     QPushButton *erase;
     void check_erase(int row, int col);
-
-
+    QTimer * clock;
+    QLabel * timeLabel;
+    int time;
+    int h;
+    int m;
+    int s;
 
 private:
     MainWindow *mainWindow;
@@ -46,12 +53,14 @@ private:
 
 private slots:
     void goBackToPuzzle();
+
 public slots:
     void press(int row, int col);
     void button_pressed(int i);
     void showHint();
     void note();
     void eraseBox();
+    void incrementTime();
 };
 
 

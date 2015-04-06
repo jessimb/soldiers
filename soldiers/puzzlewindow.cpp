@@ -25,6 +25,11 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     s_row = -1;
     s_col = -1;
     oFile = file;
+    time = 0;
+    h = 0;
+    m = 0;
+    s = 0;
+    numHints = 0;
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
     style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
@@ -37,11 +42,14 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     this->setStyleSheet("background-color:#fafad2;");
     buttonlayout->addWidget(label);
 
+    timeLabel = new QLabel("00:00:00");
+
     notebutton = new QPushButton("Add Note");
 
     QPushButton *hint = new QPushButton("Get Hint");
     QFont font2 = hint->font();
     font2.setPointSize(15);
+    timeLabel->setFont(font2);
     hint->setFont(font2);
     notebutton->setFont(font2);
     // buttonlayout->addWidget(pause,0,1);
@@ -130,22 +138,28 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     list.push_back(70);
     splitter->setSizes(list);
     QGridLayout *n = new QGridLayout();
-    n->addWidget(splitter,0,0,1,4);
+    n->addWidget(splitter,0,0,1,5);
     n->addWidget(pause, 1,0);
     n->addWidget(hint, 1,1);
     n->addWidget(notebutton,1,2);
     n->addWidget(erase,1,3);
+    n->addWidget(timeLabel,1,4);
     connect(notebutton, SIGNAL(clicked()), this, SLOT(note()));
     this->setLayout(n);
 
+    clock = new QTimer();
 
-
+    clock->start(1000);
+    connect(clock, SIGNAL(timeout()), this, SLOT(incrementTime()));
 }
 
 void puzzleWindow::goBackToPuzzle()
 {
+    cout << "In puzzleWindow::goBackToPuzzle (Which is terrible naming conventions cause its going to pausewindow). Is pause always index 5?" << endl;
+    clock->stop();
     stackedWidget->setCurrentIndex(5);
 }
+
 puzzleWindow::~puzzleWindow()
 {
 
@@ -487,10 +501,11 @@ void puzzleWindow::showHint(){
 
                 hints[i][j] = answer[i][j];
                 notes[i][j].clear();
+                time += 60*5*numHints++;
+                checkVictory();
             }
             return;
         }
-
     }
 }
 
@@ -504,5 +519,20 @@ void puzzleWindow::note() {
     } else {
         notebutton->setStyleSheet(*newstyle);
         clicked = true;
+    }
+}
+
+void puzzleWindow::incrementTime(){
+    time++;
+    s = time % 60;
+    m = time / 60 % 60;
+    h = time / (60*60);
+    QString hStr = QString("%1").arg(h,2,10,QChar('0'));
+    QString mStr = QString("%1").arg(m,2,10,QChar('0'));
+    QString sStr = QString("%1").arg(s,2,10,QChar('0'));
+    cout << time << endl;
+    timeLabel->setText(hStr + ":" + mStr + ":" + sStr);
+    if(time < 0){
+        cout << "Wraparound error." << endl;
     }
 }
