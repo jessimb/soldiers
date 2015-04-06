@@ -2,6 +2,7 @@
     <qresource prefix="/images">
         <file>soldierLogo.png</file>
         <file>instrboard.png</file>
+        <file>Fireworks.gif</file>
     </qresource>
     <qresource prefix="/maps">
         <file>puzzleDatabase/e02.txt</file>

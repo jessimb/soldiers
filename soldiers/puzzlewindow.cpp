@@ -443,8 +443,12 @@ void puzzleWindow::checkVictory(){
         }
     }
     if(won){
-        cout << "Congrats! You've won!" << endl;
+        cout << "Congrats! You've won! Your score was - " << time << "!" << endl;
+        clock->stop();
         stackedWidget->setCurrentIndex(6);
+        cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
+//        Janky and needs to be fixed.
+//        static_cast<winWindow*>(stackedWidget->currentWidget())->layout() = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
     }
 }
 
@@ -453,7 +457,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
     if(e->text().toInt() > 0 && e->text().toInt() < 10){
         button_pressed(e->text().toInt());
 
-        //Checling for key presses: <,^,>,v arrows
+    //Checking for key presses: <,^,>,v arrows
     } else if(e->key() == Qt::Key_Up && s_row > 0 && s_row < 9){
         press(s_row-1, s_col);
     } else if(e->key() == Qt::Key_Down && s_row > -1 && s_row < 8){
@@ -463,7 +467,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
     } else if(e->key() == Qt::Key_Right && s_col > -1 && s_col < 8){
         press(s_row, s_col+1);
 
-        //Checking for key press: delete
+    //Checking for key press: delete
     } else if(e->key() == Qt::Key_Delete){
         QLayoutItem * item = lay->itemAtPosition(s_row, s_col);
         if (lay) {
@@ -530,7 +534,7 @@ void puzzleWindow::incrementTime(){
     QString hStr = QString("%1").arg(h,2,10,QChar('0'));
     QString mStr = QString("%1").arg(m,2,10,QChar('0'));
     QString sStr = QString("%1").arg(s,2,10,QChar('0'));
-    cout << time << endl;
+//    cout << time << endl;
     timeLabel->setText(hStr + ":" + mStr + ":" + sStr);
     if(time < 0){
         cout << "Wraparound error." << endl;

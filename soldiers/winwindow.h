@@ -2,6 +2,7 @@
 #define WINWINDOW_H
 #include "mainwindow.h"
 #include <QWidget>
+#include <QLabel>
 
 class MainWindow;
 
@@ -12,6 +13,7 @@ class winWindow : public QWidget
 public:
     explicit winWindow(MainWindow *mw = 0);
     ~winWindow();
+    QLabel * scoreLabel;
 
 private:
     MainWindow *mainWindow;
