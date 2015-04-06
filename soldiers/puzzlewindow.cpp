@@ -30,8 +30,6 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     styleDis = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; } QPushButton:pressed{background-color:#fff;}");
     QString *numStyle = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 10px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-
-
     setFocusPolicy(Qt::ClickFocus);
 
     // this->setLayout(buttonlayout);
