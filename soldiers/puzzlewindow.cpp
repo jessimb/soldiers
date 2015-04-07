@@ -18,6 +18,11 @@ bool clicked = false;
 
 puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 {
+    for(int x=0;x<9;x++)
+    {
+        for(int y=0;y<9;y++)
+            hints[x][y]=0;
+    }
     GridLength = 540;
     GridPos = 50;
     BoxLength = GridLength/9;

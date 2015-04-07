@@ -30,7 +30,7 @@ public:
     int BoxLength;
     std::string oFile = "";
     std::list<int> notes[9][9];
-    int hints[9][9] = {{0}};
+    int hints[9][9];
     int numHints;
     void keyPressEvent(QKeyEvent* e);
     QPushButton *notebutton;
