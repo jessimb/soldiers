@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'fbapi_gui.ui'
 **
-** Created: Mon 21. Mar 15:26:53 2011
-**      by: Qt User Interface Compiler version 4.7.1
+** Created by: Qt User Interface Compiler version 5.4.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -11,6 +10,7 @@
 #define UI_FBAPI_GUI_H
 
 #include <QtCore/QVariant>
+#include <QtWebKitWidgets/QWebView>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
@@ -23,7 +23,6 @@
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <QWebView>
 
 QT_BEGIN_NAMESPACE
 
@@ -49,50 +48,50 @@ public:
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
+            MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(463, 480);
         actionPreferences = new QAction(MainWindow);
-        actionPreferences->setObjectName(QString::fromUtf8("actionPreferences"));
+        actionPreferences->setObjectName(QStringLiteral("actionPreferences"));
         actionClose = new QAction(MainWindow);
-        actionClose->setObjectName(QString::fromUtf8("actionClose"));
+        actionClose->setObjectName(QStringLiteral("actionClose"));
         actionQuit = new QAction(MainWindow);
-        actionQuit->setObjectName(QString::fromUtf8("actionQuit"));
+        actionQuit->setObjectName(QStringLiteral("actionQuit"));
         centralwidget = new QWidget(MainWindow);
-        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        centralwidget->setObjectName(QStringLiteral("centralwidget"));
         centralwidget->setMaximumSize(QSize(16777214, 16777215));
         verticalLayout = new QVBoxLayout(centralwidget);
         verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         stackedWidget = new QStackedWidget(centralwidget);
-        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
+        stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
         page = new QWidget();
-        page->setObjectName(QString::fromUtf8("page"));
+        page->setObjectName(QStringLiteral("page"));
         verticalLayout_2 = new QVBoxLayout(page);
         verticalLayout_2->setSpacing(0);
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         webView = new QWebView(page);
-        webView->setObjectName(QString::fromUtf8("webView"));
+        webView->setObjectName(QStringLiteral("webView"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(webView->sizePolicy().hasHeightForWidth());
         webView->setSizePolicy(sizePolicy);
         webView->setAutoFillBackground(true);
-        webView->setUrl(QUrl("about:blank"));
+        webView->setUrl(QUrl(QStringLiteral("about:blank")));
 
         verticalLayout_2->addWidget(webView);
 
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
-        page_2->setObjectName(QString::fromUtf8("page_2"));
+        page_2->setObjectName(QStringLiteral("page_2"));
         verticalLayout_3 = new QVBoxLayout(page_2);
         verticalLayout_3->setSpacing(0);
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         treeView = new QTreeView(page_2);
-        treeView->setObjectName(QString::fromUtf8("treeView"));
+        treeView->setObjectName(QStringLiteral("treeView"));
         treeView->setAlternatingRowColors(true);
         treeView->setRootIsDecorated(false);
 
@@ -104,13 +103,13 @@ public:
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName(QString::fromUtf8("menubar"));
+        menubar->setObjectName(QStringLiteral("menubar"));
         menubar->setGeometry(QRect(0, 0, 463, 22));
         menuFile = new QMenu(menubar);
-        menuFile->setObjectName(QString::fromUtf8("menuFile"));
+        menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName(QString::fromUtf8("statusbar"));
+        statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
         menubar->addAction(menuFile->menuAction());

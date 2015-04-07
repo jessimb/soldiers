@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QFileDialog>
 #include "saveload.h"
+#include "MainWindowContainer.h"
 using namespace std;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
 {

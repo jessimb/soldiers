@@ -7,7 +7,7 @@
 
 #include "UT.h"
 #include <QtCore/QDateTime>
-
+#include <QtScript/QScriptValueIterator>
 UT* UT::_instance = NULL ;
 QFile UT::m_Debugfile("log.log");
 
