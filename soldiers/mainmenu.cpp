@@ -29,17 +29,19 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     QPushButton *load = new QPushButton("Load Game");
     QPushButton *leader = new QPushButton("Leaderboard");
     QPushButton *stats = new QPushButton("Statistics");
+    QPushButton *fb = new QPushButton("Facebook Login");
     newGame->setFixedSize(312, 45);
     instr->setFixedSize(150, 45);
     load->setFixedSize(150, 45);
     leader->setFixedSize(150, 45);
+    fb->setFixedSize(150, 45);
     stats->setFixedSize(150, 45);
     newGame->setStyleSheet(*style);
     instr->setStyleSheet(*style);
     load->setStyleSheet(*style);
     leader->setStyleSheet(*style);
     stats->setStyleSheet(*style);
-
+    fb->setStyleSheet(*style);
     QWidget * buttonHolder = new QWidget();
     QGridLayout * buttonHolderLayout = new QGridLayout;
     buttonHolderLayout->setHorizontalSpacing(0);
@@ -48,6 +50,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     buttonHolderLayout->addWidget(load, 1,1);
     buttonHolderLayout->addWidget(leader,2,0);
     buttonHolderLayout->addWidget(stats,2,1);
+    buttonHolderLayout->addWidget(fb,3,0,Qt::AlignCenter);
     buttonHolder->setLayout(buttonHolderLayout);
 
     buttonlayout->addWidget(buttonHolder);
