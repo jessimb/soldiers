@@ -14,7 +14,7 @@
 #include "saveload.h"
 
 using namespace std;
-bool clicked = false;
+
 
 puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 {
@@ -25,6 +25,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     }
     GridLength = 540;
     GridPos = 50;
+    clicked = false;
     BoxLength = GridLength/9;
     lay = new QGridLayout();
     s_row = -1;

@@ -24,6 +24,7 @@ public:
     void resetPuzzle();
     char* load();
     int grid[9][9];
+    bool clicked;
     int their_solution[9][9];
     int answer[9][9];
     int GridLength;
