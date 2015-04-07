@@ -72,7 +72,8 @@ void pauseWindow::resetToPuzzle()
     //reload the puzzle. probably should ask if wants to save
     //Doesn't work as intended!
     stackedWidget->setCurrentIndex(stackedWidget->count() - 1);
-    //static_cast<puzzleWindow*>(stackedWidget->currentWidget())->resetPuzzle();
+    static_cast<puzzleWindow*>(stackedWidget->currentWidget())->resetPuzzle();
+    static_cast<puzzleWindow*>(stackedWidget->currentWidget())->clock->start(1000);
 }
 
 pauseWindow::~pauseWindow()

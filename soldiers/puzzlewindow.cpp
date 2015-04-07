@@ -168,6 +168,7 @@ void puzzleWindow::resetPuzzle()
             notes[i][j].clear();
         }
     }
+    makeGrid();
 }
 
 void puzzleWindow::goBackToPuzzle()

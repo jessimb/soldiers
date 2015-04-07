@@ -90,6 +90,8 @@ int statsWindow::highscorefunc()
             highScore=scorevec.at(i);
         }
     }
+    if(totalgamesplayed == 0)
+        return 0;
     int HS=highScore/totalgamesplayed;
     return HS;
 }
