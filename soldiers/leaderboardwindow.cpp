@@ -38,9 +38,9 @@ leaderboardWindow::leaderboardWindow(MainWindow *mw)
     third->setAlignment(Qt::AlignCenter);
 
     buttonlayout->addWidget(label);
-    buttonlayout->addWidget(one);
-    buttonlayout->addWidget(two);
-    buttonlayout->addWidget(three);
+    buttonlayout->addWidget(first);
+    buttonlayout->addWidget(second);
+    buttonlayout->addWidget(third);
 
     QPushButton *back = new QPushButton("Main Menu");
     buttonlayout->addWidget(back);

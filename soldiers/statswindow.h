@@ -5,13 +5,13 @@
 #include <QVector>
 
 class MainWindow;
-
+class QString;
 class statsWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit statsWindow(MainWindow *mw = 0);
+    explicit statsWindow(MainWindow *mw = 0,QString name="");
     ~statsWindow();
     double currenttime;
     double currentscore;
@@ -19,6 +19,8 @@ public:
     double bestTime;
     int totalgamesplayed;
     int highScore;
+    int highscorefunc();
+    int besttimefunc();
     QVector<int> scorevec;
     QVector<int> timevec;
     int BT();

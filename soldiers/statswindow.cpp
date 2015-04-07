@@ -16,8 +16,8 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
     QWidget *statsholder = new QWidget;
     QGridLayout *statsholderlayout = new QGridLayout;
 
-    int averageHS=averagehighscore();
-    int averageBS=averagebesttime();
+    int averageHS= highscorefunc();
+    int averageBS= besttimefunc();
     QLabel *label = new QLabel("Statistics");
     QFont f( "Courier New", 20, QFont::Bold);
     label->setAlignment(Qt::AlignCenter);
@@ -79,7 +79,7 @@ void statsWindow::statsfunction(int score, int time)
     timevec.push_front(currenttime);
 }
 
-int statsWindow::highscore()
+int statsWindow::highscorefunc()
 {
     highScore=0;
     for(int i=0;i<scorevec.size()-1;i++)
@@ -93,7 +93,7 @@ int statsWindow::highscore()
     int HS=highScore/totalgamesplayed;
     return HS;
 }
-int statsWindow::besttime()
+int statsWindow::besttimefunc()
 {
     bestTime=0;
     for(int i=0;i<timevec.size()-1;i++)
