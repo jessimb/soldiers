@@ -25,7 +25,7 @@ public:
     QVector<int> timevec;
     int BT();
     int HS();
-    int statsfunction(int score, int time);
+    void statsfunction(int score, int time);
 private:
     MainWindow *mainWindow;
 
