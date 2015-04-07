@@ -21,6 +21,7 @@ public:
     void makeGrid();
     void save();
     void checkVictory();
+    void resetPuzzle();
     char* load();
     int grid[9][9];
     int their_solution[9][9];

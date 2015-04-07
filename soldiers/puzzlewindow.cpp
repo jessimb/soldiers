@@ -157,6 +157,18 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     clock->start(1000);
     connect(clock, SIGNAL(timeout()), this, SLOT(incrementTime()));
 }
+void puzzleWindow::resetPuzzle()
+{
+    for(int i = 0; i < 9; i++)
+    {
+        for(int j = 0; j < 9; j++)
+        {
+            their_solution[i][j] = 0;
+            hints[i][j] = 0;
+            notes[i][j].clear();
+        }
+    }
+}
 
 void puzzleWindow::goBackToPuzzle()
 {
