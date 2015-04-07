@@ -81,9 +81,10 @@ void statsWindow::statsfunction(int score, int time)
 
 int statsWindow::highscore()
 {
+    highScore=0;
     for(int i=0;i<scorevec.size()-1;i++)
     {
-        highScore=0;
+
         if(scorevec.at(i)>highScore)
         {
             highScore=scorevec.at(i);
@@ -94,9 +95,9 @@ int statsWindow::highscore()
 }
 int statsWindow::besttime()
 {
+    bestTime=0;
     for(int i=0;i<timevec.size()-1;i++)
     {
-        bestTime=0;
         if(timevec.at(i)>bestTime)
         {
             bestTime=timevec.at(i);
