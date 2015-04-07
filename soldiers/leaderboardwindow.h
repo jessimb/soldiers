@@ -2,6 +2,7 @@
 #define LEADERBOARDWINDOW_H
 #include "mainwindow.h"
 #include <QWidget>
+#include <QVector>
 
 class MainWindow;
 
@@ -12,6 +13,11 @@ class leaderboardWindow : public QWidget
 public:
     explicit leaderboardWindow(MainWindow *mw = 0);
     ~leaderboardWindow();
+    QVector<int> topscores;
+    void TP();
+    int one;
+    int two;
+    int three;
 
 private:
     MainWindow *mainWindow;
