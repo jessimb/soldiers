@@ -12,6 +12,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     QGridLayout *buttonlayout = new QGridLayout;
 
     QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+    QString *fbstyle = new QString("QPushButton {font-family: \"Lucida Grande\"; font-size: 18px; border:1px solid #000;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     this->setLayout(buttonlayout);
     QLabel *label = new QLabel();
 //    QString fileName = "Super Sudoku.png";
@@ -21,6 +22,8 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     this->setStyleSheet("background-color:#FAFAD2;");
     QPixmap pixelMap = QPixmap(":/images/soldierLogo.png");
     QPixmap tempShrink = pixelMap.scaled(QSize(400,400),Qt::KeepAspectRatio);
+
+
     label->setPixmap(tempShrink);
     label->setAlignment(Qt::AlignCenter);
     buttonlayout->addWidget(label,0,0);
@@ -30,19 +33,29 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     QPushButton *load = new QPushButton("Load Game");
     QPushButton *leader = new QPushButton("Leaderboard");
     QPushButton *stats = new QPushButton("Statistics");
-    QPushButton *fb = new QPushButton("Facebook Login");
+    QPushButton *fb = new QPushButton();
     newGame->setFixedSize(312, 45);
     instr->setFixedSize(150, 45);
     load->setFixedSize(150, 45);
     leader->setFixedSize(150, 45);
-    fb->setFixedSize(150, 45);
     stats->setFixedSize(150, 45);
+    fb->setFixedSize(150, 30);
+
+
+
+    QPixmap pixelMapFb = QPixmap(":/images/facebooklogin.png");
+    QPixmap tempShrinkFb = pixelMapFb.scaled(QSize(150,30),Qt::KeepAspectRatio);
+    QIcon ButtonIcon(tempShrinkFb);
+    fb->setIcon(ButtonIcon);
+    fb->setIconSize(tempShrinkFb.rect().size());
+
     newGame->setStyleSheet(*style);
     instr->setStyleSheet(*style);
     load->setStyleSheet(*style);
     leader->setStyleSheet(*style);
     stats->setStyleSheet(*style);
-    fb->setStyleSheet(*style);
+    fb->setStyleSheet(*fbstyle);
+
     QWidget * buttonHolder = new QWidget();
     QGridLayout * buttonHolderLayout = new QGridLayout;
     buttonHolderLayout->setHorizontalSpacing(0);
@@ -51,7 +64,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     buttonHolderLayout->addWidget(load, 1,1);
     buttonHolderLayout->addWidget(leader,2,0);
     buttonHolderLayout->addWidget(stats,2,1);
-    buttonHolderLayout->addWidget(fb,3,0,Qt::AlignCenter);
+    buttonHolderLayout->addWidget(fb,3,0,1,2,Qt::AlignHCenter);
     buttonHolder->setLayout(buttonHolderLayout);
 
     buttonlayout->addWidget(buttonHolder);
