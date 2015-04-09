@@ -20,6 +20,7 @@ private slots:
     void gotoPuzzleWindow();
     void gotoStatsWindow();
     void gotoLeaderboard();
+    void gotoFacebook();
 //    void gotoPauseWindow();
 
 private:

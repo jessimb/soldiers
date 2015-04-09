@@ -62,6 +62,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     connect(load,SIGNAL(clicked()),this,SLOT(gotoPuzzleWindow()));
     connect(leader,SIGNAL(clicked()),this,SLOT(gotoLeaderboard()));
     connect(stats,SIGNAL(clicked()),this,SLOT(gotoStatsWindow()));
+    connect(fb,SIGNAL(clicked()),this,SLOT(gotoFacebook()));
 }
 
 void mainMenu::gotoNewGameMenu()
@@ -95,7 +96,12 @@ void mainMenu::gotoStatsWindow()
     stackedWidget->setCurrentIndex(3);
 }
 
+void mainMenu::gotoFacebook()
+{
+    MainWindowContainer *m= new MainWindowContainer();
+    m->show();
 
+}
 
 mainMenu::~mainMenu()
 {

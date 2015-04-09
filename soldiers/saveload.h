@@ -10,7 +10,7 @@ class SaveLoad : public QWidget
     Q_OBJECT
 public:
     SaveLoad(const char *);
-    static const int boardSize=81*3;//+9*81;
+    static const int boardSize=81*4+9*9*9;//+9*81;
 private:
 
     const char * board;

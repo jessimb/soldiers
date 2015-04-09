@@ -214,10 +214,25 @@ void puzzleWindow::save(){
     {
         for(int y=0;y<9;y++)
         {
+
             file[x*9+y]=(char)('0'+grid[x][y]);
             file[x*9+y+81]=(char)('0'+their_solution[x][y]);
             cout<<their_solution[x][y]<<endl;
             file[x*9+y+81*2]=(char)('0'+answer[x][y]);
+            file[x*9+y+81*3]=(char)('0'+hints[x][y]);
+            for(int i=0;i<9;i++)
+            {
+                int storedvalue=0;
+                for(list<int>::iterator it =notes[x][y].begin();it!=notes[x][y].end();it++)
+                {
+
+                    if(i==*it)
+                    {
+                        storedvalue=1;
+                    }
+                }
+                file[(x*9+y)*9+81*4+i]=(char)('0'+storedvalue);
+            }
         }
     }
     (*new SaveLoad(file)).saveFile();
@@ -233,10 +248,16 @@ char * puzzleWindow::load(){
         {
 
             grid[x][y]=file[x*9+y]-'0';
-
             their_solution[x][y]=file[x*9+y+81]-'0';
-            cout<<their_solution[x][y]<<endl;
             answer[x][y]=file[x*9+y+81*2]-'0';
+            hints[x][y]=file[x*9+y+81*3]-'0';
+            for(int i=0;i<9;i++)
+            {
+                int a= file[(x*9+y)*9+81*4+i]-'0';
+                if(a>0)
+                    notes[x][y].push_back(i);
+
+            }
         }
     }
 
