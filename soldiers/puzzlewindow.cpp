@@ -39,7 +39,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
     style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
-    styleDis = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; } QPushButton:pressed{background-color:#fff;}");
+    styleDis = new QString("QPushButton {font-family: \"Courier New\"; font-size: 10px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF} QPushButton:pressed{background-color:#fff;}");
     QString *numStyle = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 10px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     setFocusPolicy(Qt::ClickFocus);
 
@@ -52,25 +52,25 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 
     notebutton = new QPushButton("Add Note");
 
-    QPushButton *hint = new QPushButton("Get Hint");
+    hint = new QPushButton("Get Hint\nAdds " + QString::number(60*5*numHints) + " seconds");
     QFont font2 = hint->font();
     font2.setPointSize(15);
     timeLabel->setFont(font2);
     hint->setFont(font2);
     notebutton->setFont(font2);
     // buttonlayout->addWidget(pause,0,1);
-    hint->setStyleSheet(*style);
+    hint->setStyleSheet(*styleDis);
     notebutton->setStyleSheet(*style);
 
-    notebutton->setFixedSize(100,45);
-    hint->setFixedSize(100,45);
+    notebutton->setFixedSize(120,45);
+    hint->setFixedSize(120,45);
     buttonlayout->addWidget(hint);
+
     erase = new QPushButton("Erase");
     erase->setFont(font2);
     erase->setStyleSheet(*style);
-    erase->setFixedSize(100, 45);
+    erase->setFixedSize(120, 45);
     erase->setEnabled(false);
-    erase->setStyleSheet(*styleDis);
 
     QPushButton *pause = new QPushButton("Pause");
     QFont font = pause->font();
@@ -79,7 +79,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     // buttonlayout->addWidget(pause,0,1);
     pause->setStyleSheet(*style);
 
-    pause->setFixedSize(100, 45);
+    pause->setFixedSize(120, 45);
 
     connect(pause, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
     connect(hint, SIGNAL(clicked()), this, SLOT(showHint()));
@@ -488,7 +488,8 @@ void puzzleWindow::checkVictory(){
         stackedWidget->setCurrentIndex(6);
         cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
 //        Janky and needs to be fixed.
-//        static_cast<winWindow*>(stackedWidget->currentWidget())->layout() = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
+        static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
+        static_cast<winWindow*>(stackedWidget->currentWidget())->updateScore();
     }
 }
 
@@ -546,6 +547,7 @@ void puzzleWindow::showHint(){
                 hints[i][j] = answer[i][j];
                 notes[i][j].clear();
                 time += 60*5*numHints++;
+                hint->setText("Get Hint\nAdds " + QString::number(60*5*numHints) + " seconds");
                 checkVictory();
             }
             return;

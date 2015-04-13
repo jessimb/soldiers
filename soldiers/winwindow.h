@@ -14,6 +14,8 @@ public:
     explicit winWindow(MainWindow *mw = 0);
     ~winWindow();
     QLabel * scoreLabel;
+    QGridLayout * buttonLayout;
+    void updateScore();
 
 private:
     MainWindow *mainWindow;
