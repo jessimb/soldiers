@@ -1,4 +1,5 @@
 #include "statswindow.h"
+#include "statsfunc.h"
 #include <QLabel>
 #include <QDebug>
 #include <unordered_map>
@@ -39,22 +40,20 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
 
     QString str;
     str.setNum(averageHS);
-    QLabel *highscore = new QLabel;
-    highscore->setText(str);
+    highscorelabel->setText(str);
     QFont f2("Courier New", 15);
-    highscore->setFont(f2);
+    highscorelabel->setFont(f2);
 
     QString str2;
     str2.setNum(averageBS);
-    QLabel *besttime = new QLabel;
-    besttime->setText(str2);
-    besttime->setFont(f2);
+    besttimelabel->setText(str2);
+    besttimelabel->setFont(f2);
 
     buttonlayout->addWidget(label);
     buttonlayout->addWidget(score,1,0);
-    buttonlayout->addWidget(highscore,1,10000);
+    buttonlayout->addWidget(highscorelabel,1,10000);
     buttonlayout->addWidget(time,2,0);
-    buttonlayout->addWidget(besttime,2,10000);
+    buttonlayout->addWidget(besttimelabel,2,10000);
     statsholder->setLayout(statsholderlayout);
 
     buttonlayout->addWidget(statsholder);
@@ -74,6 +73,31 @@ void statsWindow::gotoMainMenu()
 {
     stackedWidget->setCurrentIndex(0);
 }
+void statsWindow::updatestats(QString name)
+{
+    statsfunc* currentUser = users.find(name.toStdString())->second;
+    bestTime=currentUser->bestTime;
+    totalgamesplayed=currentUser->totalgamesplayed;
+    highScore=currentUser->highScore;
+    scorevec=currentUser->scorevec;
+    timevec=currentUser->timevec;
+
+    int averageHS= highscorefunction();
+    int averageBS= besttimefunction();
+
+    QString str;
+    str.setNum(averageHS);
+    highscorelabel->setText(str);
+    QFont f2("Courier New", 15);
+    highscorelabel->setFont(f2);
+
+    QString str2;
+    str2.setNum(averageBS);
+    besttimelabel->setText(str2);
+    besttimelabel->setFont(f2);
+
+}
+
 statsWindow::~statsWindow()
 {
 
