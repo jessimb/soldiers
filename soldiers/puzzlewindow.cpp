@@ -69,6 +69,21 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     timeLabel = new QLabel("00:00:00");
 
     notebutton = new QPushButton("Add Note");
+    undoButton = new QPushButton();
+    redoButton = new QPushButton();
+
+    QPixmap pixelMapUn = QPixmap(":/images/arrow-left.jpg");
+    QPixmap tempShrinkUn = pixelMapUn.scaled(QSize(150,30),Qt::KeepAspectRatio);
+    QIcon ButtonIcon(tempShrinkUn);
+    undoButton->setIcon(ButtonIcon);
+    undoButton->setIconSize(tempShrinkUn.rect().size());
+
+    QPixmap pixelMapRe = QPixmap(":/images/arrow-right.jpg");
+    QPixmap tempShrinkRe = pixelMapRe.scaled(QSize(150,30),Qt::KeepAspectRatio);
+    QIcon ButtonIcon2(tempShrinkRe);
+    redoButton->setIcon(ButtonIcon2);
+    redoButton->setIconSize(tempShrinkRe.rect().size());
+
 
     hint = new QPushButton("Get Hint\nAdds " + QString::number(60*5*numHints) + " seconds");
     QFont font2 = hint->font();
@@ -100,6 +115,8 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     connect(pause, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
     connect(hint, SIGNAL(clicked()), this, SLOT(showHint()));
     connect(erase, SIGNAL(clicked()), this, SLOT(eraseSlot()));
+    connect(undoButton, SIGNAL(clicked()), this, SLOT(undoSlot()));
+    connect(redoButton, SIGNAL(clicked()), this, SLOT(redoSlot()));
 
     QWidget *wid = new QWidget;
     wid->setLayout(lay);
@@ -136,11 +153,14 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 
         wid->setStyleSheet("QFrame { background-color: rgb(219, 226, 228); }");
 
+
+
         QFrame *innerWidget = new QFrame();
         QGridLayout *innerLayout = new QGridLayout();
         innerWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         innerWidget->setLayout(innerLayout);
-
+        innerLayout->addWidget(undoButton, 0, 0);
+        innerLayout->addWidget(redoButton, 1, 0);
         SigButton *button[9];
         for (int i=0;i<9;i++)
         {
@@ -155,7 +175,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
             font.setPointSize(15);
             button[i]->setText(QString::fromStdString(ss2.str()));
             button[i]->setFont(font);
-            innerLayout->addWidget(button[i],i,0);
+            innerLayout->addWidget(button[i],i+2,0);
             connect(button[i],SIGNAL(clicked(int)), this, SLOT(button_pressed(int)));
         }
 
@@ -181,17 +201,26 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 
         clock->start(1000);
         connect(clock, SIGNAL(timeout()), this, SLOT(incrementTime()));
+
     }
 }
+void puzzleWindow::undoSlot()
+{
+
+    undoAct->trigger();
+}
+
+void puzzleWindow::redoSlot()
+{
+    redoAct->trigger();
+}
+
 void puzzleWindow::resetPuzzle()
 {
     for(int i = 0; i < 9; i++)
     {
         for(int j = 0; j < 9; j++)
         {
-            //            their_solution[i][j] = 0;
-            //            hints[i][j] = 0;
-            //            notes[i][j].clear();
 
 
             if (i != -1 && j != -1) {
@@ -295,10 +324,10 @@ void puzzleWindow::addNum(int row, int col, int i){
         QWidget * wid = item->widget();
 
         ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-    labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
+        labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
     }
     their_solution[row][col] = i;
-     check_erase(row,col);
+    check_erase(row,col);
 }
 
 
@@ -338,9 +367,9 @@ void puzzleWindow::addCom(int row, int col, int i){
         QWidget * wid = item->widget();
 
         ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-    labell->setText("<font size=2 color='green'>"+ text + "</font>");
+        labell->setText("<font size=2 color='green'>"+ text + "</font>");
     }
- check_erase(row,col);
+    check_erase(row,col);
 }
 
 void puzzleWindow::delCom(int row, int col, int i){
@@ -363,7 +392,7 @@ void puzzleWindow::delCom(int row, int col, int i){
         ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
         labell->setText("<font size=2 color='green'>"+ text + "</font>");
     }
-     check_erase(row,col);
+    check_erase(row,col);
 }
 
 void puzzleWindow::insertValue(int r, int c, int d)

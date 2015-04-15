@@ -52,6 +52,8 @@ public:
     QUndoStack *undoStack;
     QAction *undoAct;
     QAction *redoAct;
+    QPushButton *undoButton;
+    QPushButton *redoButton;
     void delCom(int row, int col, int i);
     void addCom(int row, int col, int i);
     void delNum(int row, int col, int i);
@@ -81,6 +83,8 @@ public slots:
     void eraseSlot();
     void insertValue(int r, int c, int d);
     void insertNotes(int r, int c, std::list<int> notes);
+    void undoSlot();
+    void redoSlot();
 };
 
 
