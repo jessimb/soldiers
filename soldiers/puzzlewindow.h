@@ -40,8 +40,6 @@ public:
     void keyPressEvent(QKeyEvent* e);
     QPushButton *notebutton;
     QPushButton *erase;
-    QPushButton *undoButton;
-    QPushButton *redoButton;
     void check_erase(int row, int col);
     QTimer * clock;
     QLabel * timeLabel;

@@ -43,7 +43,6 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
 
-
     undoStack = new QUndoStack(this);
     undoAct = undoStack->createUndoAction(this, tr("&Undo"));
     undoAct->setShortcuts(QKeySequence::Undo);
@@ -69,20 +68,6 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     timeLabel = new QLabel("00:00:00");
 
     notebutton = new QPushButton("Add Note");
-    undoButton = new QPushButton("");
-    redoButton = new QPushButton("");
-
-    QPixmap pixelMapUndo = QPixmap(":/images/arrow-left");
-    QPixmap tempShrinkUndo = pixelMapUndo.scaled(QSize(150,30),Qt::KeepAspectRatio);
-    QIcon ButtonIcon(tempShrinkUndo);
-    undoButton->setIcon(ButtonIcon);
-    undoButton->setIconSize(tempShrinkUndo.rect().size());
-
-    QPixmap pixelMapRedo = QPixmap(":/images/arrow-right");
-    QPixmap tempShrinkRedo = pixelMapRedo.scaled(QSize(150,30),Qt::KeepAspectRatio);
-    QIcon ButtonIcon2(tempShrinkRedo);
-    redoButton->setIcon(ButtonIcon2);
-    redoButton->setIconSize(tempShrinkRedo.rect().size());
 
     hint = new QPushButton("Get Hint\nAdds " + QString::number(60*5*numHints) + " seconds");
     QFont font2 = hint->font();
@@ -126,8 +111,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
         if(valid==0)
         {
              stackedWidget->setCurrentIndex(1);
-//             cout << "here\n";
-//             return;
+             return;
         }
     }
     else
@@ -152,8 +136,6 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     innerWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     innerWidget->setLayout(innerLayout);
 
-    innerLayout->addWidget(undoButton, 0, 0);
-    innerLayout->addWidget(redoButton, 1, 0);
     SigButton *button[9];
     for (int i=0;i<9;i++)
     {
@@ -168,10 +150,9 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
         font.setPointSize(15);
         button[i]->setText(QString::fromStdString(ss2.str()));
         button[i]->setFont(font);
-        innerLayout->addWidget(button[i],i+2,0);
+        innerLayout->addWidget(button[i],i,0);
         connect(button[i],SIGNAL(clicked(int)), this, SLOT(button_pressed(int)));
     }
-
 
     leftLayout->addWidget(innerWidget,0,0, Qt::AlignTop);
     splitter->addWidget(wid);
@@ -202,33 +183,33 @@ void puzzleWindow::resetPuzzle()
     {
         for(int j = 0; j < 9; j++)
         {
-            //            their_solution[i][j] = 0;
-            //            hints[i][j] = 0;
-            //            notes[i][j].clear();
+//            their_solution[i][j] = 0;
+//            hints[i][j] = 0;
+//            notes[i][j].clear();
 
 
-            if (i != -1 && j != -1) {
-                QLayoutItem *item = lay->itemAtPosition(i, j);
-                if (their_solution[i][j] != 0 && grid[i][j] == 0) {
-                    their_solution[i][j] = 0;
-                    if (item) {
-                        QWidget * wid = item->widget();
-                        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-                        labell->setText("");
-                        cout << "reseting\n";
-                    }
-                }
-                if (notes[i][j].size() != 0) {
-                    notes[i][j].clear();
-                    if (item) {
-                        QWidget * wid = item->widget();
-                        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-                        labell->setText("");
-                    }
-                }
-                check_erase(i,j);
-                undoStack->clear();
+    if (i != -1 && j != -1) {
+        QLayoutItem *item = lay->itemAtPosition(i, j);
+        if (their_solution[i][j] != 0 && grid[i][j] == 0) {
+            their_solution[i][j] = 0;
+            if (item) {
+                QWidget * wid = item->widget();
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                labell->setText("");
+                cout << "reseting\n";
             }
+        }
+        if (notes[i][j].size() != 0) {
+            notes[i][j].clear();
+            if (item) {
+                QWidget * wid = item->widget();
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                labell->setText("");
+            }
+        }
+        check_erase(i,j);
+        undoStack->clear();
+    }
         }
     }
     numHints = 0;
@@ -238,7 +219,7 @@ void puzzleWindow::resetPuzzle()
 
 void puzzleWindow::goBackToPuzzle()
 {
-    cout << "In puzzleWindow::goBackToPuzzle (Which is terrible naming conventions cause its going to pausewindow). Is pause always index 5? Yes." << endl;
+    cout << "In puzzleWindow::goBackToPuzzle (Which is terrible naming conventions cause its going to pausewindow). Is pause always index 5?" << endl;
     clock->stop();
     time = -1;
     incrementTime();

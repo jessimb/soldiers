@@ -70,32 +70,6 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
     this->setStyleSheet("background-color:#FAFAD2;");
 
 }
-void statsWindow::statsupdate(QString name)
-{
-    statsfunc * userStats = users.find(name.toStdString())->second;
-    highScore = userStats->highScore;
-    totalgamesplayed = userStats->totalgamesplayed;
-    bestTime = userStats->bestTime;
-    scorevec = userStats->scorevec;
-    timevec = userStats->timevec;
-
-    int averageHS= highscorefunction();
-    int averageBS= besttimefunction();
-
-    QString str;
-    str.setNum(averageHS);
-    QLabel *highscore = new QLabel;
-    highscore->setText(str);
-    QFont f2("Courier New", 15);
-    highscore->setFont(f2);
-
-    QString str2;
-    str2.setNum(averageBS);
-    QLabel *besttime = new QLabel;
-    besttime->setText(str2);
-    besttime->setFont(f2);
-
-}
 
 void statsWindow::gotoMainMenu()
 {
