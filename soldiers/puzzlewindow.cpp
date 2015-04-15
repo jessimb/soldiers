@@ -42,6 +42,18 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     numHints = 0;
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
+
+    undoStack = new QUndoStack(this);
+    undoAct = undoStack->createUndoAction(this, tr("&Undo"));
+    undoAct->setShortcuts(QKeySequence::Undo);
+    undoAct->setStatusTip(tr("Undo the last operation"));
+    redoAct = undoStack->createRedoAction(this, tr("&Redo"));
+    redoAct->setShortcuts(QKeySequence::Redo);
+    redoAct->setStatusTip(tr("Redo the last operation"));
+
+    addAction(undoAct);
+    addAction(redoAct);
+
     style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     styleDis = new QString("QPushButton {font-family: \"Courier New\"; font-size: 10px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF} QPushButton:pressed{background-color:#fff;}");
     styleDisEn = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#d3d3d3} QPushButton:pressed{background-color:#fff;}");
@@ -88,7 +100,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 
     connect(pause, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
     connect(hint, SIGNAL(clicked()), this, SLOT(showHint()));
-    connect(erase, SIGNAL(clicked()), this, SLOT(eraseBox()));
+    connect(erase, SIGNAL(clicked()), this, SLOT(eraseSlot()));
 
     QWidget *wid = new QWidget;
     wid->setLayout(lay);
@@ -213,26 +225,45 @@ puzzleWindow::~puzzleWindow()
 
 }
 
-void puzzleWindow::eraseBox() {
-    if (s_row != -1 && s_col != -1) {
-        QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
-        if (their_solution[s_row][s_col] != 0) {
-            their_solution[s_row][s_col] = 0;
+void puzzleWindow::eraseSlot()
+{
+    undoStack->push(new undoErase(this, s_row, s_col, their_solution[s_row][s_col]));
+
+}
+
+void puzzleWindow::insertValue(int r, int c, int d)
+{
+    their_solution[r][c] = d;
+    QLayoutItem *item = lay->itemAtPosition(r, c);
+
+        if (item) {
+            QWidget * wid = item->widget();
+            ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+            labell->setText(QString::number(d));
+        }
+
+}
+
+void puzzleWindow::eraseBox(int row, int col) {
+    if (row != -1 && col != -1) {
+        QLayoutItem *item = lay->itemAtPosition(row, col);
+        if (their_solution[row][col] != 0) {
+            their_solution[row][col] = 0;
             if (item) {
                 QWidget * wid = item->widget();
                 ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 labell->setText("");
             }
         }
-        if (notes[s_row][s_col].size() != 0) {
-            notes[s_row][s_col].clear();
+        if (notes[row][col].size() != 0) {
+            notes[row][col].clear();
             if (item) {
                 QWidget * wid = item->widget();
                 ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 labell->setText("");
             }
         }
-        check_erase(s_row,s_col);
+        check_erase(row,col);
     }
 }
 

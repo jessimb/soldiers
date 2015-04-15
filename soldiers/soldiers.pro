@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     json_reader.cpp \
     json_value.cpp \
     json_writer.cpp \
-    statsfunc.cpp
+    statsfunc.cpp \
+    undoerase.cpp
 
 HEADERS  += mainwindow.h \
     mainmenu.h \
@@ -59,7 +60,8 @@ HEADERS  += mainwindow.h \
     value.h \
     writer.h \
     json_batchallocator.h \
-    statsfunc.h
+    statsfunc.h \
+    undoerase.h
 
 RESOURCES += \
     resources.qrc

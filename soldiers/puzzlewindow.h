@@ -8,6 +8,9 @@
 #include <string>
 #include <QTimer>
 #include <QLabel>
+#include "undoerase.h"
+#include <QUndoStack>
+#include <QAction>
 class MainWindow;
 
 class puzzleWindow : public QWidget
@@ -46,6 +49,9 @@ public:
     int s;
     QPushButton * hint;
     void writeStats();
+    QUndoStack *undoStack;
+    QAction *undoAct;
+    QAction *redoAct;
 
 private:
     MainWindow *mainWindow;
@@ -64,8 +70,10 @@ public slots:
     void button_pressed(int i);
     void showHint();
     void note();
-    void eraseBox();
+    void eraseBox(int row, int col);
     void incrementTime();
+    void eraseSlot();
+    void insertValue(int r, int c, int d);
 };
 
 
