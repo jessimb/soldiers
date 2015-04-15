@@ -45,6 +45,7 @@ public:
     int m;
     int s;
     QPushButton * hint;
+    void writeStats();
 
 private:
     MainWindow *mainWindow;
