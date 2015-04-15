@@ -14,8 +14,9 @@
 #include <limits.h>
 #include "saveload.h"
 #include "mainmenu.h"
-#include <tr1/unordered_map>
-using namespace std::tr1;
+#include <unordered_map>
+#include "undoadd.h"
+#include "undodel.h"
 using namespace std;
 extern QString globalUser;
 extern unordered_map<string, statsfunc*> users;
@@ -282,6 +283,85 @@ void puzzleWindow::eraseSlot()
 {
     undoStack->push(new undoErase(this, s_row, s_col, their_solution[s_row][s_col], notes[s_row][s_col]));
 
+}
+
+
+void puzzleWindow::addNum(int row, int col, int i){
+    if (notes[row][col].size() != 0) {
+        notes[row][col].clear();
+    }
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+    labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
+    }
+    their_solution[row][col] = i;
+     check_erase(row,col);
+}
+
+
+void puzzleWindow::delNum(int row, int col, int i){
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        labell->setText("");
+    }
+    their_solution[row][col] = 0;
+    check_erase(row,col);
+
+}
+
+void puzzleWindow::addCom(int row, int col, int i){
+    if (their_solution[row][col] != 0) {
+        their_solution[row][col] = 0;
+    }
+    notes[row][col].push_back(i);
+    QString text = "";
+    notes[row][col].sort();
+    int x = 1;
+    for (std::list<int>::const_iterator iterator = notes[row][col].begin(), end = notes[row][col].end(); iterator != end; ++iterator) {
+        if (*iterator != 0) {
+            text = text + QString::number(*iterator) + " ";
+            if (x%3 == 0 && x!=9) text = text + "<br>";
+            x++;
+        }
+
+    }
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+    labell->setText("<font size=2 color='green'>"+ text + "</font>");
+    }
+ check_erase(row,col);
+}
+
+void puzzleWindow::delCom(int row, int col, int i){
+    QString text = "";
+    notes[row][col].erase((std::find(notes[row][col].begin(), notes[row][col].end(), i)));
+    notes[row][col].sort();
+    int x = 1;
+    for (std::list<int>::const_iterator iterator = notes[row][col].begin(), end = notes[row][col].end(); iterator != end; ++iterator) {
+        if (*iterator != 0) {
+            text = text + QString::number(*iterator) + " ";
+            if (x%3 == 0 && x!=9) text = text + "<br>";
+            x++;
+        }
+
+    }
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        labell->setText("<font size=2 color='green'>"+ text + "</font>");
+    }
+     check_erase(row,col);
 }
 
 void puzzleWindow::insertValue(int r, int c, int d)
@@ -562,6 +642,7 @@ void puzzleWindow::press(int row, int col){
 }
 
 void puzzleWindow::button_pressed(int i){
+    std::list<int> list;
     if (s_row != -1 && s_col != -1) {
         if (clicked == false) {
             QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
@@ -571,15 +652,11 @@ void puzzleWindow::button_pressed(int i){
                 ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
+                    list.clear();
                     if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){ //trying to remove
-                        labell->setText("");
-                        their_solution[s_row][s_col] = 0;
+                        undoStack->push(new undoDel(this, s_row, s_col, i, list, false));
                     } else if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0) { //trying to add number
-                        if (notes[s_row][s_col].size() != 0) {
-                            notes[s_row][s_col].clear();
-                        }
-                        labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
-                        their_solution[s_row][s_col] = i;
+                        undoStack->push(new undoAdd(this, s_row, s_col, i, list, false)); //bool at end 1 means they are adding
                     }
                 }
             }
@@ -592,37 +669,9 @@ void puzzleWindow::button_pressed(int i){
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
                     if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) { //going to delete note
-                        QString text = "";
-                        notes[s_row][s_col].erase((std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)));
-                        notes[s_row][s_col].sort();
-                        int x = 1;
-                        for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
-                            if (*iterator != 0) {
-                                text = text + QString::number(*iterator) + " ";
-                                if (x%3 == 0 && x!=9) text = text + "<br>";
-                                x++;
-                            }
-
-                        }
-                        labell->setText("<font size=2 color='green'>"+ text + "</font>");
+                        undoStack->push(new undoDel(this, s_row, s_col, i, notes[s_row][s_col], true));
                     } else if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0) {
-                        if (their_solution[s_row][s_col] != 0) {
-                            their_solution[s_row][s_col] = 0;
-                        }
-                        notes[s_row][s_col].push_back(i);
-                        QString text = "";
-                        notes[s_row][s_col].sort();
-                        int x = 1;
-                        for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
-                            if (*iterator != 0) {
-                                text = text + QString::number(*iterator) + " ";
-                                if (x%3 == 0 && x!=9) text = text + "<br>";
-                                x++;
-                            }
-
-                        }
-                        labell->setText("<font size=2 color='green'>"+ text + "</font>");
-
+                        undoStack->push(new undoAdd(this, s_row, s_col, i, notes[s_row][s_col], true)); //bool at end 1 means they are adding
                     }
                 }
             }
