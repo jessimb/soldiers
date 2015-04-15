@@ -734,7 +734,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
 
         //Checking for key press: delete
     } else if(e->key() == Qt::Key_Backspace || e->key() == Qt::Key_Delete){
-        if (hints[s_row][s_col] == 0) eraseBox(s_row,s_col);
+        if (hints[s_row][s_col] == 0 && grid[s_row][s_col] == 0) eraseBox(s_row,s_col);
     }
 }
 
