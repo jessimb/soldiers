@@ -1,7 +1,8 @@
 #include "statswindow.h"
 #include <QLabel>
 #include <QDebug>
-#include <unordered_map>
+#include <tr1/unordered_map>
+using namespace std::tr1;
 statsWindow::statsWindow(MainWindow *mw,QString name)
 {
 

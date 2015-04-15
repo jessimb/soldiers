@@ -14,9 +14,9 @@
 #include <limits.h>
 #include "saveload.h"
 #include "mainmenu.h"
-#include <unordered_map>
+#include <tr1/unordered_map>
+using namespace std::tr1;
 using namespace std;
-
 extern QString globalUser;
 extern unordered_map<string,statsfunc *> users;
 
@@ -168,18 +168,42 @@ void puzzleWindow::resetPuzzle()
     {
         for(int j = 0; j < 9; j++)
         {
+//            their_solution[i][j] = 0;
+//            hints[i][j] = 0;
+//            notes[i][j].clear();
+
+
+    if (i != -1 && j != -1) {
+        QLayoutItem *item = lay->itemAtPosition(i, j);
+        if (their_solution[i][j] != 0 && grid[i][j] == 0) {
             their_solution[i][j] = 0;
-            hints[i][j] = 0;
+            if (item) {
+                QWidget * wid = item->widget();
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                labell->setText("");
+                cout << "reseting\n";
+            }
+        }
+        if (notes[i][j].size() != 0) {
             notes[i][j].clear();
+            if (item) {
+                QWidget * wid = item->widget();
+                ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+                labell->setText("");
+            }
+        }
+        check_erase(i,j);
+    }
         }
     }
-    makeGrid();
 }
 
 void puzzleWindow::goBackToPuzzle()
 {
     cout << "In puzzleWindow::goBackToPuzzle (Which is terrible naming conventions cause its going to pausewindow). Is pause always index 5?" << endl;
     clock->stop();
+    time = -1;
+    incrementTime();
     stackedWidget->setCurrentIndex(5);
 }
 

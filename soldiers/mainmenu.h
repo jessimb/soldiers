@@ -4,11 +4,11 @@
 #include <QWidget>
 #include "statswindow.h"
 #include "statsfunc.h"
-#include <unordered_map>
+#include <tr1/unordered_map>
 class MainWindow;
 class QString;
 #include <QString>
-using namespace std;
+using namespace std::tr1;
 class mainMenu : public QWidget
 {
     Q_OBJECT
