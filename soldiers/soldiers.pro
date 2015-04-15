@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     HttpClient.cpp \
     json_reader.cpp \
     json_value.cpp \
-    json_writer.cpp
+    json_writer.cpp \
+    statsfunc.cpp
 
 HEADERS  += mainwindow.h \
     mainmenu.h \
@@ -57,7 +58,8 @@ HEADERS  += mainwindow.h \
     reader.h \
     value.h \
     writer.h \
-    json_batchallocator.h
+    json_batchallocator.h \
+    statsfunc.h
 
 RESOURCES += \
     resources.qrc

@@ -2,10 +2,12 @@
 #define MAINMENU_H
 #include "mainwindow.h"
 #include <QWidget>
-
+#include "statswindow.h"
+#include "statsfunc.h"
+#include <unordered_map>
 class MainWindow;
 
-
+using namespace std;
 class mainMenu : public QWidget
 {
     Q_OBJECT
@@ -15,6 +17,9 @@ public:
     ~mainMenu();
 
     void loadStats();
+    unordered_map<string,statsfunc *> users;
+    void populateStats();
+
 private slots:
     void gotoNewGameMenu();
     void gotoInstrMenu();

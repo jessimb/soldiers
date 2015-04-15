@@ -77,6 +77,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     connect(leader,SIGNAL(clicked()),this,SLOT(gotoLeaderboard()));
     connect(stats,SIGNAL(clicked()),this,SLOT(gotoStatsWindow()));
     connect(fb,SIGNAL(clicked()),this,SLOT(gotoFacebook()));
+    populateStats();
 }
 
 void mainMenu::gotoNewGameMenu()
@@ -118,6 +119,11 @@ void mainMenu::gotoFacebook()
 }
 
 void mainMenu::loadStats()
+{
+
+}
+
+void mainMenu::populateStats()
 {
 
 }

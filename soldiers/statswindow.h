@@ -1,5 +1,6 @@
 #ifndef STATSWINDOW_H
 #define STATSWINDOW_H
+
 #include "mainwindow.h"
 #include <QWidget>
 #include <QVector>
@@ -7,22 +8,7 @@
 class MainWindow;
 class QString;
 
-class statsfunc: public QWidget
-{
-    double currenttime;
-    double currentscore;
-    double bestTime;
-    int totalgamesplayed;
-    int highScore;
-    QString username;
-    QVector<int> scorevec;
-    QVector<int> timevec;
-    int highscorefunc();
-    int besttimefunc();
-    int BT();
-    int HS();
-    void statsfunction(int score, int time);
-};
+
 class statsWindow : public QWidget
 {
     Q_OBJECT
