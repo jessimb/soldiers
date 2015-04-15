@@ -230,7 +230,18 @@ void puzzleWindow::loadNotes()
 
 void puzzleWindow::loadHints()
 {
-
+for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+        if (hints[i][j]!=0) {
+            QLayoutItem * item = lay->itemAtPosition(i,j);
+            if (lay) {
+                QWidget * wid = item->widget();
+                ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
+                labell->setText("<b><font size = 15 color = 'black'>" + QString::number(hints[i][j]) + "</font></b>");
+            }
+        }
+    }
+}
 }
 
 void puzzleWindow::eraseSlot()
