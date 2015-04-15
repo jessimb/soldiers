@@ -18,7 +18,7 @@
 using namespace std::tr1;
 using namespace std;
 extern QString globalUser;
-extern unordered_map<string,statsfunc *> users;
+extern unordered_map<string, statsfunc*> users;
 
 puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 {
@@ -75,7 +75,6 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     timeLabel->setFont(font2);
     hint->setFont(font2);
     notebutton->setFont(font2);
-    // buttonlayout->addWidget(pause,0,1);
     hint->setStyleSheet(*styleDis);
     notebutton->setStyleSheet(*style);
 
@@ -93,7 +92,6 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     QFont font = pause->font();
     font.setPointSize(15);
     pause->setFont(font);
-    // buttonlayout->addWidget(pause,0,1);
     pause->setStyleSheet(*style);
 
     pause->setFixedSize(120, 45);
@@ -239,7 +237,7 @@ void puzzleWindow::insertValue(int r, int c, int d)
         if (item) {
             QWidget * wid = item->widget();
             ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-            labell->setText(QString::number(d));
+            labell->setText("<font size = 15 color = 'blue'>" + QString::number(d) + "</font>");
         }
 
 }
