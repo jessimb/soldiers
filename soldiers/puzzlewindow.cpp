@@ -731,21 +731,26 @@ void puzzleWindow::checkVictory(){
         clock->stop();
         cout << "Congrats! You've won! Your score was - " << time << "!" << endl;
         stackedWidget->setCurrentIndex(6);
-
-        auto winner = users.find(globalUser.toStdString());
-        if(winner == users.end())
+        if(globalUser.toStdString()!="")
         {
-            statsfunc * newprof= new statsfunc(globalUser);
-            newprof->statsfunction(time,INT_MAX/time);
-            users.insert(pair<string,statsfunc*>(globalUser.toStdString(),newprof));
+            auto winner = users.find(globalUser.toStdString());
+            if(winner == users.end())
+            {
+                statsfunc * newprof= new statsfunc(globalUser);
+                newprof->bestTime=time;
+                newprof->highScore=INT_MAX/time;
+                newprof->statsfunction(time,INT_MAX/time);
+                users.insert(pair<string,statsfunc*>(globalUser.toStdString(),newprof));
 
+            }
+            else
+            {
+                winner->second->statsfunction(time,INT_MAX/time);
+            }
+            writeStats();
+            mainWindow->statsWindowObj->updatestats(globalUser);
         }
-        else
-        {
-            winner->second->statsfunction(time,INT_MAX/time);
-        }
-        writeStats();
-        mainWindow->statsWindowObj->updatestats(globalUser);
+
 
         cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
         //        Janky and needs to be fixed.

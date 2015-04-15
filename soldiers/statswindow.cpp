@@ -85,14 +85,15 @@ void statsWindow::updatestats(QString name)
     int averageHS= highscorefunction();
     int averageBS= besttimefunction();
 
-    QString str;
-    str.setNum(averageHS);
+    QString str=QString::number(averageHS);
+
+    cout<<"setting string\n"<<str.toStdString()<<endl;
     highscorelabel->setText(str);
     QFont f2("Courier New", 15);
     highscorelabel->setFont(f2);
 
-    QString str2;
-    str2.setNum(averageBS);
+    QString str2= QString::number(averageBS);
+
     besttimelabel->setText(str2);
     besttimelabel->setFont(f2);
 
@@ -130,8 +131,8 @@ int statsWindow::besttimefunction()
             bestTime=timevec.at(i);
         }
     }
-    //int BT=bestTime/totalgamesplayed;
-    return 0;
+    int BT=bestTime;
+    return BT;
 }
 
 void statsWindow::loadStats()
