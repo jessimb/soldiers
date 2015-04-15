@@ -15,6 +15,8 @@
 #include "saveload.h"
 #include "mainmenu.h"
 #include <unordered_map>
+#include "undoadd.h"
+#include "undodel.h"
 using namespace std;
 extern QString globalUser;
 extern unordered_map<string, statsfunc*> users;
