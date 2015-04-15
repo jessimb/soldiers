@@ -1,7 +1,7 @@
 #include "statswindow.h"
 #include <QLabel>
 #include <QDebug>
-#include <unordered_map>
+#include <tr1/unordered_map>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -107,8 +107,8 @@ int statsWindow::besttimefunction()
             bestTime=timevec.at(i);
         }
     }
-    int BT=bestTime/totalgamesplayed;
-    return BT;
+    //int BT=bestTime/totalgamesplayed;
+    return 0;
 }
 
 void statsWindow::loadStats()

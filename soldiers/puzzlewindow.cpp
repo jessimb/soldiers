@@ -14,7 +14,7 @@
 #include <limits.h>
 #include "saveload.h"
 #include "mainmenu.h"
-#include <unordered_map>
+#include <tr1/unordered_map>
 using namespace std::tr1;
 using namespace std;
 extern QString globalUser;
@@ -584,19 +584,8 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
         press(s_row, s_col+1);
 
     //Checking for key press: delete
-    } else if(e->key() == Qt::Key_Delete){
-        QLayoutItem * item = lay->itemAtPosition(s_row, s_col);
-        if (lay) {
-            QWidget * wid = item->widget();
-            ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
-            int index2 = lay->indexOf(labell);
-            if (index2 != -1) {
-                if (grid[s_row][s_col] == 0 && their_solution[s_row][s_col] != 0){
-                    labell->setText("");
-                    their_solution[s_row][s_col] = 0;
-                }
-            }
-        }
+    } else if(e->key() == Qt::Key_Backspace || e->key() == Qt::Key_Delete){
+        if (hints[s_row][s_col] == 0) eraseBox(s_row,s_col);
     }
 }
 
@@ -604,10 +593,11 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
 void puzzleWindow::showHint(){
     int i = rand()%9;
     int j = rand()%9;
-
-    while (their_solution[i][j] != 0 || grid[i][j] != 0) {
+    int x = 0;
+    while ((their_solution[i][j] != 0 || grid[i][j] != 0) && x < 163) {
         i = rand()%9;
         j = rand()%9;
+        x++;
     }
     if (their_solution[i][j] == 0 && grid[i][j] == 0) {
         QLayoutItem * item = lay->itemAtPosition(i,j);
