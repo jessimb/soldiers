@@ -119,6 +119,10 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 
 
     makeGrid();
+    if (loadGame) {
+        loadNotes();
+        loadHints();
+    }
 
     QSplitter *splitter = new QSplitter();
     QFrame *leftWidget = new QFrame();
@@ -225,7 +229,28 @@ puzzleWindow::~puzzleWindow()
 
 void puzzleWindow::loadNotes()
 {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (notes[i][j].size() != 0) {
+                QLayoutItem * item = lay->itemAtPosition(i,j);
+                if (lay) {
+                    QWidget * wid = item->widget();
+                    ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
+                    QString text = "";
+                    notes[i][j].sort();
+                    int x = 1;
+                    for (std::list<int>::const_iterator iterator = notes[i][j].begin(), end = notes[i][j].end(); iterator != end; ++iterator) {
+                        if (*iterator != 0) {
+                            text = text + QString::number(*iterator) + " ";
+                            if (x%3 == 0 && x!=9) text = text + "<br>";
+                            x++;
+                        }
 
+                    }
+                    labell->setText("<font size=2 color='green'>"+ text + "</font>");                }
+            }
+        }
+    }
 }
 
 void puzzleWindow::loadHints()
