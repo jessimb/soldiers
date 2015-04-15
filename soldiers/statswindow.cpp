@@ -1,13 +1,12 @@
 #include "statswindow.h"
 #include <QLabel>
 #include <QDebug>
-#include <tr1/unordered_map>
+#include <unordered_map>
 #include <fstream>
 #include <iostream>
 #include <string>
 
 using namespace std;
-using namespace std::tr1;
 
 extern unordered_map<string,statsfunc*> users;
 

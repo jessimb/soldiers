@@ -14,8 +14,7 @@
 #include <limits.h>
 #include "saveload.h"
 #include "mainmenu.h"
-#include <tr1/unordered_map>
-using namespace std::tr1;
+#include <unordered_map>
 using namespace std;
 extern QString globalUser;
 extern unordered_map<string, statsfunc*> users;
