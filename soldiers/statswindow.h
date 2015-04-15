@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include <QWidget>
 #include <QVector>
+#include <QLabel>
 
 class MainWindow;
 class QString;
@@ -24,11 +25,14 @@ public:
     QString username;
     QVector<int> scorevec;
     QVector<int> timevec;
+    QLabel *highscorelabel = new QLabel;
+    QLabel *besttimelabel = new QLabel;
     int highscorefunction();
     int besttimefunction();
     int BT();
     int HS();
     void statsfunction(int score, int time);
+    void updatestats(QString name);
 
 private:
     MainWindow *mainWindow;

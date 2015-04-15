@@ -336,7 +336,9 @@ void puzzleWindow::addNum(int row, int col, int i){
 
 void puzzleWindow::delNum(int row, int col, int i){
     QLayoutItem *item = lay->itemAtPosition(row, col);
+
     if (lay) {
+
         QWidget * wid = item->widget();
 
         ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
