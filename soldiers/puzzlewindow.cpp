@@ -11,10 +11,14 @@
 #include <qdir>
 #include <algorithm>
 #include <list>
+#include <limits.h>
 #include "saveload.h"
-
+#include "mainmenu.h"
+#include <unordered_map>
 using namespace std;
 
+extern QString globalUser;
+extern unordered_map<string,statsfunc *> users;
 
 puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
 {
@@ -486,6 +490,14 @@ void puzzleWindow::checkVictory(){
         cout << "Congrats! You've won! Your score was - " << time << "!" << endl;
         clock->stop();
         stackedWidget->setCurrentIndex(6);
+
+        auto winner = users.find(globalUser.toStdString());
+        if(winner==users.end())
+        {
+            statsfunc * newprof= new statsfunc(globalUser);
+            newprof->statsfunction(time,INT_MAX/time);
+
+        }
         cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
 //        Janky and needs to be fixed.
         static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");

@@ -4,7 +4,10 @@
 #include <QFileDialog>
 #include "saveload.h"
 #include "MainWindowContainer.h"
+#include <string>
 using namespace std;
+QString globalUser="";
+unordered_map<string,statsfunc *> users;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
 {
 

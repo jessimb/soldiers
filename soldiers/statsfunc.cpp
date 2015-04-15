@@ -1,6 +1,6 @@
 #include "statsfunc.h"
 
-void statsfunc::statsfunc(QString nm)
+statsfunc::statsfunc(QString nm)
 {
     username = nm;
 }

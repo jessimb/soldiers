@@ -5,6 +5,8 @@
 class QString;
 class statsfunc: public QWidget
 {
+public:
+
     double currenttime;
     double currentscore;
     double bestTime;

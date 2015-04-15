@@ -6,18 +6,20 @@
 #include "statsfunc.h"
 #include <unordered_map>
 class MainWindow;
-
+class QString;
+#include <QString>
 using namespace std;
 class mainMenu : public QWidget
 {
     Q_OBJECT
 
 public:
+    static QString globalUser;
     explicit mainMenu(MainWindow *mw = 0);
     ~mainMenu();
 
     void loadStats();
-    unordered_map<string,statsfunc *> users;
+
     void populateStats();
 
 private slots:
