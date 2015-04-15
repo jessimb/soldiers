@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+
 #include <iostream>
 #include <QLabel>
 
@@ -47,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     widget->setLayout(layout);
 
     stackedWidget->setCurrentWidget(mainMenuObj);
+    statsWindow::loadStats();
 }
 
 

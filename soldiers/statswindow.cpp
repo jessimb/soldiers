@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <fstream>
 #include <iostream>
+#include <string>
+
 using namespace std;
 using namespace std::tr1;
 
@@ -109,11 +111,64 @@ int statsWindow::besttimefunction()
     return BT;
 }
 
+void statsWindow::loadStats()
+{
+    ifstream myfile("sudoku.sudostat");
+    string line="";
+    if(myfile.is_open())
+    {
+       getline (myfile,line);
+       int totalRecords = atoi(line.c_str());
+
+       for(int i=0;i<totalRecords;i++)
+       {
+           //Get name
+           getline(myfile,line);
+           string name = line;
+
+           statsfunc * cur = new statsfunc(QString::fromStdString(name));
+
+           getline(myfile,line);
+           cur->bestTime = atoi(line.c_str());
+
+           getline(myfile,line);
+           cur->highScore = atoi(line.c_str());
+
+           getline(myfile,line);
+           int totalScores = atoi(line.c_str());
+
+           QVector<int> scoreset;
+           for(int k=0;k<totalScores;k++)
+           {
+               getline(myfile,line);
+               scoreset.push_back(atoi(line.c_str()));
+           }
+           getline(myfile,line);
+           int totalTimes = atoi(line.c_str());
+           QVector<int> timeset;
+           for(int a=0;a<totalTimes;a++)
+           {
+               getline(myfile,line);
+               timeset.push_back((atoi(line.c_str())));
+           }
+
+           users.insert(pair<string,statsfunc*>(name,cur));
+       }
+
+
+    }
+    else
+    {
+        return;
+    }
+}
+
 void statsWindow::writeStats()
 {
     std::ofstream ofs;
     ofs.open("sudoku.sudostat", std::ofstream::out | std::ofstream::trunc);
     unordered_map<string,statsfunc*>::iterator it = users.begin();
+    ofs << users.size() << "\n";
     for(;it!=users.end();it++)
     {
         ofs<<it->first<<"\n";

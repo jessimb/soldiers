@@ -17,8 +17,8 @@ public:
     explicit statsWindow(MainWindow *mw = 0,QString name="");
     ~statsWindow();
     static void writeStats();
-
-    double bestTime=0;
+    static void loadStats();
+    int bestTime=0;
     int totalgamesplayed=0;
     int highScore=0;
     QString username;
