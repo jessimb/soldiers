@@ -737,6 +737,7 @@ void puzzleWindow::checkVictory(){
         {
             statsfunc * newprof= new statsfunc(globalUser);
             newprof->statsfunction(time,INT_MAX/time);
+            users.insert(pair<string,statsfunc*>(globalUser.toStdString(),newprof));
 
         }
         else
