@@ -68,6 +68,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     buttonHolder->setLayout(buttonHolderLayout);
 
     buttonlayout->addWidget(buttonHolder);
+    loadStats();
 
 
     connect(newGame, SIGNAL(clicked()), this, SLOT(gotoNewGameMenu()));
@@ -113,6 +114,11 @@ void mainMenu::gotoFacebook()
 {
     MainWindowContainer *m= new MainWindowContainer();
     m->show();
+
+}
+
+void mainMenu::loadStats()
+{
 
 }
 

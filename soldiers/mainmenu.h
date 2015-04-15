@@ -14,6 +14,7 @@ public:
     explicit mainMenu(MainWindow *mw = 0);
     ~mainMenu();
 
+    void loadStats();
 private slots:
     void gotoNewGameMenu();
     void gotoInstrMenu();
@@ -21,6 +22,7 @@ private slots:
     void gotoStatsWindow();
     void gotoLeaderboard();
     void gotoFacebook();
+
 //    void gotoPauseWindow();
 
 private:
