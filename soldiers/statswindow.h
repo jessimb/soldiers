@@ -16,12 +16,11 @@ class statsWindow : public QWidget
 public:
     explicit statsWindow(MainWindow *mw = 0,QString name="");
     ~statsWindow();
-    QString usernamefunc;
-    double currenttime;
-    double currentscore;
-    double bestTime;
-    int totalgamesplayed;
-    int highScore;
+    static void writeStats();
+    static void loadStats();
+    int bestTime=0;
+    int totalgamesplayed=0;
+    int highScore=0;
     QString username;
     QVector<int> scorevec;
     QVector<int> timevec;

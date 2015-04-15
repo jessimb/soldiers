@@ -7,12 +7,13 @@ class statsfunc: public QWidget
 {
 public:
 
-    double currenttime;
-    double currentscore;
-    double bestTime;
-    int totalgamesplayed;
-    int highScore;
-    QString username;
+
+    double currenttime = 0;
+    double currentscore = 0;
+    double bestTime = 0;
+    int totalgamesplayed = 0;
+    int highScore = 0;
+    QString username = "";
     QVector<int> scorevec;
     QVector<int> timevec;
     int highscorefunc();

@@ -2,7 +2,15 @@
 #include <QLabel>
 #include <QDebug>
 #include <tr1/unordered_map>
+#include <fstream>
+#include <iostream>
+#include <string>
+
+using namespace std;
 using namespace std::tr1;
+
+extern unordered_map<string,statsfunc*> users;
+
 statsWindow::statsWindow(MainWindow *mw,QString name)
 {
 
@@ -11,7 +19,7 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
     QGridLayout *buttonlayout = new QGridLayout;
     QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
-    usernamefunc=name;
+    username=name;
 
     this->setLayout(buttonlayout);
 //start here
@@ -74,7 +82,7 @@ statsWindow::~statsWindow()
 
 int statsWindow::highscorefunction()
 {
-    highScore=0;
+   
     for(int i=0;i<scorevec.size()-1;i++)
     {
 
@@ -91,7 +99,7 @@ int statsWindow::highscorefunction()
 
 int statsWindow::besttimefunction()
 {
-    bestTime=0;
+    
     for(int i=0;i<timevec.size()-1;i++)
     {
         if(timevec.at(i)>bestTime)
@@ -99,6 +107,90 @@ int statsWindow::besttimefunction()
             bestTime=timevec.at(i);
         }
     }
-    int BT=bestTime/totalgamesplayed;
-    return BT;
+    //int BT=bestTime/totalgamesplayed;
+    return 0;
+}
+
+void statsWindow::loadStats()
+{
+    ifstream myfile("sudoku.sudostat");
+    string line="";
+    if(myfile.is_open())
+    {
+       getline (myfile,line);
+       int totalRecords = atoi(line.c_str());
+
+       for(int i=0;i<totalRecords;i++)
+       {
+           //Get name
+           getline(myfile,line);
+           string name = line;
+
+           statsfunc * cur = new statsfunc(QString::fromStdString(name));
+
+           getline(myfile,line);
+           cur->bestTime = atoi(line.c_str());
+
+           getline(myfile,line);
+           cur->highScore = atoi(line.c_str());
+
+           getline(myfile,line);
+           int totalScores = atoi(line.c_str());
+
+           QVector<int> scoreset;
+           for(int k=0;k<totalScores;k++)
+           {
+               getline(myfile,line);
+               scoreset.push_back(atoi(line.c_str()));
+           }
+           getline(myfile,line);
+           int totalTimes = atoi(line.c_str());
+           QVector<int> timeset;
+           for(int a=0;a<totalTimes;a++)
+           {
+               getline(myfile,line);
+               timeset.push_back((atoi(line.c_str())));
+           }
+
+           users.insert(pair<string,statsfunc*>(name,cur));
+       }
+
+
+    }
+    else
+    {
+        return;
+    }
+}
+
+void statsWindow::writeStats()
+{
+    std::ofstream ofs;
+    ofs.open("sudoku.sudostat", std::ofstream::out | std::ofstream::trunc);
+    unordered_map<string,statsfunc*>::iterator it = users.begin();
+    ofs << users.size() << "\n";
+    for(;it!=users.end();it++)
+    {
+        ofs<<it->first<<"\n";
+
+        statsfunc * current = it->second;
+        ofs << current->bestTime <<"\n";
+        ofs << current->highScore <<"\n";
+        ofs << current->scorevec.size()<<"\n";
+        for(int x=0;x<current->scorevec.size();x++)
+        {
+            ofs << current->scorevec[x] <<"\n";
+        }
+        ofs << current->timevec.size()<<"\n";
+
+        for(int y = 0;y < current->timevec.size();y++)
+        {
+            ofs <<current->timevec[y]<<"\n";
+        }
+
+
+
+
+    }
+    ofs.close();
 }

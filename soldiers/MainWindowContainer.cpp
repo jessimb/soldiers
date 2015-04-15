@@ -14,8 +14,10 @@
 #include <QtScript/QScriptValueIterator>
 #include "json.h"
 #include <iostream>
+
 using namespace std;
 
+extern QString globalUser;
  
 MainWindowContainer::MainWindowContainer(QWidget* parent) : 
 	QMainWindow(parent)  
@@ -391,7 +393,9 @@ void MainWindowContainer::TestAPIs()
 			}
 		}
 	}
+
     ui.webView->setHtml("<h1>Hello "+QString::fromStdString(firstname)+" "+QString::fromStdString(lastname)+"!</h1>");
+    globalUser = QString::fromStdString(firstname +" "+lastname);
     for(int x=0;x<prevLinkStack.size();x++)
     {
         cout<<prevLinkStack.at(x).toStdString()<<endl;
