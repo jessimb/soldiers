@@ -211,6 +211,9 @@ void puzzleWindow::resetPuzzle()
     }
         }
     }
+    numHints = 0;
+    hint->setText("Get Hint\nAdds " + QString::number(60*5*numHints) + " seconds");
+
 }
 
 void puzzleWindow::goBackToPuzzle()
