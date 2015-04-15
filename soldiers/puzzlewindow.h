@@ -54,7 +54,10 @@ public:
     QAction *redoAct;
     QPushButton *undoButton;
     QPushButton *redoButton;
-
+    void delCom(int row, int col, int i);
+    void addCom(int row, int col, int i);
+    void delNum(int row, int col, int i);
+    void addNum(int row, int col, int i);
 
 private:
     MainWindow *mainWindow;

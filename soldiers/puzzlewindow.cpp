@@ -15,6 +15,8 @@
 #include "saveload.h"
 #include "mainmenu.h"
 #include <unordered_map>
+#include "undoadd.h"
+#include "undodel.h"
 using namespace std;
 extern QString globalUser;
 extern unordered_map<string, statsfunc*> users;
@@ -120,81 +122,88 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     wid->setLayout(lay);
     lay->setHorizontalSpacing(0);
     lay->setVerticalSpacing(0);
+    bool broken = false;
 
     if(loadGame)
     {
         const char * valid = load();
         if(valid==0)
         {
-             stackedWidget->setCurrentIndex(1);
-             return;
+            broken = true;
         }
     }
     else
         readFile();
 
+    if(broken){
+        stackedWidget->setCurrentIndex(0);
+        stackedWidget->show();
+        cout << stackedWidget->currentIndex() << endl;
+    } else {
+        makeGrid();
+        if (loadGame) {
+            loadNotes();
+            loadHints();
+        }
 
-    makeGrid();
-    if (loadGame) {
-        loadNotes();
-        loadHints();
+        QSplitter *splitter = new QSplitter();
+        QFrame *leftWidget = new QFrame();
+        (void)leftWidget;
+        QGridLayout *leftLayout = new QGridLayout();
+
+        wid->setStyleSheet("QFrame { background-color: rgb(219, 226, 228); }");
+
+
+
+        QFrame *innerWidget = new QFrame();
+        QGridLayout *innerLayout = new QGridLayout();
+        innerWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        innerWidget->setLayout(innerLayout);
+        innerLayout->addWidget(undoButton, 0, 0);
+        innerLayout->addWidget(redoButton, 1, 0);
+        SigButton *button[9];
+        for (int i=0;i<9;i++)
+        {
+            button[i] = new SigButton(i+1);
+            button[i]->setMinimumSize(30,30);
+            button[i]->setMaximumSize(30,30);
+            button[i]->setStyleSheet(*numStyle);
+
+            std::stringstream ss2;
+            ss2 << (i+1);
+            QFont font = button[i]->font();
+            font.setPointSize(15);
+            button[i]->setText(QString::fromStdString(ss2.str()));
+            button[i]->setFont(font);
+            innerLayout->addWidget(button[i],i+2,0);
+            connect(button[i],SIGNAL(clicked(int)), this, SLOT(button_pressed(int)));
+        }
+
+        leftLayout->addWidget(innerWidget,0,0, Qt::AlignTop);
+        splitter->addWidget(wid);
+        splitter->addWidget(innerWidget);
+
+        QList<int> list;
+        list.push_back(560);
+        list.push_back(70);
+        splitter->setSizes(list);
+        QGridLayout *n = new QGridLayout();
+        n->addWidget(splitter,0,0,1,5);
+        n->addWidget(pause, 1,0);
+        n->addWidget(hint, 1,1);
+        n->addWidget(notebutton,1,2);
+        n->addWidget(erase,1,3);
+        n->addWidget(timeLabel,1,4);
+        connect(notebutton, SIGNAL(clicked()), this, SLOT(note()));
+        this->setLayout(n);
+
+        clock = new QTimer();
+
+        clock->start(1000);
+        connect(clock, SIGNAL(timeout()), this, SLOT(incrementTime()));
+
     }
-
-    QSplitter *splitter = new QSplitter();
-    QFrame *leftWidget = new QFrame();
-    (void)leftWidget;
-    QGridLayout *leftLayout = new QGridLayout();
-
-    wid->setStyleSheet("QFrame { background-color: rgb(219, 226, 228); }");
-
-    QFrame *innerWidget = new QFrame();
-    QGridLayout *innerLayout = new QGridLayout();
-    innerWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    innerWidget->setLayout(innerLayout);
-    innerLayout->addWidget(undoButton, 0, 0);
-    innerLayout->addWidget(redoButton, 1, 0);
-    SigButton *button[9];
-    for (int i=0;i<9;i++)
-    {
-        button[i] = new SigButton(i+1);
-        button[i]->setMinimumSize(30,30);
-        button[i]->setMaximumSize(30,30);
-        button[i]->setStyleSheet(*numStyle);
-
-        std::stringstream ss2;
-        ss2 << (i+1);
-        QFont font = button[i]->font();
-        font.setPointSize(15);
-        button[i]->setText(QString::fromStdString(ss2.str()));
-        button[i]->setFont(font);
-        innerLayout->addWidget(button[i],i+2,0);
-        connect(button[i],SIGNAL(clicked(int)), this, SLOT(button_pressed(int)));
-    }
-
-    leftLayout->addWidget(innerWidget,0,0, Qt::AlignTop);
-    splitter->addWidget(wid);
-    splitter->addWidget(innerWidget);
-
-    QList<int> list;
-    list.push_back(560);
-    list.push_back(70);
-    splitter->setSizes(list);
-    QGridLayout *n = new QGridLayout();
-    n->addWidget(splitter,0,0,1,5);
-    n->addWidget(pause, 1,0);
-    n->addWidget(hint, 1,1);
-    n->addWidget(notebutton,1,2);
-    n->addWidget(erase,1,3);
-    n->addWidget(timeLabel,1,4);
-    connect(notebutton, SIGNAL(clicked()), this, SLOT(note()));
-    this->setLayout(n);
-
-    clock = new QTimer();
-
-    clock->start(1000);
-    connect(clock, SIGNAL(timeout()), this, SLOT(incrementTime()));
 }
-
 void puzzleWindow::undoSlot()
 {
 
@@ -285,18 +294,18 @@ void puzzleWindow::loadNotes()
 
 void puzzleWindow::loadHints()
 {
-for (int i = 0; i < 9; i++) {
-    for (int j = 0; j < 9; j++) {
-        if (hints[i][j]!=0) {
-            QLayoutItem * item = lay->itemAtPosition(i,j);
-            if (lay) {
-                QWidget * wid = item->widget();
-                ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
-                labell->setText("<b><font size = 15 color = 'black'>" + QString::number(hints[i][j]) + "</font></b>");
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (hints[i][j]!=0) {
+                QLayoutItem * item = lay->itemAtPosition(i,j);
+                if (lay) {
+                    QWidget * wid = item->widget();
+                    ClickableLabel* labell = static_cast<ClickableLabel*>(wid);
+                    labell->setText("<b><font size = 15 color = 'black'>" + QString::number(hints[i][j]) + "</font></b>");
+                }
             }
         }
     }
-}
 }
 
 void puzzleWindow::eraseSlot()
@@ -305,16 +314,95 @@ void puzzleWindow::eraseSlot()
 
 }
 
+
+void puzzleWindow::addNum(int row, int col, int i){
+    if (notes[row][col].size() != 0) {
+        notes[row][col].clear();
+    }
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
+    }
+    their_solution[row][col] = i;
+    check_erase(row,col);
+}
+
+
+void puzzleWindow::delNum(int row, int col, int i){
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        labell->setText("");
+    }
+    their_solution[row][col] = 0;
+    check_erase(row,col);
+
+}
+
+void puzzleWindow::addCom(int row, int col, int i){
+    if (their_solution[row][col] != 0) {
+        their_solution[row][col] = 0;
+    }
+    notes[row][col].push_back(i);
+    QString text = "";
+    notes[row][col].sort();
+    int x = 1;
+    for (std::list<int>::const_iterator iterator = notes[row][col].begin(), end = notes[row][col].end(); iterator != end; ++iterator) {
+        if (*iterator != 0) {
+            text = text + QString::number(*iterator) + " ";
+            if (x%3 == 0 && x!=9) text = text + "<br>";
+            x++;
+        }
+
+    }
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        labell->setText("<font size=2 color='green'>"+ text + "</font>");
+    }
+    check_erase(row,col);
+}
+
+void puzzleWindow::delCom(int row, int col, int i){
+    QString text = "";
+    notes[row][col].erase((std::find(notes[row][col].begin(), notes[row][col].end(), i)));
+    notes[row][col].sort();
+    int x = 1;
+    for (std::list<int>::const_iterator iterator = notes[row][col].begin(), end = notes[row][col].end(); iterator != end; ++iterator) {
+        if (*iterator != 0) {
+            text = text + QString::number(*iterator) + " ";
+            if (x%3 == 0 && x!=9) text = text + "<br>";
+            x++;
+        }
+
+    }
+    QLayoutItem *item = lay->itemAtPosition(row, col);
+    if (lay) {
+        QWidget * wid = item->widget();
+
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        labell->setText("<font size=2 color='green'>"+ text + "</font>");
+    }
+    check_erase(row,col);
+}
+
 void puzzleWindow::insertValue(int r, int c, int d)
 {
     their_solution[r][c] = d;
     QLayoutItem *item = lay->itemAtPosition(r, c);
 
-        if (item) {
-            QWidget * wid = item->widget();
-            ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
-            labell->setText("<font size = 15 color = 'blue'>" + QString::number(d) + "</font>");
-        }
+    if (item) {
+        QWidget * wid = item->widget();
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+        labell->setText("<font size = 15 color = 'blue'>" + QString::number(d) + "</font>");
+    }
 
 }
 
@@ -329,7 +417,7 @@ void puzzleWindow::insertNotes(int r, int c, list<int> noteList)
 
         //int index2 = lay->indexOf(labell);
 
-       /* if (grid[r][c] == 0 && hints[r][c] == 0 && std::find(notes[r][c].begin(), notes[r][c].end(), i) != notes[r][c].end()) { //going to delete note
+        /* if (grid[r][c] == 0 && hints[r][c] == 0 && std::find(notes[r][c].begin(), notes[r][c].end(), i) != notes[r][c].end()) { //going to delete note
             QString text = "";
             notes[r][c].erase((std::find(notes[r][c].begin(), notes[r][c].end(), i)));
             notes[r][c].sort();
@@ -424,7 +512,7 @@ void puzzleWindow::save(){
 char * puzzleWindow::load(){
     char * file= (*new SaveLoad("Used only for Saving")).loadFile();
     if(file==0)
-            return 0;
+        return 0;
     for(int x=0;x<9;x++)
     {
         for(int y=0;y<9;y++)
@@ -583,6 +671,7 @@ void puzzleWindow::press(int row, int col){
 }
 
 void puzzleWindow::button_pressed(int i){
+    std::list<int> list;
     if (s_row != -1 && s_col != -1) {
         if (clicked == false) {
             QLayoutItem *item = lay->itemAtPosition(s_row, s_col);
@@ -592,15 +681,11 @@ void puzzleWindow::button_pressed(int i){
                 ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
+                    list.clear();
                     if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && their_solution[s_row][s_col] == i){ //trying to remove
-                        labell->setText("");
-                        their_solution[s_row][s_col] = 0;
+                        undoStack->push(new undoDel(this, s_row, s_col, i, list, false));
                     } else if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0) { //trying to add number
-                        if (notes[s_row][s_col].size() != 0) {
-                            notes[s_row][s_col].clear();
-                        }
-                        labell->setText("<font size=15 color='blue'>"+ QString::number(i) + "</font>");
-                        their_solution[s_row][s_col] = i;
+                        undoStack->push(new undoAdd(this, s_row, s_col, i, list, false)); //bool at end 1 means they are adding
                     }
                 }
             }
@@ -613,37 +698,9 @@ void puzzleWindow::button_pressed(int i){
                 int index2 = lay->indexOf(labell);
                 if (index2 != -1) {
                     if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0 && std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i) != notes[s_row][s_col].end()) { //going to delete note
-                        QString text = "";
-                        notes[s_row][s_col].erase((std::find(notes[s_row][s_col].begin(), notes[s_row][s_col].end(), i)));
-                        notes[s_row][s_col].sort();
-                        int x = 1;
-                        for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
-                            if (*iterator != 0) {
-                                text = text + QString::number(*iterator) + " ";
-                                if (x%3 == 0 && x!=9) text = text + "<br>";
-                                x++;
-                            }
-
-                        }
-                        labell->setText("<font size=2 color='green'>"+ text + "</font>");
+                        undoStack->push(new undoDel(this, s_row, s_col, i, notes[s_row][s_col], true));
                     } else if (grid[s_row][s_col] == 0 && hints[s_row][s_col] == 0) {
-                        if (their_solution[s_row][s_col] != 0) {
-                            their_solution[s_row][s_col] = 0;
-                        }
-                        notes[s_row][s_col].push_back(i);
-                        QString text = "";
-                        notes[s_row][s_col].sort();
-                        int x = 1;
-                        for (std::list<int>::const_iterator iterator = notes[s_row][s_col].begin(), end = notes[s_row][s_col].end(); iterator != end; ++iterator) {
-                            if (*iterator != 0) {
-                                text = text + QString::number(*iterator) + " ";
-                                if (x%3 == 0 && x!=9) text = text + "<br>";
-                                x++;
-                            }
-
-                        }
-                        labell->setText("<font size=2 color='green'>"+ text + "</font>");
-
+                        undoStack->push(new undoAdd(this, s_row, s_col, i, notes[s_row][s_col], true)); //bool at end 1 means they are adding
                     }
                 }
             }
@@ -666,12 +723,12 @@ void puzzleWindow::checkVictory(){
         }
     }
     if(won){
-        cout << "Congrats! You've won! Your score was - " << time << "!" << endl;
         clock->stop();
+        cout << "Congrats! You've won! Your score was - " << time << "!" << endl;
         stackedWidget->setCurrentIndex(6);
 
         auto winner = users.find(globalUser.toStdString());
-        if(winner==users.end())
+        if(winner == users.end())
         {
             statsfunc * newprof= new statsfunc(globalUser);
             newprof->statsfunction(time,INT_MAX/time);
@@ -680,12 +737,10 @@ void puzzleWindow::checkVictory(){
         else
         {
             winner->second->statsfunction(time,INT_MAX/time);
-
-
         }
         writeStats();
         cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
-//        Janky and needs to be fixed.
+        //        Janky and needs to be fixed.
         static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
         static_cast<winWindow*>(stackedWidget->currentWidget())->updateScore();
     }
@@ -696,7 +751,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
     if(e->text().toInt() > 0 && e->text().toInt() < 10){
         button_pressed(e->text().toInt());
 
-    //Checking for key presses: <,^,>,v arrows
+        //Checking for key presses: <,^,>,v arrows
     } else if(e->key() == Qt::Key_Up && s_row > 0 && s_row < 9){
         press(s_row-1, s_col);
     } else if(e->key() == Qt::Key_Down && s_row > -1 && s_row < 8){
@@ -706,7 +761,7 @@ void puzzleWindow::keyPressEvent(QKeyEvent *e){
     } else if(e->key() == Qt::Key_Right && s_col > -1 && s_col < 8){
         press(s_row, s_col+1);
 
-    //Checking for key press: delete
+        //Checking for key press: delete
     } else if(e->key() == Qt::Key_Backspace || e->key() == Qt::Key_Delete){
         if (hints[s_row][s_col] == 0) eraseBox(s_row,s_col);
     }
@@ -769,7 +824,7 @@ void puzzleWindow::incrementTime(){
     QString hStr = QString("%1").arg(h,2,10,QChar('0'));
     QString mStr = QString("%1").arg(m,2,10,QChar('0'));
     QString sStr = QString("%1").arg(s,2,10,QChar('0'));
-//    cout << time << endl;
+    //    cout << time << endl;
     timeLabel->setText(hStr + ":" + mStr + ":" + sStr);
     if(time < 0){
         cout << "Wraparound error." << endl;
