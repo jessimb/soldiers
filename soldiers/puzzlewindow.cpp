@@ -741,6 +741,8 @@ void puzzleWindow::checkVictory(){
             winner->second->statsfunction(time,INT_MAX/time);
         }
         writeStats();
+        mainWindow->statsWindowObj->updatestats(globalUser);
+
         cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
         //        Janky and needs to be fixed.
         static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
