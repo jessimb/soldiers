@@ -1,8 +1,14 @@
 #include "statswindow.h"
 #include <QLabel>
 #include <QDebug>
-#include <tr1/unordered_map>
+#include <unordered_map>
+#include <fstream>
+#include <iostream>
+using namespace std;
 using namespace std::tr1;
+
+extern unordered_map<string,statsfunc*> users;
+
 statsWindow::statsWindow(MainWindow *mw,QString name)
 {
 
@@ -11,7 +17,7 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
     QGridLayout *buttonlayout = new QGridLayout;
     QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
-    usernamefunc=name;
+    username=name;
 
     this->setLayout(buttonlayout);
 //start here
@@ -74,7 +80,7 @@ statsWindow::~statsWindow()
 
 int statsWindow::highscorefunction()
 {
-    highScore=0;
+   
     for(int i=0;i<scorevec.size()-1;i++)
     {
 
@@ -91,7 +97,7 @@ int statsWindow::highscorefunction()
 
 int statsWindow::besttimefunction()
 {
-    bestTime=0;
+    
     for(int i=0;i<timevec.size()-1;i++)
     {
         if(timevec.at(i)>bestTime)
@@ -101,4 +107,35 @@ int statsWindow::besttimefunction()
     }
     int BT=bestTime/totalgamesplayed;
     return BT;
+}
+
+void statsWindow::writeStats()
+{
+    std::ofstream ofs;
+    ofs.open("sudoku.sudostat", std::ofstream::out | std::ofstream::trunc);
+    unordered_map<string,statsfunc*>::iterator it = users.begin();
+    for(;it!=users.end();it++)
+    {
+        ofs<<it->first<<"\n";
+
+        statsfunc * current = it->second;
+        ofs << current->bestTime <<"\n";
+        ofs << current->highScore <<"\n";
+        ofs << current->scorevec.size()<<"\n";
+        for(int x=0;x<current->scorevec.size();x++)
+        {
+            ofs << current->scorevec[x] <<"\n";
+        }
+        ofs << current->timevec.size()<<"\n";
+
+        for(int y = 0;y < current->timevec.size();y++)
+        {
+            ofs <<current->timevec[y]<<"\n";
+        }
+
+
+
+
+    }
+    ofs.close();
 }

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "statswindow.h"
 #include "statsfunc.h"
-#include <tr1/unordered_map>
+#include <unordered_map>
 class MainWindow;
 class QString;
 #include <QString>

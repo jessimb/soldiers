@@ -14,7 +14,7 @@
 #include <limits.h>
 #include "saveload.h"
 #include "mainmenu.h"
-#include <tr1/unordered_map>
+#include <unordered_map>
 using namespace std::tr1;
 using namespace std;
 extern QString globalUser;
@@ -557,9 +557,10 @@ void puzzleWindow::checkVictory(){
         else
         {
             winner->second->statsfunction(time,INT_MAX/time);
-            writeStats();
+
 
         }
+        writeStats();
         cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
 //        Janky and needs to be fixed.
         static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
