@@ -5,11 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui network webkit webkitwidgets widgets script
-<<<<<<< HEAD
 CONFIG += c++11
-=======
-CONFIG   += c++11
->>>>>>> 15e097ae3e8da10f5af8c48cc30850f62882b6b2
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += core gui network webkit webkitwidgets widgets script
 

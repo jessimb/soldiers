@@ -114,6 +114,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     connect(pause, SIGNAL(clicked()), this, SLOT(goBackToPuzzle()));
     connect(hint, SIGNAL(clicked()), this, SLOT(showHint()));
     connect(erase, SIGNAL(clicked()), this, SLOT(eraseSlot()));
+    connect(undoButton, SIGNAL(clicked()), this, SLOT(undoAct))
 
     QWidget *wid = new QWidget;
     wid->setLayout(lay);
