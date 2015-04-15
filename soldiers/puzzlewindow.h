@@ -52,6 +52,9 @@ public:
     QUndoStack *undoStack;
     QAction *undoAct;
     QAction *redoAct;
+    QPushButton *undoButton;
+    QPushButton *redoButton;
+
 
 private:
     MainWindow *mainWindow;
@@ -77,6 +80,8 @@ public slots:
     void eraseSlot();
     void insertValue(int r, int c, int d);
     void insertNotes(int r, int c, std::list<int> notes);
+    void undoSlot();
+    void redoSlot();
 };
 
 
