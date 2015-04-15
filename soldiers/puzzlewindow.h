@@ -53,6 +53,7 @@ private:
     int s_col;
     QGridLayout * lay;
     QString *styleDis;
+    QString *styleDisEn;
     QString *style;
 
 private slots:

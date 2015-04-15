@@ -44,6 +44,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     QGridLayout *buttonlayout = new QGridLayout;
     style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     styleDis = new QString("QPushButton {font-family: \"Courier New\"; font-size: 10px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF} QPushButton:pressed{background-color:#fff;}");
+    styleDisEn = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#d3d3d3} QPushButton:pressed{background-color:#fff;}");
     QString *numStyle = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 10px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
     setFocusPolicy(Qt::ClickFocus);
 
@@ -368,15 +369,15 @@ void puzzleWindow::check_erase(int row, int col){
     if (grid[row][col] == 0 && hints[row][col] == 0 && their_solution[row][col] == 0 && notes[row][col].size() == 0 ) {
 
         erase->setEnabled(false);
-        erase->setStyleSheet(*styleDis);
+        erase->setStyleSheet(*styleDisEn);
 
     } else if (grid[row][col] != 0 ) {
         erase->setEnabled(false);
-        erase->setStyleSheet(*styleDis);
+        erase->setStyleSheet(*styleDisEn);
 
     } else if (hints[row][col] != 0){
         erase->setEnabled(false);
-        erase->setStyleSheet(*styleDis);
+        erase->setStyleSheet(*styleDisEn);
 
     } else {
         erase->setEnabled(true);
