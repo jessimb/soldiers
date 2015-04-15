@@ -6,18 +6,19 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
 {
 
     mainWindow = mw;
+
     QGridLayout *buttonlayout = new QGridLayout;
     QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
-    username=name;
+    usernamefunc=name;
 
     this->setLayout(buttonlayout);
 //start here
     QWidget *statsholder = new QWidget;
     QGridLayout *statsholderlayout = new QGridLayout;
 
-    int averageHS= highscorefunc();
-    int averageBS= besttimefunc();
+    int averageHS= highscorefunction();
+    int averageBS= besttimefunction();
     QLabel *label = new QLabel("Statistics");
     QFont f( "Courier New", 20, QFont::Bold);
     label->setAlignment(Qt::AlignCenter);
@@ -69,8 +70,7 @@ statsWindow::~statsWindow()
 {
 
 }
-
-void statsWindow::statsfunction(int score, int time)
+void statsfunc::statsfunction(int score, int time)
 {
     currentscore=score;
     scorevec.push_front(currentscore);
@@ -79,7 +79,7 @@ void statsWindow::statsfunction(int score, int time)
     timevec.push_front(currenttime);
 }
 
-int statsWindow::highscorefunc()
+int statsfunc::highscorefunc()
 {
     highScore=0;
     for(int i=0;i<scorevec.size()-1;i++)
@@ -95,7 +95,36 @@ int statsWindow::highscorefunc()
     int HS=highScore/totalgamesplayed;
     return HS;
 }
-int statsWindow::besttimefunc()
+int statsWindow::highscorefunction()
+{
+    highScore=0;
+    for(int i=0;i<scorevec.size()-1;i++)
+    {
+
+        if(scorevec.at(i)>highScore)
+        {
+            highScore=scorevec.at(i);
+        }
+    }
+    if(totalgamesplayed == 0)
+        return 0;
+    int HS=highScore/totalgamesplayed;
+    return HS;
+}
+int statsfunc::besttimefunc()
+{
+    bestTime=0;
+    for(int i=0;i<timevec.size()-1;i++)
+    {
+        if(timevec.at(i)>bestTime)
+        {
+            bestTime=timevec.at(i);
+        }
+    }
+    int BT=bestTime/totalgamesplayed;
+    return BT;
+}
+int statsWindow::besttimefunction()
 {
     bestTime=0;
     for(int i=0;i<timevec.size()-1;i++)

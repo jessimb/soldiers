@@ -6,6 +6,23 @@
 
 class MainWindow;
 class QString;
+
+class statsfunc: public QWidget
+{
+    double currenttime;
+    double currentscore;
+    double bestTime;
+    int totalgamesplayed;
+    int highScore;
+    QString username;
+    QVector<int> scorevec;
+    QVector<int> timevec;
+    int highscorefunc();
+    int besttimefunc();
+    int BT();
+    int HS();
+    void statsfunction(int score, int time);
+};
 class statsWindow : public QWidget
 {
     Q_OBJECT
@@ -13,19 +30,21 @@ class statsWindow : public QWidget
 public:
     explicit statsWindow(MainWindow *mw = 0,QString name="");
     ~statsWindow();
+    QString usernamefunc;
     double currenttime;
     double currentscore;
-    QString username;//passed
     double bestTime;
     int totalgamesplayed;
     int highScore;
-    int highscorefunc();
-    int besttimefunc();
+    QString username;
     QVector<int> scorevec;
     QVector<int> timevec;
+    int highscorefunction();
+    int besttimefunction();
     int BT();
     int HS();
     void statsfunction(int score, int time);
+
 private:
     MainWindow *mainWindow;
 
