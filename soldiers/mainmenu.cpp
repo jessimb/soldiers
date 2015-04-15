@@ -10,7 +10,6 @@ QString globalUser="";
 unordered_map<string,statsfunc *> users;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
 {
-
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
 
@@ -98,10 +97,7 @@ void mainMenu::gotoInstrMenu()
 void mainMenu::gotoPuzzleWindow()
 {
     mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow,"",true);
-
-        stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
-        stackedWidget->setCurrentIndex(stackedWidget->count() - 1);
-
+    stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
 }
 
 void mainMenu::gotoLeaderboard()
