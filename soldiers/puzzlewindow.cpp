@@ -59,6 +59,7 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     styleDis = new QString("QPushButton {font-family: \"Courier New\"; font-size: 10px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF} QPushButton:pressed{background-color:#fff;}");
     styleDisEn = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#d3d3d3} QPushButton:pressed{background-color:#fff;}");
     QString *numStyle = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 10px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
+
     setFocusPolicy(Qt::ClickFocus);
 
     // this->setLayout(buttonlayout);
@@ -72,17 +73,19 @@ puzzleWindow::puzzleWindow(MainWindow *mw, std::string file,bool loadGame)
     undoButton = new QPushButton();
     redoButton = new QPushButton();
 
-    QPixmap pixelMapUn = QPixmap(":/images/arrow-left.jpg");
+    QPixmap pixelMapUn = QPixmap(":/images/arrrow-left.png");
     QPixmap tempShrinkUn = pixelMapUn.scaled(QSize(150,30),Qt::KeepAspectRatio);
     QIcon ButtonIcon(tempShrinkUn);
     undoButton->setIcon(ButtonIcon);
     undoButton->setIconSize(tempShrinkUn.rect().size());
+    undoButton->setStyleSheet(*numStyle);
 
-    QPixmap pixelMapRe = QPixmap(":/images/arrow-right.jpg");
+    QPixmap pixelMapRe = QPixmap(":/images/arrow-right.png");
     QPixmap tempShrinkRe = pixelMapRe.scaled(QSize(150,30),Qt::KeepAspectRatio);
     QIcon ButtonIcon2(tempShrinkRe);
     redoButton->setIcon(ButtonIcon2);
     redoButton->setIconSize(tempShrinkRe.rect().size());
+    redoButton->setStyleSheet(*numStyle);
 
 
     hint = new QPushButton("Get Hint\nAdds " + QString::number(60*5*numHints) + " seconds");

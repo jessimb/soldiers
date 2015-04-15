@@ -4,8 +4,8 @@
         <file>instrboard.png</file>
         <file>Fireworks.gif</file>
         <file>facebooklogin.png</file>
-        <file>arrow-left.jpg</file>
-        <file>arrow-right.jpg</file>
+        <file>arrow-right.png</file>
+        <file>arrrow-left.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file>puzzleDatabase/e02.txt</file>
