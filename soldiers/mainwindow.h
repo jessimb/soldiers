@@ -32,11 +32,12 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
     puzzleWindow *puzzleWindowObj;
+    statsWindow *statsWindowObj;
 private:
     mainMenu *mainMenuObj;
     instructionsMenu *instrMenuObj;
     newGameMenu *newGameMenuObj;
-    statsWindow *statsWindowObj;
+
     leaderboardWindow *leaderboardWindowObj;
     pauseWindow *pauseWindowObj;
     winWindow *winWindowObj;

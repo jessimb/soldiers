@@ -29,8 +29,7 @@ public:
     int BT();
     int HS();
     void statsfunction(int score, int time);
-
-private:
+    void statsupdate(QString name);
     MainWindow *mainWindow;
 
 private slots:

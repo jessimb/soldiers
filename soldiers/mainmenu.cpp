@@ -6,8 +6,7 @@
 #include "MainWindowContainer.h"
 #include <string>
 using namespace std;
-QString globalUser="";
-unordered_map<string,statsfunc *> users;
+extern unordered_map<string,statsfunc *> users;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
 {
 
@@ -112,6 +111,8 @@ void mainMenu::gotoLeaderboard()
 void mainMenu::gotoStatsWindow()
 {
     stackedWidget->setCurrentIndex(3);
+    if(mainMenu::globalUser.toStdString()!="")
+        mainWindow->statsWindowObj->statsupdate(mainMenu::globalUser);
 }
 
 void mainMenu::gotoFacebook()
