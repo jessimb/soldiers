@@ -76,6 +76,7 @@ public slots:
     void incrementTime();
     void eraseSlot();
     void insertValue(int r, int c, int d);
+    void insertNotes(int r, int c, std::list<int> notes);
 };
 
 

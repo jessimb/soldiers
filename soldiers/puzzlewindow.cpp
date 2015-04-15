@@ -208,6 +208,7 @@ void puzzleWindow::resetPuzzle()
             }
         }
         check_erase(i,j);
+        undoStack->clear();
     }
         }
     }
@@ -274,7 +275,7 @@ for (int i = 0; i < 9; i++) {
 
 void puzzleWindow::eraseSlot()
 {
-    undoStack->push(new undoErase(this, s_row, s_col, their_solution[s_row][s_col]));
+    undoStack->push(new undoErase(this, s_row, s_col, their_solution[s_row][s_col], notes[s_row][s_col]));
 
 }
 
@@ -288,6 +289,55 @@ void puzzleWindow::insertValue(int r, int c, int d)
             ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
             labell->setText("<font size = 15 color = 'blue'>" + QString::number(d) + "</font>");
         }
+
+}
+
+void puzzleWindow::insertNotes(int r, int c, list<int> noteList)
+{
+    notes[r][c] = noteList;
+    QLayoutItem *item = lay->itemAtPosition(r, c);
+
+    if (item) {
+        QWidget * wid = item->widget();
+        ClickableLabel* labell= static_cast<ClickableLabel*>(wid);
+
+        //int index2 = lay->indexOf(labell);
+
+       /* if (grid[r][c] == 0 && hints[r][c] == 0 && std::find(notes[r][c].begin(), notes[r][c].end(), i) != notes[r][c].end()) { //going to delete note
+            QString text = "";
+            notes[r][c].erase((std::find(notes[r][c].begin(), notes[r][c].end(), i)));
+            notes[r][c].sort();
+            int x = 1;
+            for (std::list<int>::const_iterator iterator = notes[r][c].begin(), end = notes[r][c].end(); iterator != end; ++iterator) {
+                if (*iterator != 0) {
+                    text = text + QString::number(*iterator) + " ";
+                    if (x%3 == 0 && x!=9) text = text + "<br>";
+                    x++;
+                }
+
+            }
+            labell->setText("<font size=2 color='green'>"+ text + "</font>");
+        } else */if (grid[r][c] == 0 && hints[r][c] == 0) {
+            if (their_solution[r][c] != 0) {
+                their_solution[r][c] = 0;
+            }
+            //notes[r][c].push_back(i);
+            QString text = "";
+            notes[r][c].sort();
+            int x = 1;
+            for (std::list<int>::const_iterator iterator = notes[r][c].begin(), end = notes[r][c].end(); iterator != end; ++iterator) {
+                if (*iterator != 0) {
+                    text = text + QString::number(*iterator) + " ";
+                    if (x%3 == 0 && x!=9) text = text + "<br>";
+                    x++;
+                }
+
+            }
+            labell->setText("<font size=2 color='green'>"+ text + "</font>");
+
+        }
+
+    }
 
 }
 
