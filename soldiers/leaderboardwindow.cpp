@@ -1,10 +1,12 @@
 #include "leaderboardwindow.h"
+#include "statswindow.h"
 #include <QLabel>
 
 leaderboardWindow::leaderboardWindow(MainWindow *mw)
 {
 
     mainWindow = mw;
+    mw->statsWindowObj;
     QGridLayout *buttonlayout = new QGridLayout;
     QString *style = new QString("QPushButton {font-family: \"Courier New\"; font-size: 20px; border:1px solid #000; border-radius: 15px;background-color: #f6f6f6; color:#0000FF; } QPushButton:pressed{background-color:#fff;}");
 
@@ -64,9 +66,8 @@ leaderboardWindow::~leaderboardWindow()
 }
 void leaderboardWindow::TP()
 {
-    one = 0;
-    two = 0;
-    three = 0;
+    topscores=mainWindow->statsWindowObj->getScoreVector();
+
     for(int i=0;i<topscores.size()-1;i++)
     {
         if(topscores.at(i)>one)
@@ -88,5 +89,20 @@ void leaderboardWindow::TP()
             three = topscores.at(i);
         }
     }
+    QString str = QString::number(one);
+    first->setText(str);
+    QFont f2("Courier New", 15);
+    first->setFont(f2);
+    first->setAlignment(Qt::AlignCenter);
+
+    QString str2 = QString::number(two);
+    second->setText(str2);
+    second->setFont(f2);
+    second->setAlignment(Qt::AlignCenter);
+
+    QString str3 = QString::number(three);
+    third->setText(str3);
+    third->setFont(f2);
+    third->setAlignment(Qt::AlignCenter);
 }
 

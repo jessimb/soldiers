@@ -5,11 +5,12 @@
 #include <QWidget>
 #include <QVector>
 #include <QLabel>
+#include <vector>
 
 class MainWindow;
 class QString;
 
-
+using namespace std;
 class statsWindow : public QWidget
 {
     Q_OBJECT
@@ -33,6 +34,9 @@ public:
     int HS();
     void statsfunction(int score, int time);
     void updatestats(QString name);
+
+    QVector<int> getScoreVector();
+    QVector<string> getNameVector();
 
 private:
     MainWindow *mainWindow;

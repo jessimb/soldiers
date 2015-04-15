@@ -749,6 +749,7 @@ void puzzleWindow::checkVictory(){
             }
             writeStats();
             mainWindow->statsWindowObj->updatestats(globalUser);
+            mainWindow->leaderboardWindowObj->TP();
         }
 
 

@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include <QWidget>
 #include <QVector>
+#include <QLabel>
 
 class MainWindow;
 
@@ -15,9 +16,12 @@ public:
     ~leaderboardWindow();
     QVector<int> topscores;
     void TP();
-    int one;
-    int two;
-    int three;
+    int one=0;
+    int two=0;
+    int three=0;
+    QLabel *first = new QLabel;
+    QLabel *second = new QLabel;
+    QLabel *third = new QLabel;
 
 private:
     MainWindow *mainWindow;

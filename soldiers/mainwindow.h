@@ -33,12 +33,12 @@ public:
     ~MainWindow();
     puzzleWindow *puzzleWindowObj;
     statsWindow *statsWindowObj;
+    leaderboardWindow *leaderboardWindowObj;
+
 private:
     mainMenu *mainMenuObj;
     instructionsMenu *instrMenuObj;
     newGameMenu *newGameMenuObj;
-
-    leaderboardWindow *leaderboardWindowObj;
     pauseWindow *pauseWindowObj;
     winWindow *winWindowObj;
 

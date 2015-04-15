@@ -218,3 +218,26 @@ void statsWindow::writeStats()
     }
     ofs.close();
 }
+
+QVector<int> statsWindow::getScoreVector()
+{
+    QVector<int> scvec;
+    for(auto it =users.begin();it!=users.end();it++)
+    {
+        statsfunc * current= it->second;
+        scvec.push_back(current->highScore);
+    }
+    return scvec;
+}
+
+QVector<string> statsWindow::getNameVector()
+{
+    QVector<string> scvec;
+    for(auto it =users.begin();it!=users.end();it++)
+    {
+
+        scvec.push_back(it->first);
+    }
+    return scvec;
+}
+
