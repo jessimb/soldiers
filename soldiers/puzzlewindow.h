@@ -61,6 +61,8 @@ private:
     QString *styleDis;
     QString *styleDisEn;
     QString *style;
+    void loadNotes();
+    void loadHints();
 
 private slots:
     void goBackToPuzzle();

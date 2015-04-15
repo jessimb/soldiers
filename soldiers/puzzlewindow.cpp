@@ -225,6 +225,16 @@ puzzleWindow::~puzzleWindow()
 
 }
 
+void puzzleWindow::loadNotes()
+{
+
+}
+
+void puzzleWindow::loadHints()
+{
+
+}
+
 void puzzleWindow::eraseSlot()
 {
     undoStack->push(new undoErase(this, s_row, s_col, their_solution[s_row][s_col]));
