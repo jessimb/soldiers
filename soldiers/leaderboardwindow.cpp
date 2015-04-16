@@ -1,6 +1,7 @@
 #include "leaderboardwindow.h"
 #include "statswindow.h"
 #include <QLabel>
+#include <iostream>
 
 leaderboardWindow::leaderboardWindow(MainWindow *mw)
 {
@@ -17,32 +18,33 @@ leaderboardWindow::leaderboardWindow(MainWindow *mw)
     label->setAlignment(Qt::AlignCenter);
     label->setFont(f);
 
-    QString str;
-    str.setNum(one);
-    QLabel *first = new QLabel;
-    first->setText(str);
-    QFont f2("Courier New", 15);
-    first->setFont(f2);
-    first->setAlignment(Qt::AlignCenter);
+//    QString str;
+//    str.setNum(one);
+//    first->setText(str);
+//    QFont f2("Courier New", 15);
+//    first->setFont(f2);
+//    first->setAlignment(Qt::AlignCenter);
 
-    QString str2;
-    str2.setNum(two);
-    QLabel *second = new QLabel;
-    second->setText(str2);
-    second->setFont(f2);
-    second->setAlignment(Qt::AlignCenter);
+//    QString str2;
+//    str2.setNum(two);
+//    second->setText(str2);
+//    second->setFont(f2);
+//    second->setAlignment(Qt::AlignCenter);
 
-    QString str3;
-    str3.setNum(three);
-    QLabel *third = new QLabel;
-    third->setText(str3);
-    third->setFont(f2);
-    third->setAlignment(Qt::AlignCenter);
+//    QString str3;
+//    str3.setNum(three);
+//    third->setText(str3);
+//    third->setFont(f2);
+//    third->setAlignment(Qt::AlignCenter);
+
 
     buttonlayout->addWidget(label);
     buttonlayout->addWidget(first);
     buttonlayout->addWidget(second);
     buttonlayout->addWidget(third);
+  //  buttonlayout->addWidget(firstname,1,0);
+   // buttonlayout->addWidget(secondname,2,0);
+   // buttonlayout->addWidget(thirdname,3,0);
 
     QPushButton *back = new QPushButton("Main Menu");
     buttonlayout->addWidget(back);
@@ -66,27 +68,42 @@ leaderboardWindow::~leaderboardWindow()
 }
 void leaderboardWindow::TP()
 {
-    topscores=mainWindow->statsWindowObj->getScoreVector();
+    cout<<"IN TP PS HELLA JANK"<<endl;
+//    int pos=0;
+//    string temp;
+//    QVector<QString> namevec;
+//    namevec=mainWindow->statsWindowObj->getNameVector();
+//    topscores=mainWindow->statsWindowObj->getScoreVector();
 
-    for(int i=0;i<topscores.size()-1;i++)
-    {
-        if(topscores.at(i)>one)
+    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
+    { cout<<"in loop"<<endl;
+        if(mainWindow->statsWindowObj->scorevec.at(i)>one)
         {
-            one = topscores.at(i);
+            one = mainWindow->statsWindowObj->scorevec.at(i);
+
+            //firstname->setText(namevec.at(i));
         }
     }
-    for(int i=0;i<topscores.size()-1;i++)
+    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
     {
-        if(topscores.at(i)>two && two<one)
+        if(mainWindow->statsWindowObj->scorevec.at(i)>two)
         {
-            two = topscores.at(i);
-        }
+            two = mainWindow->statsWindowObj->scorevec.at(i);
+            if(two>=one)
+            {
+                two=0;
+            }
+         }
     }
-    for(int i=0;i<topscores.size()-1;i++)
+    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
     {
-        if(topscores.at(i)>three && three<two)
+        if(mainWindow->statsWindowObj->scorevec.at(i)>three)
         {
-            three = topscores.at(i);
+            three = mainWindow->statsWindowObj->scorevec.at(i);
+            if(three>=two)
+            {
+                three=0;
+            }
         }
     }
     QString str = QString::number(one);

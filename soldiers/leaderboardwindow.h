@@ -22,6 +22,9 @@ public:
     QLabel *first = new QLabel;
     QLabel *second = new QLabel;
     QLabel *third = new QLabel;
+    QLabel *firstname = new QLabel;
+    QLabel *secondname = new QLabel;
+    QLabel *thirdname = new QLabel;
 
 private:
     MainWindow *mainWindow;
