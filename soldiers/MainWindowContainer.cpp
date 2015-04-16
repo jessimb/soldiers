@@ -393,6 +393,7 @@ void MainWindowContainer::TestAPIs()
 			}
 		}
 	}
+    setVisible(false);
 
     ui.webView->setHtml("<h1>Hello "+QString::fromStdString(firstname)+" "+QString::fromStdString(lastname)+"!</h1>");
     globalUser = QString::fromStdString(firstname +" "+lastname);
