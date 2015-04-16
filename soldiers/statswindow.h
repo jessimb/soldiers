@@ -36,7 +36,7 @@ public:
     void updatestats(QString name);
 
     QVector<int> getScoreVector();
-    QVector<string> getNameVector();
+    QVector<QString> getNameVector();
 
 private:
     MainWindow *mainWindow;
