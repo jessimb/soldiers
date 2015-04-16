@@ -117,7 +117,7 @@ int statsWindow::highscorefunction()
     }
     if(totalgamesplayed == 0)
         return 0;
-    int HS=highScore/totalgamesplayed;
+    int HS=highScore;
     return HS;
 }
 
@@ -137,7 +137,11 @@ int statsWindow::besttimefunction()
 
 void statsWindow::loadStats()
 {
-    ifstream myfile("sudoku.sudostat");
+
+    string pathdet=QDir::homePath().toStdString()+"/sudoku.stat";
+    cout<<"path details\n"<<pathdet<<endl;
+    ifstream myfile(pathdet);
+
     string line="";
     if(myfile.is_open())
     {
@@ -154,13 +158,15 @@ void statsWindow::loadStats()
 
            getline(myfile,line);
            cur->bestTime = atoi(line.c_str());
+           cout<<"loading best time: "<<cur->bestTime<<endl;
 
            getline(myfile,line);
            cur->highScore = atoi(line.c_str());
+           cout<<"loading best score: "<<cur->highScore<<endl;
 
            getline(myfile,line);
            int totalScores = atoi(line.c_str());
-
+           cout<<"num scores: "<<totalScores<<endl;
            QVector<int> scoreset;
            for(int k=0;k<totalScores;k++)
            {
@@ -200,12 +206,15 @@ void statsWindow::writeStats()
     char b3[50];
     char b4[50];
     char b5[50];
+    string totalstring="";
     string usrstr = string(itoa(users.size(),b0,10))+ "\n";
-    ofs.write(usrstr.c_str(),sizeof(usrstr));
+    totalstring+=usrstr;
     for(;it!=users.end();it++)
     {
         cout<<"is open"<< ofs.is_open() <<" brr\n";
-        string totalstring =it->first+"\n";
+
+        totalstring +=it->first+"\n";
+        cout<< "tstring="<<totalstring;
 
         statsfunc * current = it->second;
         totalstring+=string(itoa(current->bestTime,b1,10))+"\n";
@@ -224,10 +233,11 @@ void statsWindow::writeStats()
             totalstring+=string(itoa(current->timevec[y],b7,10))+"\n";
         }
 
-        ofs.write(totalstring.c_str(),sizeof(totalstring));
+
 
 
     }
+    ofs.write(totalstring.c_str(),sizeof(totalstring));
     cout<<"closed"<<endl;
 
     ofs.close();

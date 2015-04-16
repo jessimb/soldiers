@@ -17,9 +17,8 @@ public:
     explicit mainMenu(MainWindow *mw = 0);
     ~mainMenu();
 
-    void loadStats();
 
-    void populateStats();
+
 
 private slots:
     void gotoNewGameMenu();

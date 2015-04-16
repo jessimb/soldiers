@@ -70,7 +70,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     buttonHolder->setLayout(buttonHolderLayout);
 
     buttonlayout->addWidget(buttonHolder);
-    loadStats();
+
 
 
     connect(newGame, SIGNAL(clicked()), this, SLOT(gotoNewGameMenu()));
@@ -79,7 +79,7 @@ mainMenu::mainMenu(MainWindow *mw) : QWidget()
     connect(leader,SIGNAL(clicked()),this,SLOT(gotoLeaderboard()));
     connect(stats,SIGNAL(clicked()),this,SLOT(gotoStatsWindow()));
     connect(fb,SIGNAL(clicked()),this,SLOT(gotoFacebook()));
-    populateStats();
+
 }
 
 void mainMenu::gotoNewGameMenu()
@@ -114,16 +114,6 @@ void mainMenu::gotoFacebook()
 {
     MainWindowContainer *m= new MainWindowContainer();
     m->show();
-
-}
-
-void mainMenu::loadStats()
-{
-
-}
-
-void mainMenu::populateStats()
-{
 
 }
 

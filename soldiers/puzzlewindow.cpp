@@ -830,7 +830,7 @@ void puzzleWindow::note() {
 
 void puzzleWindow::writeStats()
 {
-    mainWindow->statsWindowObj->writeStats();
+    statsWindow::writeStats();
 }
 
 void puzzleWindow::incrementTime(){
