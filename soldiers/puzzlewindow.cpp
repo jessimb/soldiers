@@ -731,8 +731,10 @@ void puzzleWindow::checkVictory(){
         clock->stop();
         cout << "Congrats! You've won! Your score was - " << time << "!" << endl;
         stackedWidget->setCurrentIndex(6);
+        cout<<"Global "<<globalUser.toStdString()<<" user"<<endl;
         if(globalUser.toStdString()!="")
         {
+
             auto winner = users.find(globalUser.toStdString());
             if(winner == users.end())
             {
@@ -747,6 +749,7 @@ void puzzleWindow::checkVictory(){
             {
                 winner->second->statsfunction(time,INT_MAX/time);
             }
+            cout<<"calling write stats\n";
             writeStats();
             mainWindow->statsWindowObj->updatestats(globalUser);
             mainWindow->leaderboardWindowObj->TP();
@@ -827,7 +830,7 @@ void puzzleWindow::note() {
 
 void puzzleWindow::writeStats()
 {
-
+    mainWindow->statsWindowObj->writeStats();
 }
 
 void puzzleWindow::incrementTime(){

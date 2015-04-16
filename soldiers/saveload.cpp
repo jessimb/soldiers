@@ -32,7 +32,7 @@ void SaveLoad::saveFile()
     if(!filename.isNull())
     {
         ofstream stream(filename.toStdString().c_str(),std::ios::binary | std::ios::out);
-        stream.write(board,boardSize);
+            stream.write(board,boardSize);
         stream.close();
     }
 }

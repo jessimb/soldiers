@@ -6,7 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-
+#include <QDir>
 using namespace std;
 
 extern unordered_map<string,statsfunc*> users;
@@ -189,33 +189,47 @@ void statsWindow::loadStats()
 
 void statsWindow::writeStats()
 {
-    std::ofstream ofs;
-    ofs.open("sudoku.sudostat", std::ofstream::out | std::ofstream::trunc);
+    cout<<"writing stats sudostat"<<endl;
+    string filewrite=QDir::homePath().toStdString()+"/sudoku.stat";
+    cout<<"string to write "<<filewrite<<endl;
+    std::ofstream ofs(filewrite,std::ios::out);
     unordered_map<string,statsfunc*>::iterator it = users.begin();
-    ofs << users.size() << "\n";
+    char b0[50];
+    char b1[50];
+    char b2[50];
+    char b3[50];
+    char b4[50];
+    char b5[50];
+    string usrstr = string(itoa(users.size(),b0,10))+ "\n";
+    ofs.write(usrstr.c_str(),sizeof(usrstr));
     for(;it!=users.end();it++)
     {
-        ofs<<it->first<<"\n";
+        cout<<"is open"<< ofs.is_open() <<" brr\n";
+        string totalstring =it->first+"\n";
 
         statsfunc * current = it->second;
-        ofs << current->bestTime <<"\n";
-        ofs << current->highScore <<"\n";
-        ofs << current->scorevec.size()<<"\n";
+        totalstring+=string(itoa(current->bestTime,b1,10))+"\n";
+        totalstring+=string(itoa(current->highScore,b2,10)) +"\n";
+        totalstring+=string(itoa(current->scorevec.size(),b3,10))+"\n";
         for(int x=0;x<current->scorevec.size();x++)
         {
-            ofs << current->scorevec[x] <<"\n";
+            char b6[50];
+            totalstring+=string(itoa(current->scorevec[x],b6,10)) +"\n";
         }
-        ofs << current->timevec.size()<<"\n";
+        totalstring+= string(itoa(current->timevec.size(),b4,10))+"\n";
 
         for(int y = 0;y < current->timevec.size();y++)
         {
-            ofs <<current->timevec[y]<<"\n";
+            char b7[50];
+            totalstring+=string(itoa(current->timevec[y],b7,10))+"\n";
         }
 
-
+        ofs.write(totalstring.c_str(),sizeof(totalstring));
 
 
     }
+    cout<<"closed"<<endl;
+
     ofs.close();
 }
 
