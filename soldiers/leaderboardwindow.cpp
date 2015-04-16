@@ -73,33 +73,31 @@ void leaderboardWindow::TP()
 //    string temp;
 //    QVector<QString> namevec;
 //    namevec=mainWindow->statsWindowObj->getNameVector();
-//    topscores=mainWindow->statsWindowObj->getScoreVector();
+    topscores=mainWindow->statsWindowObj->getScoreVector();
 
-    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
+    for(int i=0;i<topscores.size();i++)
     { cout<<"in loop"<<endl;
-        if(mainWindow->statsWindowObj->scorevec.at(i)>one)
+        if(topscores.at(i)>one)
         {
-            one = mainWindow->statsWindowObj->scorevec.at(i);
-
-            //firstname->setText(namevec.at(i));
+            one = topscores.at(i);
         }
     }
-    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
+    for(int i=0;i<topscores.size();i++)
     {
-        if(mainWindow->statsWindowObj->scorevec.at(i)>two)
+        if(topscores.at(i)>two)
         {
-            two = mainWindow->statsWindowObj->scorevec.at(i);
+            two = topscores.at(i);
             if(two>=one)
             {
                 two=0;
             }
          }
     }
-    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
+    for(int i=0;i<topscores.size();i++)
     {
-        if(mainWindow->statsWindowObj->scorevec.at(i)>three)
+        if(topscores.at(i)>three)
         {
-            three = mainWindow->statsWindowObj->scorevec.at(i);
+            three = topscores.at(i);
             if(three>=two)
             {
                 three=0;
