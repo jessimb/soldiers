@@ -68,12 +68,7 @@ leaderboardWindow::~leaderboardWindow()
 }
 void leaderboardWindow::TP()
 {
-    cout<<"IN TP PS HELLA JANK"<<endl;
-//    int pos=0;
-//    string temp;
-//    QVector<QString> namevec;
-//    namevec=mainWindow->statsWindowObj->getNameVector();
-//    topscores=mainWindow->statsWindowObj->getScoreVector();
+
     QVector<int> use = mainWindow->statsWindowObj->getScoreVector();
     QVector<QString> username= mainWindow->statsWindowObj->getNameVector();
 
@@ -121,6 +116,7 @@ void leaderboardWindow::TP()
         {
             index3=i;
             three = use.at(i);
+
         }
 
 
