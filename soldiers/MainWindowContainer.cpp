@@ -359,7 +359,8 @@ QString MainWindowContainer::GetGroupWallFeeds(QString strWallFeeds)
 */
 void MainWindowContainer::TestAPIs()
 {
-    
+    setVisible(false);
+
     QString response1;
 	response1 = GetApiRequest(true,"");
     cout<<"resp"<<response1.toStdString()<<endl;
@@ -393,7 +394,6 @@ void MainWindowContainer::TestAPIs()
 			}
 		}
 	}
-    setVisible(false);
 
     ui.webView->setHtml("<h1>Hello "+QString::fromStdString(firstname)+" "+QString::fromStdString(lastname)+"!</h1>");
     globalUser = QString::fromStdString(firstname +" "+lastname);

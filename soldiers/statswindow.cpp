@@ -109,16 +109,15 @@ statsWindow::~statsWindow()
 int statsWindow::highscorefunction()
 {
    
-    for(int i=0;i<scorevec.size()-1;i++)
+    for(int i=0;i<scorevec.size();i++)
     {
 
-        if(scorevec.at(i)>highScore)
+        if(scorevec.at(i)>=highScore)
         {
             highScore=scorevec.at(i);
         }
     }
-    if(totalgamesplayed == 0)
-        return 0;
+
     int HS=highScore;
     return HS;
 }
@@ -126,7 +125,7 @@ int statsWindow::highscorefunction()
 int statsWindow::besttimefunction()
 {
     
-    for(int i=0;i<timevec.size()-1;i++)
+    for(int i=0;i<timevec.size();i++)
     {
         if(timevec.at(i)>bestTime)
         {

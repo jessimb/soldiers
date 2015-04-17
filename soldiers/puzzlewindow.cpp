@@ -749,6 +749,7 @@ void puzzleWindow::checkVictory(){
             }
             else
             {
+
                 winner->second->statsfunction(time,INT_MAX/time);
             }
             cout<<"calling write stats\n";
