@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <QDir>
+#include <sstream>
 using namespace std;
 
 extern unordered_map<string,statsfunc*> users;
@@ -208,7 +209,9 @@ void statsWindow::writeStats()
     char b4[50];
     char b5[50];
     string totalstring="";
-    string usrstr = string(itoa(users.size(),b0,10))+ "\n";
+    stringstream init;
+    init <<users.size();
+    string usrstr = init.str()+ "\n";
     totalstring+=usrstr;
     cout<<"users.size() "<<users.size()<<endl;
     for(;it!=users.end();it++)
@@ -219,9 +222,17 @@ void statsWindow::writeStats()
         cout<< "tstring="<<totalstring;
 
         statsfunc * current = it->second;
-        totalstring+=string(itoa(current->bestTime,b1,10))+"\n";
-        totalstring+=string(itoa(current->highScore,b2,10)) +"\n";
-        totalstring+=string(itoa(current->scorevec.size(),b3,10))+"\n";
+        stringstream timestream;
+        stringstream highscorestream;
+        stringstream scoresize;
+        stringstream timesize;
+        timestream << current->bestTime;
+        highscorestream <<current->highScore;
+        scoresize <<current->scorevec.size();
+        timesize << current->timevec.size();
+        totalstring+=string(timestream.str())+"\n";
+        totalstring+=highscorestream.str() +"\n";
+        totalstring+=scoresize.str()+"\n";
         cout<<"btime "<<current->bestTime<<endl;
         cout<<"hstime "<<current->highScore<<endl;
         cout<<current->scorevec.size()<<endl;
@@ -229,15 +240,19 @@ void statsWindow::writeStats()
         for(int x=0;x<current->scorevec.size();x++)
         {
             char b6[50];
-            totalstring+=string(itoa(current->scorevec[x],b6,10)) +"\n";
+            stringstream temp;
+            temp << current->scorevec[x];
+            totalstring+=temp.str() +"\n";
         }
-        totalstring+= string(itoa(current->timevec.size(),b4,10))+"\n";
+        totalstring+= timesize.str()+"\n";
 
         for(int y = 0;y < current->timevec.size();y++)
         {
             char b7[50];
             cout<<"vec checking "<<current->timevec[y]<<endl;
-            totalstring+=string(itoa(current->timevec[y],b7,10))+"\n";
+            stringstream temp2;
+            temp2 << current->timevec[y];
+            totalstring+=temp2.str()+"\n";
         }
 
 
