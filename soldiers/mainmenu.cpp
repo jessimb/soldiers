@@ -6,7 +6,7 @@
 #include "MainWindowContainer.h"
 #include <string>
 using namespace std;
-QString globalUser="Linda tsao";
+QString globalUser="Anonymous";
 unordered_map<string,statsfunc *> users;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
 {
