@@ -200,7 +200,7 @@ void statsWindow::writeStats()
     cout<<"writing stats sudostat"<<endl;
     string filewrite=QDir::homePath().toStdString()+"/sudoku.stat";
     cout<<"string to write "<<filewrite<<endl;
-    std::ofstream ofs(filewrite,std::ios::out,std::ios::trunc);
+    std::ofstream ofs(filewrite.c_str(),std::ios::out,std::ios::trunc);
     unordered_map<string,statsfunc*>::iterator it = users.begin();
     char b0[50];
     char b1[50];
