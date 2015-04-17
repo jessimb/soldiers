@@ -75,6 +75,8 @@ void statsWindow::gotoMainMenu()
 }
 void statsWindow::updatestats(QString name)
 {
+    if(users.find(name.toStdString())==users.end())
+        return;
     statsfunc* currentUser = users.find(name.toStdString())->second;
     bestTime=currentUser->bestTime;
     totalgamesplayed=currentUser->totalgamesplayed;
@@ -198,7 +200,7 @@ void statsWindow::writeStats()
     cout<<"writing stats sudostat"<<endl;
     string filewrite=QDir::homePath().toStdString()+"/sudoku.stat";
     cout<<"string to write "<<filewrite<<endl;
-    std::ofstream ofs(filewrite,std::ios::out);
+    std::ofstream ofs(filewrite,std::ios::out,std::ios::trunc);
     unordered_map<string,statsfunc*>::iterator it = users.begin();
     char b0[50];
     char b1[50];
@@ -209,6 +211,7 @@ void statsWindow::writeStats()
     string totalstring="";
     string usrstr = string(itoa(users.size(),b0,10))+ "\n";
     totalstring+=usrstr;
+    cout<<"users.size() "<<users.size()<<endl;
     for(;it!=users.end();it++)
     {
         cout<<"is open"<< ofs.is_open() <<" brr\n";
@@ -220,6 +223,10 @@ void statsWindow::writeStats()
         totalstring+=string(itoa(current->bestTime,b1,10))+"\n";
         totalstring+=string(itoa(current->highScore,b2,10)) +"\n";
         totalstring+=string(itoa(current->scorevec.size(),b3,10))+"\n";
+        cout<<"btime "<<current->bestTime<<endl;
+        cout<<"hstime "<<current->highScore<<endl;
+        cout<<current->scorevec.size()<<endl;
+        cout<<current->timevec.size()<<endl;
         for(int x=0;x<current->scorevec.size();x++)
         {
             char b6[50];
@@ -230,6 +237,7 @@ void statsWindow::writeStats()
         for(int y = 0;y < current->timevec.size();y++)
         {
             char b7[50];
+            cout<<"vec checking "<<current->timevec[y]<<endl;
             totalstring+=string(itoa(current->timevec[y],b7,10))+"\n";
         }
 
@@ -237,7 +245,9 @@ void statsWindow::writeStats()
 
 
     }
-    ofs.write(totalstring.c_str(),sizeof(totalstring));
+    cout<<"tstring\n\n\n"<<totalstring<<endl;
+    cout<<"size "<<totalstring.size()<<endl;
+    ofs.write(totalstring.c_str(),totalstring.size());
     cout<<"closed"<<endl;
 
     ofs.close();

@@ -74,37 +74,56 @@ void leaderboardWindow::TP()
 //    QVector<QString> namevec;
 //    namevec=mainWindow->statsWindowObj->getNameVector();
 //    topscores=mainWindow->statsWindowObj->getScoreVector();
+    QVector<int> use = mainWindow->statsWindowObj->getScoreVector();
+    QVector<QString> username= mainWindow->statsWindowObj->getNameVector();
 
-    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
-    { cout<<"in loop"<<endl;
-        if(mainWindow->statsWindowObj->scorevec.at(i)>one)
+    int index1=-1;
+    int index2=-1;
+    int index3=-1;
+    cout<<"tpsize"<<use.size()<<endl;
+    if(use.size()>1){
+    cout<<"scores: "<<use[0]<<" : "<<use[1]<<endl;}
+
+    one =0;
+    two=0;
+    three=0;
+    for(int i=0;i<use.size();i++)
+    {
+
+        if(use.at(i)>one)
         {
-            one = mainWindow->statsWindowObj->scorevec.at(i);
-
+            one = use.at(i);
+            index1=i;
+            cout<<"one "<<one<<":"<<index1<<endl;
             //firstname->setText(namevec.at(i));
         }
     }
-    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
+    for(int i=0;i<use.size();i++)
     {
-        if(mainWindow->statsWindowObj->scorevec.at(i)>two)
+        if(use.size()<2)
+            break;
+
+        cout<<"at"<<use[i]<<endl;
+        if(use.at(i)>=two && use.at(i)<=one && i!=index1)
         {
-            two = mainWindow->statsWindowObj->scorevec.at(i);
-            if(two>=one)
-            {
-                two=0;
-            }
-         }
-    }
-    for(int i=0;i<mainWindow->statsWindowObj->scorevec.size();i++)
-    {
-        if(mainWindow->statsWindowObj->scorevec.at(i)>three)
-        {
-            three = mainWindow->statsWindowObj->scorevec.at(i);
-            if(three>=two)
-            {
-                three=0;
-            }
+            cout<<"in here"<<endl;
+            index2=i;
+            two = use.at(i);
+            cout<<"twox"<<two<<endl;
         }
+    }
+    for(int i=0;i<use.size();i++)
+    {
+        if(use.size()<3)
+            break;
+
+        if(use.at(i)>=three && use.at(i)<=two && i!=index2 && i!=index1)
+        {
+            index3=i;
+            three = use.at(i);
+        }
+
+
     }
     QString str = QString::number(one);
     first->setText(str);
@@ -113,6 +132,7 @@ void leaderboardWindow::TP()
     first->setAlignment(Qt::AlignCenter);
 
     QString str2 = QString::number(two);
+    cout<<"two"<<two<<endl;
     second->setText(str2);
     second->setFont(f2);
     second->setAlignment(Qt::AlignCenter);

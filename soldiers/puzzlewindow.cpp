@@ -741,7 +741,9 @@ void puzzleWindow::checkVictory(){
                 statsfunc * newprof= new statsfunc(globalUser);
                 newprof->bestTime=time;
                 newprof->highScore=INT_MAX/time;
+                cout<<"prepre "<<newprof->bestTime<<endl;
                 newprof->statsfunction(time,INT_MAX/time);
+                cout<<"prebestTime "<<newprof->bestTime<<endl;
                 users.insert(pair<string,statsfunc*>(globalUser.toStdString(),newprof));
 
             }
@@ -761,6 +763,7 @@ void puzzleWindow::checkVictory(){
         static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
         static_cast<winWindow*>(stackedWidget->currentWidget())->updateScore();
     }
+
 }
 
 void puzzleWindow::keyPressEvent(QKeyEvent *e){

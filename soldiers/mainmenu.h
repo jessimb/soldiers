@@ -13,7 +13,7 @@ class mainMenu : public QWidget
     Q_OBJECT
 
 public:
-    static QString globalUser;
+    //static QString globalUser;
     explicit mainMenu(MainWindow *mw = 0);
     ~mainMenu();
 

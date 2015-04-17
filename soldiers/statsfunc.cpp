@@ -8,16 +8,18 @@ statsfunc::statsfunc(QString nm)
 void statsfunc::statsfunction(int score, int time)
 {
     currentscore=score;
-    scorevec.push_front(currentscore);
+    scorevec.push_back(currentscore);
     totalgamesplayed++;
     currenttime=time;
-    timevec.push_front(currenttime);
+    timevec.push_back(currenttime);
+    highScore=highscorefunc();
+    bestTime=besttimefunc();
 }
 
 int statsfunc::highscorefunc()
 {
     highScore=0;
-    for(int i=0;i<scorevec.size()-1;i++)
+    for(int i=0;i<scorevec.size();i++)
     {
 
         if(scorevec.at(i)>highScore)
@@ -27,19 +29,19 @@ int statsfunc::highscorefunc()
     }
     if(totalgamesplayed == 0)
         return 0;
-    int HS=highScore/totalgamesplayed;
+    int HS=highScore;
     return HS;
 }
 int statsfunc::besttimefunc()
 {
-    bestTime=0;
-    for(int i=0;i<timevec.size()-1;i++)
+    bestTime=9999999999;
+    for(int i=0;i<timevec.size();i++)
     {
-        if(timevec.at(i)>bestTime)
+        if(timevec.at(i)<bestTime)
         {
             bestTime=timevec.at(i);
         }
     }
-    int BT=bestTime/totalgamesplayed;
+    int BT=bestTime;
     return BT;
 }

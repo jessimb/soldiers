@@ -10,7 +10,7 @@ public:
 
     double currenttime = 0;
     double currentscore = 0;
-    double bestTime = 0;
+    int bestTime = 0;
     int totalgamesplayed = 0;
     int highScore = 0;
     QString username = "";

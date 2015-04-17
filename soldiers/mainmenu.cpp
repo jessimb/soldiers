@@ -6,10 +6,11 @@
 #include "MainWindowContainer.h"
 #include <string>
 using namespace std;
-QString globalUser="";
+QString globalUser="Linda tsao";
 unordered_map<string,statsfunc *> users;
 mainMenu::mainMenu(MainWindow *mw) : QWidget()
 {
+
     mainWindow = mw;
     QGridLayout *buttonlayout = new QGridLayout;
 
@@ -102,11 +103,13 @@ void mainMenu::gotoPuzzleWindow()
 
 void mainMenu::gotoLeaderboard()
 {
+    mainWindow->leaderboardWindowObj->TP();
     stackedWidget->setCurrentIndex(4);
 }
 
 void mainMenu::gotoStatsWindow()
 {
+    mainWindow->statsWindowObj->updatestats(globalUser);
     stackedWidget->setCurrentIndex(3);
 }
 
