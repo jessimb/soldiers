@@ -14,14 +14,16 @@
 #include <QtScript/QScriptValueIterator>
 #include "json.h"
 #include <iostream>
+#include <QApplication>
 
 using namespace std;
 
 extern QString globalUser;
  
-MainWindowContainer::MainWindowContainer(QWidget* parent) : 
+MainWindowContainer::MainWindowContainer(MainWindow * parent) :
 	QMainWindow(parent)  
 {
+    mwin=parent;
  m_DummyFile = new QFile("DummyFile.txt");
  m_limit = 25 ;
  m_offset = 0 ;
@@ -397,6 +399,13 @@ void MainWindowContainer::TestAPIs()
 
     ui.webView->setHtml("<h1>Hello "+QString::fromStdString(firstname)+" "+QString::fromStdString(lastname)+"!</h1>");
     globalUser = QString::fromStdString(firstname +" "+lastname);
+    string loginstuff= "\t\t\t\t\t\t\tLogged in as: "+globalUser.toStdString();
+    cout<<"log"<<loginstuff.size()<<endl;
+    if(loginstuff.size()>40)
+        loginstuff= loginstuff.substr(0,40);
+
+    mwin->usrlabel->setText(QString::fromStdString(loginstuff));
+    qApp->processEvents();
     for(int x=0;x<prevLinkStack.size();x++)
     {
         cout<<prevLinkStack.at(x).toStdString()<<endl;

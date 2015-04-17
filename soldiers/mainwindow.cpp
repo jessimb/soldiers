@@ -4,7 +4,7 @@
 #include <QLabel>
 
 using namespace std;
-
+extern QString globalUser;
 QStackedWidget *stackedWidget;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -42,10 +42,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     QGridLayout *layout = new QGridLayout();
     stackedWidget->setMinimumSize(600,600);
-    layout->addWidget(stackedWidget);
+
    // layout->addWidget(label);
     widget->setLayout(layout);
-
+    string loginstuff= "\t\t\t\t\t\t\tLogged in as: "+globalUser.toStdString();
+    usrlabel =new QLabel(QString::fromStdString(loginstuff));
+    QFont font;
+    font.setBold(true);
+    usrlabel->setFont(font);
+    layout->addWidget(usrlabel);
+    layout->addWidget(stackedWidget);
     stackedWidget->setCurrentWidget(mainMenuObj);
     statsWindow::loadStats();
 }

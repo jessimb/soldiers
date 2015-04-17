@@ -14,7 +14,7 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include "FBApi.h"
- 
+#include "mainwindow.h"
  
 
 
@@ -35,7 +35,8 @@ class MainWindowContainer : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindowContainer(QWidget *parent = 0);
+    MainWindow * mwin;
+    MainWindowContainer(MainWindow *parent = 0);
      void setSourceModel(QAbstractItemModel *model);
   	
  	QString GetApiRequest(bool firstTimeCall,QString prevLink);	

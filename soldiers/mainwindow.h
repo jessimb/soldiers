@@ -34,7 +34,7 @@ public:
     puzzleWindow *puzzleWindowObj;
     statsWindow *statsWindowObj;
     leaderboardWindow *leaderboardWindowObj;
-
+    QLabel * usrlabel;
 private:
     mainMenu *mainMenuObj;
     instructionsMenu *instrMenuObj;

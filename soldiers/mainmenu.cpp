@@ -115,10 +115,11 @@ void mainMenu::gotoStatsWindow()
 
 void mainMenu::gotoFacebook()
 {
-    MainWindowContainer *m= new MainWindowContainer();
+    MainWindowContainer *m= new MainWindowContainer(mainWindow);
     m->show();
 
 }
+
 
 mainMenu::~mainMenu()
 {
