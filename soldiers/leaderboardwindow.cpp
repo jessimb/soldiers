@@ -39,12 +39,12 @@ leaderboardWindow::leaderboardWindow(MainWindow *mw)
 
 
     buttonlayout->addWidget(label);
-    buttonlayout->addWidget(first);
-    buttonlayout->addWidget(second);
-    buttonlayout->addWidget(third);
-  //  buttonlayout->addWidget(firstname,1,0);
-   // buttonlayout->addWidget(secondname,2,0);
-   // buttonlayout->addWidget(thirdname,3,0);
+    buttonlayout->addWidget(first,1,10000);
+    buttonlayout->addWidget(second,2,10000);
+    buttonlayout->addWidget(third,3,10000);
+    buttonlayout->addWidget(firstname,1,0);
+    buttonlayout->addWidget(secondname,2,0);
+    buttonlayout->addWidget(thirdname,3,0);
 
     QPushButton *back = new QPushButton("Main Menu");
     buttonlayout->addWidget(back);
@@ -90,7 +90,7 @@ void leaderboardWindow::TP()
             one = use.at(i);
             index1=i;
             cout<<"one "<<one<<":"<<index1<<endl;
-            //firstname->setText(namevec.at(i));
+            firstname->setText(username.at(index1));
         }
     }
     for(int i=0;i<use.size();i++)
@@ -104,6 +104,7 @@ void leaderboardWindow::TP()
             cout<<"in here"<<endl;
             index2=i;
             two = use.at(i);
+            secondname->setText(username.at(index2));
             cout<<"twox"<<two<<endl;
         }
     }
@@ -116,6 +117,7 @@ void leaderboardWindow::TP()
         {
             index3=i;
             three = use.at(i);
+            thirdname->setText(username.at(index3));
 
         }
 
@@ -125,17 +127,21 @@ void leaderboardWindow::TP()
     first->setText(str);
     QFont f2("Courier New", 15);
     first->setFont(f2);
-    first->setAlignment(Qt::AlignCenter);
+    //first->setAlignment(Qt::AlignCenter);
 
     QString str2 = QString::number(two);
     cout<<"two"<<two<<endl;
     second->setText(str2);
     second->setFont(f2);
-    second->setAlignment(Qt::AlignCenter);
+  //  second->setAlignment(Qt::AlignCenter);
 
     QString str3 = QString::number(three);
     third->setText(str3);
     third->setFont(f2);
-    third->setAlignment(Qt::AlignCenter);
+   // third->setAlignment(Qt::AlignCenter);
+
+    firstname->setFont(f2);
+    secondname->setFont(f2);
+    thirdname->setFont(f2);
 }
 

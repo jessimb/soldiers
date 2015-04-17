@@ -268,8 +268,7 @@ QVector<QString> statsWindow::getNameVector()
     QVector<QString> scvec;
     for(auto it =users.begin();it!=users.end();it++)
     {
-
-        //scvec.push_back(it->first);
+        scvec.push_back(QString::fromStdString(it->first));
     }
     return scvec;
 }
