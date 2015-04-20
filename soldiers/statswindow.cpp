@@ -33,10 +33,10 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
     QFont f( "Courier New", 20, QFont::Bold);
     label->setAlignment(Qt::AlignCenter);
     label->setFont(f);
-    QLabel *score = new QLabel("Average High Score: ");
+    QLabel *score = new QLabel("High Score: ");
     QFont f1( "Courier New", 15);
     score->setFont(f1);
-    QLabel *time = new QLabel("Average Best Time: ");
+    QLabel *time = new QLabel("Best Time: ");
     time->setFont(f1);
 
     QString str;

@@ -42,6 +42,8 @@ int statsfunc::besttimefunc()
             bestTime=timevec.at(i);
         }
     }
+    if(timevec.empty())
+        return 0;
     int BT=bestTime;
     return BT;
 }

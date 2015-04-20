@@ -729,7 +729,7 @@ void puzzleWindow::checkVictory(){
     }
     if(won){
         clock->stop();
-        cout << "Congrats! You've won! Your score was - " << time << "!" << endl;
+        cout << "Congrats! You've won! Your score was - " << INT_MAX/time << "!" << endl;
         stackedWidget->setCurrentIndex(6);
         cout<<"Global "<<globalUser.toStdString()<<" user"<<endl;
         if(globalUser.toStdString()!="")
@@ -761,7 +761,7 @@ void puzzleWindow::checkVictory(){
 
         cout << "Ctrl+f 'NEEDS TO BE FIXED'" << endl;
         //        Janky and needs to be fixed.
-        static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(time) + "!</font>");
+        static_cast<winWindow*>(stackedWidget->currentWidget())->scoreLabel = new QLabel("<font size = 30 color = blue> You win! Your score was " + QString::number(INT_MAX/time) + "!</font>");
         static_cast<winWindow*>(stackedWidget->currentWidget())->updateScore();
     }
 
