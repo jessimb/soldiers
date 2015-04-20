@@ -99,6 +99,7 @@ void mainMenu::gotoPuzzleWindow()
 {
     mainWindow->puzzleWindowObj = new puzzleWindow(mainWindow,"",true);
     stackedWidget->addWidget(mainWindow->puzzleWindowObj); //lastone
+    stackedWidget->setCurrentIndex(stackedWidget->count() -1);
 }
 
 void mainMenu::gotoLeaderboard()
