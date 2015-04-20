@@ -742,7 +742,7 @@ void puzzleWindow::checkVictory(){
                 newprof->bestTime=time;
                 newprof->highScore=INT_MAX/time;
                 cout<<"prepre "<<newprof->bestTime<<endl;
-                newprof->statsfunction(time,INT_MAX/time);
+                newprof->statsfunction(INT_MAX/time,time);
                 cout<<"prebestTime "<<newprof->bestTime<<endl;
                 users.insert(pair<string,statsfunc*>(globalUser.toStdString(),newprof));
 
@@ -750,7 +750,7 @@ void puzzleWindow::checkVictory(){
             else
             {
 
-                winner->second->statsfunction(time,INT_MAX/time);
+                winner->second->statsfunction(INT_MAX/time,time);
             }
             cout<<"calling write stats\n";
             writeStats();

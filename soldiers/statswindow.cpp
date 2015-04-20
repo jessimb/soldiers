@@ -29,6 +29,8 @@ statsWindow::statsWindow(MainWindow *mw,QString name)
 
     int averageHS= highscorefunction();
     int averageBS= besttimefunction();
+
+
     QLabel *label = new QLabel("Statistics");
     QFont f( "Courier New", 20, QFont::Bold);
     label->setAlignment(Qt::AlignCenter);
